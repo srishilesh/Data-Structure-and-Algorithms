@@ -43,34 +43,54 @@ Tug of War
 Combinational Sum
 
 Backtracking to find all subsets
-Power Set in Lexicographic order
-Check if a given string is sum-string
-Fill 8 numbers in grid with given conditions
-Word Break Problem using Backtracking
-Minimize number of unique characters in string
-Count all possible paths between two vertices
-Partition of a set into K subsets with equal sum
-Warnsdorff’s algorithm for Knight’s tour problem
-Longest Possible Route in a Matrix with Hurdles
-Match a pattern and String without using regular expressions
-Fill two instances of all numbers from 1 to n in a specific way
-Find all distinct subsets of a given set
-Find shortest safe route in a path with landmines
-Find paths from corner cell to middle cell in maze
-Find if there is a path of more than k length from a source
-Find Maximum number possible by doing at-most K swaps
-Print all palindromic partitions of a string
-Printing all solutions in N-Queen Problem
-Print all paths from a given source to a destination
-Print all possible strings that can be made by placing spaces| Set-1
-Print all possible strings that can be made by placing spaces| Set-2
-Print all longest common sub-sequences in lexicographical order
-Smallest expression to represent a number using single digit
-Given an array A[] and a number x, check for pair in A[] with sum as x
-Combinations where every element appears twice and distance between appearances is equal to the value
-Quick Links :
 
-Top 20 Backtracking Algorithm Interview Questions
-‘Practice Problems’ on Backtracking
-‘Quiz’ on Backtracking
-‘Videos’ on Backtracking
+Power Set in Lexicographic order
+
+Check if a given string is sum-string
+
+Fill 8 numbers in grid with given conditions
+
+Word Break Problem using Backtracking
+
+Minimize number of unique characters in string
+
+Count all possible paths between two vertices
+
+Partition of a set into K subsets with equal sum
+
+Warnsdorff’s algorithm for Knight’s tour problem
+
+Longest Possible Route in a Matrix with Hurdles
+
+Match a pattern and String without using regular expressions
+
+Fill two instances of all numbers from 1 to n in a specific way
+
+Find all distinct subsets of a given set
+
+Find shortest safe route in a path with landmines
+
+Find paths from corner cell to middle cell in maze
+
+Find if there is a path of more than k length from a source
+
+Find Maximum number possible by doing at-most K swaps
+
+Print all palindromic partitions of a string
+
+Printing all solutions in N-Queen Problem
+
+Print all paths from a given source to a destination
+
+Print all possible strings that can be made by placing spaces| Set-1
+
+Print all possible strings that can be made by placing spaces| Set-2
+
+Print all longest common sub-sequences in lexicographical order
+
+Smallest expression to represent a number using single digit
+
+Given an array A[] and a number x, check for pair in A[] with sum as x
+
+Combinations where every element appears twice and distance between appearances is equal to the value
+
