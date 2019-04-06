@@ -5,6 +5,7 @@ import java.util.*;
 
 public class cryptopangram
 {
+	static ArrayList<Integer> prime =new ArrayList<Integer>();
     public static void main(String args[])
     {
         Scanner sc=new Scanner(System.in);
@@ -15,33 +16,51 @@ public class cryptopangram
             int N=sc.nextInt();
             int L=sc.nextInt();
             int a[]=new int[L];
-            for(int i=0;i<26;i++)
+            for(int i=0;i<L;i++)
+            {
             a[i]=sc.nextInt();
-            int prime[]=storePrime(N);
+            }
             char alpha[]=new char[26];
+            char ch='A';
             for(int i=0;i<26;i++)
             {
-                char ch='A'
-                if(ch<='Z')
-                alpha[i]=ch++;
+            	 
+            	alpha[i]=ch++;
+            	//System.out.print(alpha[i]+" ");
             }
-            
-            ArrayList seq=new ArrayList(26);
-            int x=0;
-            for(int i=0;i<26;i++)
+            storePrime(N);
+            int b[]=new int[L];
+            for(int i=0;i<L-1;i++)
             {
-                if(x<=N)
-                if(a[i]%prime[x]==0)
-                {
-                    seq.add(prime[x]);
-                    x++;
-                }
+                //int pro=a[i]*a[i+1];
+                int lcm=(gcd(a[i],a[i+1]));
+                if((i)<(L-1))
+                b[i+1]=lcm;
+                //System.out.print(b[i]+ " ");
             }
-            seq.Sort();
-            
+            b[0]=a[0]/b[1];
+            System.out.print("Case #"+p+": ");
+            for(int i=0;i<L;i++)
+            {
+            	//System.out.print(b[i]+" ");
+            	System.out.print(alpha[(int)prime.indexOf(b[i])]+"");
+            }
             p++;
         }
     }
+    public static int gcd(int a,int b)
+    {
+        if(a==0)
+        return b;
+        if(b==0)
+        return a;
+        if(a==b)
+        return a;
+        if (a > b) 
+            return gcd(a-b, b); 
+        return gcd(a, b-a); 
+    }
+        
     public static boolean isPrime(int n) 
     {    
 
@@ -57,19 +76,20 @@ public class cryptopangram
     } 
   
 
-    public static int[] storePrime(int N) 
+    public static void storePrime(int N) 
     { 
-        x=0;
-        int prime[]=new int[N];
-        for (int i = 2; i <= N; i++)  
+        int x=0;
+        //int prime[]=new int[N];
+        for (int i = 3; i <= N; i++)  
         { 
-            if (isPrime(i)&&(x<=N) )
+            if (isPrime(i))
             {
-                prime[x]=i;
-                x++;
+                //prime[x]=i;
+            	prime.add(i);
+               // x++;
             }
         } 
-        return prime;
+        //return prime;
     }
     
 }
