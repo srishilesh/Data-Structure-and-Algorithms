@@ -38,15 +38,13 @@ public class graph_adjacency_list {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc=new Scanner(System.in);
-		int V=5;
+		int T=sc.nextInt();		// Number of test cases
+		int V=sc.nextInt();		// Number of Vertices
+		int E=sc.nextInt();		// Number of Edges
 		graph_adjacency_list graph =new graph_adjacency_list(V);
-		addEdge(graph, 0, 1); 
-        addEdge(graph, 0, 4); 
-        addEdge(graph, 1, 2); 
-        addEdge(graph, 1, 3); 
-        addEdge(graph, 1, 4); 
-        addEdge(graph, 2, 3); 
-        addEdge(graph, 3, 4); 
+		for(int i=0;i<E;i++)
+		addEdge(graph, sc.nextInt(), sc.nextInt()); 
+        
         printGraph(graph);
 	}
 	
