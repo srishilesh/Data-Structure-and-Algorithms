@@ -1,0 +1,278 @@
+You are given a n by m grid each entry representing a number.
+
+You have 2 different starting points
+
+1) Left Top
+
+2) Right Bottom
+
+Example Grid:
+
+10 11 12
+
+13 14 15
+
+16 17 18
+
+19 20 21
+
+image
+
+1) RLR grid walk starting from left top:
+
+* 10->11->12->rev(15)->rev(14)->rev(13)->16->17->18->rev(21)->rev(20)->rev(19)
+
+* number you get is 101112514131161718120291
+2) DUD walk starting from left top:
+
+* 10->13->16->19->20->71->41->11->12->15->18->21    
+* The number you get is 101316192071411112151821
+3) LRL walk starting from right bottom:
+
+* rev(21)->rev(20)->rev(19)->16->17->18->rev(15)->rev(14)->rev(13)->10->11->12
+
+* The number you get is 120291161718514131101112
+                        ,
+4) UDU walk starting from right bottom:
+
+* rev(21)->rev(18)->rev(15)->rev(12)->rev(11)->14->17->rev(20)->rev(19)->rev(16)->rev(13)->rev(10)    
+* The number you get is 128151211114170291613101
+You need to print the highest number you get among these grid walks.
+
+Note: rev is string reversal function
+
+Example
+
+1) rev(25) is 52
+
+2) rev(50) is 05
+
+Input Format
+
+n m
+
+e(0,0) e(0, 1) ...e(0, m-1)
+
+e(1,0) e(1, 1) ...e(1, m-1)
+
+e(2,0) e(2, 1) ...e(2, m-1)
+
+...
+
+e(n-1,0) e(n-1, 1) ...e(n-1, m-1)
+
+n - number of rows in grid
+
+m - number of colums in grid
+
+e(r,c) - element in row 'r' and column 'c'
+
+Constraints
+
+None
+
+Output Format
+
+Print the maximum number you get from (LRL, DUD, RLR, UDU) walks
+
+Sample Input 0
+
+4 3
+10  11  12
+13  14  15
+16  17  18
+19  20  21
+Sample Output 0
+
+128151211114170291613101
+Explanation 0
+
+Explained in the diagram above
+
+Sample Input 1
+
+3 2 
+10 11 
+12 13
+14 15
+Sample Output 1
+
+514112131101
+Contest ends in 2 hours
+Submissions: 91
+Max Score: 50
+Difficulty: Medium
+Rate This Challenge:
+
+    
+More
+ 
+ 
+1
+import java.io.*;
+2
+import java.util.*;
+3
+​
+4
+public class Solution {
+5
+​
+
+import java.util.Scanner;
+import java.io.*;
+public class max_grid_walk {
+	public static void main(String args[])
+	{
+		Scanner sc=new Scanner (System.in);
+		int n= sc.nextInt();
+		int m =sc.nextInt();
+		String a[][]=new String[n][m];
+		for(int i=0;i<n;i++)
+		{
+			for(int j=0;j<m;j++)
+				a[i][j]=sc.next();
+		}
+		
+		
+		//RLR
+		String rlr="";
+		
+		for(int i=0;i<n;i++)
+		{
+			if(i%2==0)
+			{
+				
+				for(int j=0;j<m;j++)
+					rlr = rlr + a[i][j];
+			}
+			else
+			{
+				for(int j=m-1;j>=0;j--)
+				{
+					
+					rlr = rlr + reverse(a[i][j]);
+				}
+			}
+		}
+		
+		//LRL
+				String lrl="";
+				
+				for(int i=n-1;i>=0;i--)
+				{
+					if(i%2==0)
+					{
+						
+						for(int j=0;j<m;j++)
+							lrl = lrl+ a[i][j];
+					}
+					else
+					{
+						for(int j=m-1;j>=0;j--)
+							lrl = lrl+ reverse(a[i][j]);
+					}
+				}
+				
+				//DUD
+				String dud="";
+				
+				for(int i=0;i<m;i++)
+				{
+					if(i%2==0)
+					{
+						
+						for(int j=0;j<n;j++)
+							dud = dud+ a[j][i];
+					}
+					else
+					{
+						for(int j=n-1;j>=0;j--)
+							dud = dud + a[j][i];
+					}
+				}
+				
+				//UDU
+				String udu="";
+				
+				for(int i=m-1;i>=0;i--)
+				{
+					if(i%2!=0)
+					{
+						
+						for(int j=0;j<n;j++)
+							udu = udu+ (a[j][i]);
+					}
+					else
+					{
+						for(int j=n-1;j>=0;j--)
+							udu = udu + reverse(a[j][i]);
+					}
+				}
+				
+				long e=(calcMaxValue(rlr));
+				long b=(calcMaxValue(lrl));
+				long c=(calcMaxValue(dud));
+				long d=(calcMaxValue(udu));
+				
+				long max=0;
+				/*long res[]=new long[4];
+				res[0]=Long.parseLong(rlr);
+				res[1]=Long.parseLong(lrl);
+				res[2]=Long.parseLong(dud);
+				res[3]=Long.parseLong(udu);*/
+				//for(int i=0;i<4;i++)
+				{
+					if(max<e)
+						max = e;
+					if(max<b)
+						max =b;
+					if(max<c)
+						max = c;
+					if(max<d)
+						max = d;
+					
+				}
+				System.out.println(max);
+				
+	}
+	public static String reverse(String input){
+	    char[] in = input.toCharArray();
+	    int begin=0;
+	    int end=in.length-1;
+	    char temp;
+	    while(end>begin){
+	        temp = in[begin];
+	        in[begin]=in[end];
+	        in[end] = temp;
+	        end--;
+	        begin++;
+	    }
+	    return new String(in);
+	}
+	static long calcMaxValue(String str) 
+    { 
+        // Store first character as integer 
+        // in result 
+        long res = str.charAt(0) -'0'; 
+       
+        // Start traversing the string 
+        for (int i = 1; i < str.length(); i++) 
+        { 
+            // Check if any of the two numbers 
+            // is 0 or 1, If yes then add current 
+            // element 
+            if (str.charAt(i) == '0' || str.charAt(i) == '1' || 
+                res < 2 ) 
+                res += (str.charAt(i)-'0'); 
+       
+            // Else multiply 
+            else
+                res *= (str.charAt(i)-'0'); 
+        } 
+       
+        // Return maximum value 
+        return res; 
+    } 
+
+}
