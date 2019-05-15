@@ -1,3 +1,4 @@
+import java.util.*;
 class LinkedList
 {
     Node head;
@@ -23,16 +24,28 @@ class LinkedList
         }
         public static void main(String args[])
         {
+            Scanner sc =new Scanner(System.in);
             LinkedList llist = new LinkedList();
+            System.out.println("1.Insert Before");
+            System.out.println("2.Insert Between");
+            System.out.println("3.Insert After");
+            System.out.println("4.Delete Node");
+            System.out.println("Enter your choice: ");
+            //int ch = sc.nextInt();
+            llist.push(7); 
+            llist.push(1); 
+            llist.push(3); 
+            llist.push(2); 
+  
+            System.out.println("\nCreated Linked list is:"); 
+            llist.printList(); 
+  
+            llist.deleteNode(1); // Delete node at position 4 
+  
+            System.out.println("\nLinked List after Deletion at position 4:"); 
+            llist.printList(); 
             
-            llist.head = new Node(1);
-            Node second = new Node(2);
-            Node third = new Node(3);
-            
-            llist.head.next = second;
-            second.next = third;
-            
-            llist.printList();
+            //llist.printList();
         }
         public void push(int new_data)
         {
@@ -68,10 +81,52 @@ class LinkedList
             
             last.next = new_node;
             return;
-            
-            
-            
-            
         }
+        public void deleteNode(int key)
+        {
+            Node n = head, prev = null;
+            while(n.data!=key && n==null)
+            { head = n.next;
+                return;
+            }
+            while(n.data!=key && n!=null)
+            {
+                prev = n;
+                n=n.next;
+            }
+            if(n == null)
+            return;
+            
+            prev.next = n.next;
+            
         
     }
+    public void delete(int position)
+    {
+        Node temp = head, prev = null;
+        if(temp == null)
+        {
+            return;
+        }
+        if(position == 0)
+        {
+            head = temp.next;
+            return;
+        }
+        for(int i=0;temp!=null && i<position - 1;i++)
+        {
+            temp = temp.next;
+        }
+        Node next = temp.next.next;
+        temp.next = next;
+           
+        
+        
+        
+    }
+}
+       
+            
+            
+        
+ 
