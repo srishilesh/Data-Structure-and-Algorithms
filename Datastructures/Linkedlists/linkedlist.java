@@ -36,10 +36,13 @@ class LinkedList
             llist.push(1); 
             llist.push(3); 
             llist.push(2); 
-  
+            System.out.println("Get 3rd: "+llist.getNth(3));
+            System.out.println("Get 0th from last: "+llist.printNthfromLast(0));
             System.out.println("\nCreated Linked list is:"); 
             llist.printList(); 
-  
+            System.out.println();
+            System.out.println("Middle element is: "+llist.getMiddle());
+            System.out.println("Count of 1: "+llist.countElement(1));
             llist.deleteNode(1); // Delete node at position 4 
   
             System.out.println("\nLinked List after Deletion at position 4:"); 
@@ -124,9 +127,105 @@ class LinkedList
         
         
     }
-}
-       
+    public int getSize()
+    {
+        Node temp = head;
+        int count = 0;
+        while(temp!=null)
+        {
+            temp = temp.next;
+            count++;
+        }
+        return count;
+    }
+    public boolean search(Node head, int x)
+    {
+        Node temp = head;
+        while(temp!=null)
+        {
+            if(temp.data == x)
+            return true;
             
-            
+            temp = temp.next;
+        }
+        return false;
+    }
+    public int getNth(int index)
+    {
+        int count = 0;
+        Node temp = head;
+        while(temp!=null)
+        {
+            if(count == index)
+            {
+                return temp.data;
+            }
+            count++;
+            temp = temp.next;
+        }
+        return 0;
+    }
+    public int printNthfromLast(int index)
+    {
+        Node temp = head;int len =0 ;
+        while(temp!=null)
+        {
+            len++;
+            temp=temp.next;
+        }
+        //System.out.println(len);
+        temp = head;
+        int count = 0;
+        int x = len-index-1;
+        while(temp!=null)
+        {
+            if(count == x)
+            return temp.data;
+            count++;
+            temp = temp.next;
+        }
         
- 
+        return 0;
+    }
+    public int getMiddle()
+    {
+        Node temp = head;
+        int len=0;
+        while(temp!=null)
+        {
+            len++;
+            temp = temp.next;
+        }
+        temp = head;
+        for(int i=0;i<(len/2);i++)
+        temp = temp.next;
+        
+        return (temp.data);
+        
+    }
+    public int countElement(int num)
+    {
+        Node temp = head;
+        int count = 0;
+        while(temp!=null)
+        {
+            if(temp.data == num)
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+    public boolean detectLoop(Node h)
+    {
+        HashSet<Node> s = new HashSet<Node>();
+        while(h!=null)
+        {
+            if(s.contains(h))
+            return true;
+            s.add(h);
+            h= h.next;
+            
+        }
+        return false;
+    }
+}
