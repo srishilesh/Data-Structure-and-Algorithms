@@ -228,4 +228,24 @@ class LinkedList
         }
         return false;
     }
+    public void removeDuplicates(Node head)
+    {
+        Node curr = head; // Assign a current node
+        while(curr!=null)
+        {
+            Node temp = curr;   // Assign temporary node
+            while(temp!=null && temp.data == curr.data) // To check if consecutive elements are repeating
+            {
+                temp = temp.next;   // Move on to the next nodes
+            }
+            curr.next = temp;       // Change the current node
+            curr = curr.next;
+            
+            
+            
+        }
+        
+        
+        
+    }
 }
