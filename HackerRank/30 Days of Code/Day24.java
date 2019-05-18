@@ -55,6 +55,7 @@ class Node{
 class Solution
 {
 
+	/*
     public static Node removeDuplicates(Node head) {
       Node temp = head;
       HashSet<Integer> set = new HashSet<Integer>();
@@ -93,7 +94,20 @@ class Solution
     //head = x;
       return head;
 
-    }
+    }*/
+	public static Node removeDuplicates(Node head) {
+      Node curr = head;
+      while(curr!=null)
+      {
+          Node temp = curr;
+          while(temp!=null && temp.data == curr.data)
+          {
+              temp = temp.next;
+           }
+           curr.next = temp;
+           curr = curr.next;
+      }
+      return head;
     public static void deleteNode(Node temp,Node head)
     {
         Node prev = head; Node nextn = temp.next;
