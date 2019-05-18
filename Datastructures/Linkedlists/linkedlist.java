@@ -76,10 +76,10 @@ class LinkedList
                 head = new Node(new_data);
                 return;
             }
-            Node new_node = new Node(new_data);
-            new_node.next = null;
+            Node new_node = new Node(new_data); // Create a new node
+            new_node.next = null;   // Assign the next position to null
             Node last = head;
-            while(last.next!= null)
+            while(last.next!= null)     // Traverse to the end and append it
             last = last.next;
             
             last.next = new_node;
@@ -107,24 +107,21 @@ class LinkedList
     public void delete(int position)
     {
         Node temp = head, prev = null;
-        if(temp == null)
+        if(temp == null)        // If no element in the list
         {
             return;
         }
-        if(position == 0)
+        if(position == 0)       // If only one element is present
         {
             head = temp.next;
             return;
         }
-        for(int i=0;temp!=null && i<position - 1;i++)
+        for(int i=0;temp!=null && i<position - 1;i++)       // traverse until the end
         {
             temp = temp.next;
         }
-        Node next = temp.next.next;
+        Node next = temp.next.next;     // Skip the particular node
         temp.next = next;
-           
-        
-        
         
     }
     public int getSize()
@@ -143,7 +140,7 @@ class LinkedList
         Node temp = head;
         while(temp!=null)
         {
-            if(temp.data == x)
+            if(temp.data == x)      // Search for a particular element
             return true;
             
             temp = temp.next;
@@ -168,7 +165,7 @@ class LinkedList
     public int printNthfromLast(int index)
     {
         Node temp = head;int len =0 ;
-        while(temp!=null)
+        while(temp!=null)       // Finding the lenght of the list
         {
             len++;
             temp=temp.next;
@@ -176,7 +173,7 @@ class LinkedList
         //System.out.println(len);
         temp = head;
         int count = 0;
-        int x = len-index-1;
+        int x = len-index-1;        // Count from the last 
         while(temp!=null)
         {
             if(count == x)
@@ -191,25 +188,25 @@ class LinkedList
     {
         Node temp = head;
         int len=0;
-        while(temp!=null)
+        while(temp!=null)       // Find the length of the list
         {
             len++;
             temp = temp.next;
         }
         temp = head;
-        for(int i=0;i<(len/2);i++)
+        for(int i=0;i<(len/2);i++)      // Traverse till the middle of the list
         temp = temp.next;
         
-        return (temp.data);
+        return (temp.data);     // Return the middle element
         
     }
     public int countElement(int num)
     {
         Node temp = head;
         int count = 0;
-        while(temp!=null)
+        while(temp!=null)   // Move until the last
         {
-            if(temp.data == num)
+            if(temp.data == num)    // Check for the count
             count++;
             temp = temp.next;
         }
@@ -217,10 +214,10 @@ class LinkedList
     }
     public boolean detectLoop(Node h)
     {
-        HashSet<Node> s = new HashSet<Node>();
+        HashSet<Node> s = new HashSet<Node>();      // Datastructure to keep track of elements
         while(h!=null)
         {
-            if(s.contains(h))
+            if(s.contains(h))   // To check if elements are present in the hashset
             return true;
             s.add(h);
             h= h.next;
