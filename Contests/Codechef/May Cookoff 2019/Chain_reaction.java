@@ -1,6 +1,5 @@
 /* Chain Reaction Problem Code: REACTION */
 
-
 import java.util.*;
 public class chain_reaction
 {
@@ -23,23 +22,33 @@ public class chain_reaction
             int t,f=0;int topLeft,top,topRight,midLeft,midRight,botLeft,bot,botRight;
             for(int x=0;x<r;x++)
             {
+                f=0;
                 for(int y=0;y<c;y++)
                 {
                     t = a[x][y];
                     
-                    if(x==0 && y ==0)
-                    f=check(0,0,0,0,t,a[x + 1 ][y],0,a[x][ y + 1 ],0);
-                    else if(x==r-1 && y ==c-1)
-                    f=check(0,a[x][y - 1 ],0,a[x - 1 ][y],t,0,0,0,0);
-                    else if(y==0 && (y!=(c-1) || x!=(r-1)))
-                    f=check(0,0,0,a[x - 1 ][y],t,a[x + 1 ][y],0,a[x][ y + 1 ],0);
-                    else if(x==0 && (x!=(r-1) || y!=(c-1)))
-                    f=check(0,a[x][y - 1 ],0,0,t,a[x + 1 ][y],0,a[x][ y + 1 ],0);
-                    else if(x == r-1 && (x!=0 || y!=0))
-                    f=check(0,a[x][y - 1 ],0,a[x - 1 ][y],t,a[x + 1 ][y],0,0,0);
-                    else if( y ==c-1 && (y!=0 || x!=0))
-                    f=check(0,a[x][y - 1 ],0,a[x - 1 ][y],t,0,0,a[x][ y + 1 ],0);
-                    else
+                    if(y==0)
+                    {
+                        if(x ==0)
+                        f=check(0,0,0,0,t,a[x + 1 ][y],0,a[x][ y + 1 ],0);
+                        else if(x == r-1)
+                        f=check(0,0,0,a[x - 1 ][y],t,0,0,a[x][ y + 1 ],0);
+                        else
+                        f=check(0,a[x][y - 1 ],0,a[x - 1 ][y],t,0,0,a[x][ y + 1 ],0);
+                        
+                        
+                    }
+                    else if(y == (c-1))
+                    {
+                        if(x ==0)
+                        f=check(0,a[x][y - 1 ],0,0,t,a[x + 1 ][y],0,0,0);
+                        else if(x == r-1)
+                        f=check(0,a[x][y - 1 ],0,a[x - 1 ][y],t,0,0,0,0);
+                        else
+                        f=check(0,a[x][y - 1 ],0,a[x - 1 ][y],t,a[x + 1 ][y],0,0,0);
+                    }
+                    else                    
+                    
                     f=check(a[x - 1 ][y - 1 ],a[x][y - 1 ],a[x + 1 ][y - 1 ],a[x - 1 ][y],t,a[x + 1 ][y],a[x - 1 ][y + 1 ],a[x][ y + 1 ],a[x + 1 ][ y + 1 ]);
                     if(f==0)
                     break;
@@ -47,9 +56,10 @@ public class chain_reaction
                     
                        
                         
-                    
+                    //System.out.println(f);
                 }
-                    
+                    if(f==0)
+                    break;
                 }
             
             if(f==0)
