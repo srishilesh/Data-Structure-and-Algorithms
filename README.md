@@ -1,2 +1,4 @@
-# Data-Structure-and-Algorithms
+## Data-Structure-and-Algorithms
+
+Coding done in Java, Python, C
 
