@@ -50,4 +50,15 @@ class leadgame
     }
 }
             
-            
+/*  
+PROBLEM:
+At the end of each round the leader and her current lead are calculated. Once all the rounds are over the player who had the maximum lead at the end of any round in the game is declared the winner.
+
+EXPLANATION:
+Create two arrays(Player1-Stores the scores of player 1 in all the rounds)[a1,a2,a3…an] and (Player2-Stores the scores of player 2 in all the rounds)[b1,b2,b3…bn].
+
+Create a third array “Lead” such that the i’th element of Lead is ((a1+a2…+ai) - (b1+b2…bi)).
+Create a fourth array “modulus lead” such that the i’th element of this array is the modulus of the i’th element of “Lead”.
+
+Find the maximum element of “modulus lead”.This is the maximum lead attained by the winner.If the element in the corresponding position of “lead” is positive then player 1 is the winner,otherwise player 2 is.
+*/
