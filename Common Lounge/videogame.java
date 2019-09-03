@@ -81,4 +81,5 @@ class videogame
 /*
 SOLUTION 
 https://www.codechef.com/viewsolution/26197295
+https://www.codechef.com/viewsolution/26212636
 */
