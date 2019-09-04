@@ -72,12 +72,14 @@ class videogame
         String fin="";
         for(int i=0;i<n;i++)
         {
-            fin = fin+a[i]+" ";
+            System.out.println(a[i]+" ");
         }
-        System.out.println(fin);
+        
+        sc.close();
     }
 }
             
+                        
 /*
 SOLUTION 
 https://www.codechef.com/viewsolution/26197295
