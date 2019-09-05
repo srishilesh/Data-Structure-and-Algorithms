@@ -1,5 +1,10 @@
 // https://www.codechef.com/problems/VOTERS
 
+//CHECK THESE SOLUTIONS OUT
+/*https://www.codechef.com/viewsolution/26066514
+https://www.codechef.com/viewsolution/26236499
+https://www.codechef.com/viewsolution/26239171*/
+
 import java.util.*;
 class voterlist
 {
