@@ -6,6 +6,96 @@ class voterlist
     public static void main(String args[])
     {
         Scanner sc = new Scanner(System.in);
+        voterlist ob = new voterlist();
+        int n1 = sc.nextInt();
+        int n2 = sc.nextInt();
+        int n3 = sc.nextInt();
+        int a[]= new int[n1];
+        int b[]= new int[n2];
+        int c[]= new int[n3];
+        for(int i=0;i<n1;i++)
+        a[i] = sc.nextInt();
+        for(int i=0;i<n2;i++)
+        b[i] = sc.nextInt();        
+        for(int i=0;i<n3;i++)
+        c[i] = sc.nextInt();  
+        int i=0,j=0,k=0,x=0,y=0,z=0,count = 0,min;String s="";
+        while((i<n1)||(j<n2)||(k<n3))
+        {
+            if(i<n1)
+            x = a[i];
+            if(j<n2)
+            y = b[j];
+            if(k<n3)
+            z = c[k];
+            min = x;
+            if(min>y)
+            min = y;
+            if(min>z)
+            min = z;
+                    
+            count = 0;
+            if(min == x){count++;i++;}
+            if(min == y){count++;j++;}
+            if(min == z){count++;k++;}
+            
+            if(count >= 2)
+            System.out.println(min);
+        }
+            
+                    
+
+            
+        }
+    }
+
+//SOLUTION
+// Let the arrays be a, b, c, and the positions be i, j, and k
+ /*
+i, j, k = 0 // positions initialized to zero
+ 
+while (i < size(a) or j < size(b) or k < size(c))
+    // get the current elements 
+    current_a = a[i] if i < a.size() else NIL
+    current_b = b[j] if j < b.size() else NIL
+    current_c = c[k] if k < c.size() else NIL
+    
+    // deal with the smallest value is this step 
+    min_value = min(current_a, current_b, current_c)
+    count = 0 
+    
+    // count the number of times value appears
+    // and increment position in respective array
+    if min_value == current_a: count += 1, i += 1
+    if min_value == current_b: count += 1, j += 1
+    if min_value == current_c: count += 1, k += 1
+    
+    // print if count >= 2 
+    if count >= 2: print min_value 
+end while
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+import java.util.*;
+class voterlist
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
         int n1 = sc.nextInt();
         int n2 = sc.nextInt();
         int n3 = sc.nextInt();
