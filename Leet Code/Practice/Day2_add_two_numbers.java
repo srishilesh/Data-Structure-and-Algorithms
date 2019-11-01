@@ -23,8 +23,10 @@ class Solution {
         for(int i=s1.length()-1;i>=0;i--)
         {
             sr1 = sr1 + s1.charAt(i);
-            sr2 = sr2 + s2.charAt(i);
+            
         }
+        for(int i=s2.length()-1;i>=0;i--)
+            sr2 = sr2 + s2.charAt(i);
         int one = Integer.parseInt(sr1);
         int two = Integer.parseInt(sr2);
         int three = one + two;
@@ -32,21 +34,28 @@ class Solution {
         // System.out.println(two);
         // System.out.println(three);
         String sr3 = three+"";
-        ListNode l3 = new ListNode(0) ;
-        l3.next = null;
-        for(int i=sr3.length()-1;i>=0;i--)
+        ListNode l3 = new ListNode(Integer.parseInt(sr3.charAt(sr3.length()-1)+""));
+        ListNode r4 = l3;
+        //System.out.print(l3.val+ " -> ");
+        for(int i=sr3.length()-2;i>=0;i--)
         {
             ListNode cur = new ListNode(Integer.parseInt(sr3.charAt(i)+""));
-            cur.next = null;
-            if(l3.next!=null)
+               // System.out.println(cur.val+"*");
+           // if(l3!=null)
             {
-                l3.val = cur.val;
-                l3 = l3.next;
+            
+            l3.next = cur;
+                //l3.val = cur.val;
+                l3 = l3.next;    
             }
-            System.out.println(cur.val);
+                
+                System.out.print(l3.val+" -> ");
+                
+
         }
         
-        return l3;
+        return r4;
        
     }
+   
 }
