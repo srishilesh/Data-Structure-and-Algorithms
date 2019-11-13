@@ -53,3 +53,46 @@ if __name__ == '__main__':
     main()
     
     
+# APPROACH 3
+# ROTATING BLOCKS BY REVERSING
+
+def block_swap(arr,d,n):
+    a = arr[:d]
+    b = arr[d:n]
+    a.reverse()
+    b.reverse()
+    c = a+b
+    c.reverse()
+    print(c)
+
+def reverseArray(arr,start,end):
+    while(start<end):
+        temp = arr[start]
+        arr[start] = arr[end]
+        arr[end] = temp
+        start+=1
+        end-=1
+    return arr
+
+def rotateArray(arr,d,n):
+    if d==0:
+        return
+    reverseArray(arr,0,d-1)
+    reverseArray(arr,d,n-1)
+    reverseArray(arr,0,n-1)
+
+
+def main():
+    size = int(input("Enter size: "))
+    d = int(input("Enter value of d: "))
+    arr = []
+    for i in range(size):
+        x = int(input())
+        arr.append(x)
+    #block_swap(arr,d,size)
+    rotateArray(arr,d,size)
+    print(arr)
+
+if __name__=="__main__":
+    main()
+    
