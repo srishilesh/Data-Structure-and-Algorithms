@@ -1,3 +1,4 @@
+'''
 def getuniqueminsum(arr):
     x = []
     l = len(arr)
@@ -32,7 +33,20 @@ def getuniqueminsum(arr):
                 
             k+=1
     print(arr)
-    return s
+    return s'''
+
+def getuniqueminsum(arr):
+    n = len(arr)
+    sum = arr[0]
+    prev = arr[0]
+    for i in range(1,n):
+        if(sum<=prev):
+            prev+=1
+            sum+=prev
+        else:
+            sum+=arr[i]
+            prev=arr[i]
+    return sum
 
 def main():
     n = int(input())
