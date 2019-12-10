@@ -20,9 +20,10 @@ def getuniqueminsum(arr):
             x.append(i)
     k = 1          
     s = 0
-    while(len(set(arr))<l):
+    for j in x:
         #if(len(set(arr))!=l):
-        for j in x:
+        k = 1
+        while(len(set(arr))<l):
             t = j+k
             if(t not in arr):
                 arr.append(t)
@@ -30,7 +31,7 @@ def getuniqueminsum(arr):
                 #s=max(orisum,temp)
                 
             k+=1
-    #print(arr)
+    print(arr)
     return s
 
 def main():
