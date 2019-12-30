@@ -59,3 +59,31 @@ class Solution:
                     cow+=min(gue[i],sec[i])
         fin = str(bull)+"A"+str(cow)+"B"
         return fin
+
+# Solution
+
+'''
+bulls = 0
+    cows = 0
+    
+    secret_mmp = {}
+    for ch in secret:
+        cnt = secret_mmp.get(ch, 0)
+        secret_mmp[ch] = cnt+1
+    
+    for i,j in zip(secret, guess):
+        if i == j:
+            bulls += 1
+            secret_mmp[j] = secret_mmp[j]-1
+            if secret_mmp[j]<0:
+                cows -= 1
+        else:
+            if j in secret_mmp and secret_mmp[j]>0:
+                cows +=1
+                secret_mmp[j] = secret_mmp[j]-1
+    
+    res = str(bulls)+"A"+str(cows)+"B"
+    
+    return res
+
+'''
