@@ -34,11 +34,28 @@ class LinkedList:
         new_node.next = prev_node.next  # Assign the next of new_node to next of prev_node
         prev_node.next = new_node       # Assign the next of prev_node to new_node
 
+    def delete(self,del_key):
+        temp = self.head                # Assign temp as temporary head
+        if(temp is not None):           # If head has del_key
+            if(temp.data == del_key):
+                self.head = temp.next   # Make the next node as head
+                temp = None             # Make the current node to None
+                return
+        while(temp is not None):        # Traverse till the end of the list
+            if(temp.data == del_key):   # If matches
+                break                   # break
+            prev = temp                 # Keep track of the previous node
+            temp = temp.next            # Move to the next node
+        prev.next = temp.next           # Assign the previous node to the next to next node
+        temp = None                     # Make the current node to None
+
+            
 if __name__=='__main__':
     llist = LinkedList()        # Create a class for LinkedList
     llist.insertLast(6)
     llist.insertFirst(7)
     llist.insertFirst(1)
     llist.insertLast(4)
+    llist.delete(7)
     llist.insertBetween(llist.head.next,8)
     llist.printList()
