@@ -141,6 +141,18 @@ class LinkedList:
                 temp = temp.next            # Or else move the node by one
         return 
         
+    def removeUnsortedDuplicates(self):
+        hashset = set()                     # Create an empty set for having unique elements
+        temp = self.head                    # Create a starting node
+        prev = None                         # Keep track of the previous element
+        while(temp!=None):                  # Traverse till the end
+            if(temp.data not in hashset):   # If element is unique
+                hashset.add(temp.data)      # Add it to the set 
+                prev = temp                 # Change the current to prev element 
+            else:   
+                prev.next = temp.next       # Delete the current node
+            temp = temp.next                # Move to the next node
+        
         
 
 
@@ -150,13 +162,13 @@ if __name__=='__main__':
     # llist.insertFirst(7)
     # llist.insertFirst(1)
     # llist.insertLast(4)
+    llist.insertLast(12)
     llist.insertLast(11)
-    llist.insertLast(11)
-    llist.insertLast(11)
+    llist.insertLast(12)
     llist.insertLast(21)
+    llist.insertLast(41)
     llist.insertLast(43)
-    llist.insertLast(43)
-    llist.insertLast(60)
+    llist.insertLast(21)
     #llist.delete(7)
     #llist.delete_position(0)
     #llist.insertBetween(llist.head.next,8)
@@ -169,6 +181,6 @@ if __name__=='__main__':
     #llist.getNth(10)
     #llist.getNthfromEnd(0)
     #llist.detectLoop()
-    llist.removeSortedDuplicates()
+    llist.removeUnsortedDuplicates()
     llist.printList()
 
