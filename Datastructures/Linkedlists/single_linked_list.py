@@ -152,6 +152,25 @@ class LinkedList:
             else:   
                 prev.next = temp.next       # Delete the current node
             temp = temp.next                # Move to the next node
+
+    def checkPalindrome(self):                      # To find if the Linked list consists of a palindrome
+        stack = [-1]                                # Initialize the stack with some random value 
+        temp = self.head                            # Keep two headers
+        temp1 = self.head   
+        while(temp1!=None):                         # Temp1 header for adding all the elements into the stack
+            stack.append(temp1.data)
+            temp1 = temp1.next
+        while(temp!=None):                          # After adding all the elements to the stack
+            if(stack[len(stack)-1] == temp.data):   # Pop one by one by matching the elements from the start
+                stack.pop(len(stack)-1)             # Popping the element
+            temp = temp.next
+        if(len(stack)==1):                          # If the lenght of the stack is 1
+            return True
+        else:
+            return False
+            
+            
+                
         
         
 
@@ -162,13 +181,11 @@ if __name__=='__main__':
     # llist.insertFirst(7)
     # llist.insertFirst(1)
     # llist.insertLast(4)
-    llist.insertLast(12)
-    llist.insertLast(11)
-    llist.insertLast(12)
-    llist.insertLast(21)
-    llist.insertLast(41)
-    llist.insertLast(43)
-    llist.insertLast(21)
+    llist.insertLast('R')
+    llist.insertLast('A')
+    llist.insertLast('D')
+    llist.insertLast('A')
+    llist.insertLast('R')
     #llist.delete(7)
     #llist.delete_position(0)
     #llist.insertBetween(llist.head.next,8)
@@ -181,6 +198,6 @@ if __name__=='__main__':
     #llist.getNth(10)
     #llist.getNthfromEnd(0)
     #llist.detectLoop()
-    llist.removeUnsortedDuplicates()
-    llist.printList()
+    #llist.removeUnsortedDuplicates()
+    print(llist.checkPalindrome())
 
