@@ -49,13 +49,126 @@ class LinkedList:
         prev.next = temp.next           # Assign the previous node to the next to next node
         temp = None                     # Make the current node to None
 
-            
+    def delete_position(self,position):
+        temp = self.head                # Assign head to temp variable
+        c = 0                           # Keep track of the position
+        if(position==0):                # If only head is present
+            self.head = temp.next       # Remove it
+            temp = None
+            return
+        while(temp.next is not None):   # Traverse till last before
+            if(c==position):            # If position is found
+                break                   # break
+            prev = temp                 # Keep track of the node previous to the to be deleted one
+            temp = temp.next
+            c+=1                        # Increment position
+        prev.next = temp.next           # Delete it
+        temp = None
+
+    # def deleteList(self):
+    #     temp = self.head
+    #     while(temp):
+    #         prev = temp.next
+    #         del temp.data
+    #         temp = prev
+        
+    def count(self):
+        temp = self.head            # Temporary initialization
+        c = 0                       # Initial count
+        while(temp):                # Traverse until end
+            c+=1                    # Increment count
+            temp = temp.next        # Move to the next node
+        print(c)                    # Print
+        return c
+
+    def search(self,key):           # Iterative search 
+        temp = self.head            # Initialize 
+        while(temp):                # Traverse till the end
+            if(temp.data==key):     # Find for the key
+                print("True")
+                return  
+            temp = temp.next
+        print("False")
+
+    def search_recur(self,nod,key):     # Recursive search
+        if(nod is None):                # If reached the end
+            print("False")
+            return
+        if(nod.data==key):              # If the element is found
+            print("True")
+            return
+        else:
+            self.search_recur(nod.next,key)     # Recursive back with next node
+
+    def getNth(self,position):
+        temp = self.head             # Initialize
+        c = 0
+        while(temp):
+            if(c==position):         # If position found
+                print(temp.data)     # Print the data
+                return
+            c+=1
+            temp = temp.next
+        print("Not found")
+
+    def getNthfromEnd(self,position):
+        position = self.count() - position + 1
+        self.getNth(position)
+
+    def detectLoop(self):
+        s = set()
+        temp = self.head
+        while(temp):
+            if(temp in s):
+                print("Loop Found")
+                return True
+            s.add(temp)
+            temp = temp.next
+        print("No Loop Found")
+        return False
+
+    def removeSortedDuplicates(self):
+        temp = self.head                    # Point to the head node
+        if(temp is None):                   # If only head is present
+            return
+        while(temp.next!=None):             # Traverse till the last before node
+            temp1 = temp.next               # Keep track of the next noe
+            if(temp.data == temp1.data):    # If current and the next node is the same
+                x = temp1.next              # Delete the next node
+                temp.next = None
+                temp.next = x               # Point next of the deleted node to the current node
+            else:
+                temp = temp.next            # Or else move the node by one
+        return 
+        
+        
+
+
 if __name__=='__main__':
     llist = LinkedList()        # Create a class for LinkedList
-    llist.insertLast(6)
-    llist.insertFirst(7)
-    llist.insertFirst(1)
-    llist.insertLast(4)
-    llist.delete(7)
-    llist.insertBetween(llist.head.next,8)
+    # llist.insertLast(6)
+    # llist.insertFirst(7)
+    # llist.insertFirst(1)
+    # llist.insertLast(4)
+    llist.insertLast(11)
+    llist.insertLast(11)
+    llist.insertLast(11)
+    llist.insertLast(21)
+    llist.insertLast(43)
+    llist.insertLast(43)
+    llist.insertLast(60)
+    #llist.delete(7)
+    #llist.delete_position(0)
+    #llist.insertBetween(llist.head.next,8)
+    #llist.deleteList()
+    #llist.insertFirst(100)
+    #llist.printList()
+    #llist.count()
+    #llist.search(7)
+    #llist.search_recur(llist.head,20)
+    #llist.getNth(10)
+    #llist.getNthfromEnd(0)
+    #llist.detectLoop()
+    llist.removeSortedDuplicates()
     llist.printList()
+
