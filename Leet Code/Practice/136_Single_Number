@@ -1,0 +1,46 @@
+// https://leetcode.com/problems/single-number/
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        int count = 0;
+        HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+        for(int i=0;i<nums.length;i++)
+        {
+            if (map.containsKey(nums[i])==false)
+                map.put(nums[i],1);
+            else
+            {
+                map.put(nums[i],map.get(nums[i])+1);
+            }
+        }
+        for(Map.Entry mapElement: map.entrySet()){
+            int key = (int)mapElement.getKey();
+            int val = (int)mapElement.getValue();
+            if(val!=2)
+                return key;
+        }
+        return 0;
+    }
+}
+
+
+// https://leetcode.com/problems/single-number/solution/
+
+/*
+class Solution {
+  public int singleNumber(int[] nums) {
+    HashMap<Integer, Integer> hash_table = new HashMap<>();
+
+    for (int i : nums) {
+      hash_table.put(i, hash_table.getOrDefault(i, 0) + 1);
+    }
+    for (int i : nums) {
+      if (hash_table.get(i) == 1) {
+        return i;
+      }
+    }
+    return 0;
+  }
+}
+
+*/
