@@ -1,0 +1,29 @@
+/*
+Write a code to reverse C-Style Strings (Including null characters)
+*/
+
+
+import java.util.Scanner;
+public class ci_one_two {
+	public static void main(String args[]){
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		System.out.println(reverse(s));
+	}
+	public static String reverse(String s){
+		char[] data = s.toCharArray();
+		int start = 0;
+		int end = data.length - 1;
+		char temp;
+		while(start<end){
+			temp = data[start];
+			data[start] = data[end];
+			data[end] = temp;
+			start++;
+			end--;
+		}
+		String a = new String(data);
+		return a;
+	}
+
+}
