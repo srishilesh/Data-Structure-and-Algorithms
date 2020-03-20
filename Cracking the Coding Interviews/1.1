@@ -1,0 +1,58 @@
+/* QUESTION
+Determine if a string has all unique characters. Try without using any additional Data structures.
+*/
+
+import java.util.*;
+public class ci_one_one {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String input = sc.next();
+		if(unique(input)==true)
+			System.out.println(true);
+		else
+			System.out.println(false);
+
+	}
+	
+// MY APPROACH
+	
+//	public static boolean unique(String s){
+//		int len = s.length();
+//		List<Character> un = new ArrayList<Character>();
+//		for(int i=0;i<s.length();i++)
+//		{
+//			if (un.contains(s.charAt(i))==false)
+//			un.add(s.charAt(i));
+//		}
+//		if (un.size()==len)
+//			return true;
+//		else
+//		return false;
+//	}
+	
+// APPROACH 1 (ASCII ENCODING)
+	
+//	public static boolean unique(String s){
+//		boolean[] charset= new boolean[256];
+//		for(int i=0;i<s.length();i++){
+//			int val = s.charAt(i);
+//			if(charset[val])return false;
+//			charset[val] = true;
+//		}
+//		return true;
+//	}
+	
+// APPROACH 2
+	
+	public static boolean unique(String s){
+		int checker =0;
+		for(int i=0;i<s.length();i++){
+			int val = s.charAt(i) - 'a';
+			if((checker & (1<<val))>0)
+				return false;
+			checker |= (1<<val);
+		}
+		return true;
+	}
+}
