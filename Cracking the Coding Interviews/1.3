@@ -1,0 +1,71 @@
+/*
+Design an algorithm to remove the duplicate characters from a string without using any additional buffers. (Extra one or two variables is allowed
+, but not creating a copy of array)
+*/
+
+
+import java.util.Scanner;
+public class ci_one_three {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		System.out.println(duplicates(s));
+	}
+//	public static String duplicates(String s){
+//		String a = "";
+//		for(int i=0;i<s.length();i++){
+//				if(a.contains(s.charAt(i)+"")==false)
+//				a+=s.charAt(i);
+//		}
+//		return a;
+//	}
+	
+//	public static String duplicates(String s){
+//		String a = "";
+//		char []str = s.toCharArray();
+//		for(int i=0;i<s.length();i++)
+//		{
+//			int j;
+//			for(j=i+1;j<s.length();j++)
+//			{
+//				if(str[i]==str[j])
+//				{
+//					i++;
+//					break;
+//					}
+//			}
+//			str[i+1] = str[i];
+//			a+=str[i];
+//		}
+//		return a;
+//	}
+	public static String duplicates(String s)
+	{
+		char[] str = s.toCharArray();
+		if(str == null) return "";
+		int len = str.length;
+		if(len<2)return s;
+		int tail = 1;
+		for(int i=1;i<len;i++)
+		{
+			int j;
+			for(j=0;j<tail;j++)
+			{
+				System.out.println(i+" "+j+" "+tail);
+				if(str[i]==str[j])break;
+			}
+			if(j==tail)
+			{
+				
+				str[tail] = str[i];
+				++tail;
+			}
+		}
+		str[tail] = 0;
+//		System.out.println(str);
+		String a =new String(str);
+		return a;
+	}
+
+}
