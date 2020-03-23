@@ -1,0 +1,50 @@
+/*
+Write a method to check if two strings are anagrams or not
+*/
+
+import java.util.Arrays;
+import java.util.Scanner;
+public class ci_one_four {
+	public static void main(String args[]){
+		Scanner sc = new Scanner(System.in);
+		String a = sc.next();
+		String b = sc.next();
+//		char[] ch1 = a.toCharArray();
+//		char[] ch2 = b.toCharArray();
+//		Arrays.sort(ch1);
+//		Arrays.sort(ch2);
+//		String m = new String(ch1);
+//		String n = new String(ch2);
+		
+//		if(m.equals(n))
+//			System.out.println(true);
+//		else
+//			System.out.println(false);
+		System.out.println(anagram(a,b));
+			
+	}
+	public static boolean anagram(String a,String b){
+		if(a.length()!=b.length())return false;
+		int length[] = new int[256];
+		int num_unique_chars = 0;
+		int num_completed = 0;
+		char[] ch = a.toCharArray();
+		for(char c:ch){
+			if(length[c]==0)++num_unique_chars;
+			++length[c];
+		}
+		for(int i=0;i<b.length();i++){
+			int index = (int)b.charAt(i);
+			if(length[index]==0)return false;
+			--length[index];
+			if(length[index]==0){
+				++num_completed;
+			}
+		}
+			if(num_completed==num_unique_chars){
+				return true;
+			}
+			else
+				return false;
+	}
+}
