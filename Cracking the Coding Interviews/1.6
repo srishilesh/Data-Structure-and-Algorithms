@@ -1,0 +1,63 @@
+/*
+Given an image of NxN matrix, where each pixel in image is 4 bytes, write a method to rotate by 90 degrees. Can you do it in place?
+*/
+
+// MY APPROACH
+
+import java.util.Scanner;
+public class ci_one_six {
+	public static void main(String args[]){
+		Scanner sc = new Scanner(System.in);
+		int m = sc.nextInt();
+		int n = sc.nextInt();
+		int a[][] = new int[m][n];
+		for(int i=0;i<m;i++){
+			for(int j=0;j<n;j++){
+				a[i][j] = sc.nextInt();
+			}
+		}
+		rotate(a,m,n);
+			
+	}
+	public static void rotate(int[][] a,int m,int n){
+		int[][] b = new int[m][n];
+		for(int i=0;i<m;i++){
+			for(int j=0;j<n;j++){
+				b[i][j] = a[n-j-1][i];
+			}
+		}
+		for(int i=0;i<m;i++){
+			for(int j=0;j<n;j++){
+				System.out.print(b[i][j]);
+			}
+			System.out.println();
+		}
+			
+	}
+
+}
+
+
+// SOLUTION
+
+public static void rotate(int[][] matrix, int n) {
+  for (int layer = 0; layer < n / 2; ++layer) {
+  int first = layer;
+  int last = n - 1 - layer;
+  for(int i = first; i < last; ++i) {
+  int offset = i - first;
+  int top = matrix[first][i]; // save top
+  // left -> top
+  matrix[first][i] = matrix[last-offset][first];
+
+  // bottom -> left
+  matrix[last-offset][first] = matrix[last][last - offset];
+
+  // right -> bottom
+  matrix[last][last - offset] = matrix[i][last];
+
+  // top -> right
+  matrix[i][last] = top; // right <- saved top
+  }
+  }
+}
