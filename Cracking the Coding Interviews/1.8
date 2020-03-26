@@ -1,0 +1,24 @@
+/*
+Given two strings s1 and s2, check if s2 is rotation of s1 using one call to substring.
+*/
+
+// My approach
+
+import java.util.Scanner;
+public class ci_one_eight {
+	public static void main(String args[]){
+		Scanner sc = new Scanner(System.in);
+		String s1 = sc.next();
+		String s2 = sc.next();
+		
+		int len = s1.length();
+		if(len==s2.length() && len>0){
+			String s1s1 = s1+s2;
+//			char ch[] = s2.toCharArray();
+//			char ch1[] = s1s1.toCharArray()
+			System.out.println(s1s1.contains(s2));
+		}
+		
+	}
+
+}
