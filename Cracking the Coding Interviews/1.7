@@ -1,0 +1,57 @@
+/*
+Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column must be set to 0
+*/
+
+// My approach
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+public class ci_one_seven {
+	public static void main(String args[]){
+		Scanner sc = new Scanner(System.in);
+		int m = sc.nextInt();
+		int n = sc.nextInt();
+		int mat[][] = new int[m][n];
+		for(int i=0;i<m;i++){
+			for(int j=0;j<n;j++){
+				mat[i][j] = sc.nextInt();
+			}
+		}
+		zeromatrix(mat,m,n);
+	}
+	public static void zeromatrix(int [][]mat,int m,int n){
+		int matrix[][] = new int[m][n];
+		ArrayList<Integer> li = new ArrayList<Integer>();
+		for(int i=0;i<m;i++){
+			int j;
+			int f=0;
+			for(j=0;j<n;j++){
+				if(mat[i][j]==0)
+				{
+					if(i!=j)
+					{
+						li.add(i);
+						li.add(j);
+					}
+					else
+						li.add(j);
+				}
+			}
+		}
+		for(int i:li){
+			for(int k=0;k<m;k++)
+				mat[k][i] = 0;
+			for(int k=0;k<n;k++)
+				mat[i][k] = 0;
+		}
+
+		for(int i=0;i<m;i++){
+			for(int j=0;j<n;j++){
+				System.out.print(mat[i][j]);
+			}
+			System.out.println();
+		}
+	}
+
+}
