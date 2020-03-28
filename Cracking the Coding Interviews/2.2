@@ -1,0 +1,21 @@
+/*
+Write code to find the nth element from the last node.
+*/
+
+public class ci_two_one {
+	public static void main(String args[]){
+		LinkedList llist = new LinkedList();
+		llist.push(2);
+		llist.push(1);
+		llist.push(2);
+		llist.push(1);
+		llist.push(5);
+		System.out.println("Before duplicates removal");
+		llist.printList();
+		System.out.println("After duplicates removal");
+		//llist.removeDuplicates();
+		llist.removeDuplicatesNoTempBuffer();
+		
+	}
+
+}
