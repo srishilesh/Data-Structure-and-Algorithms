@@ -89,7 +89,7 @@ public class LinkedList {
 				previous = current;
 				current = current.next;
 			}
-		}
+		}	
 		
 		Node temp = head;
 		while(temp!=null)
@@ -97,5 +97,42 @@ public class LinkedList {
 			System.out.println(temp.data);
 			temp = temp.next;
 		}
+	}
+	
+	// 2.2
+	// FIND THE N TH NODE FROM THE LAST ELEMENT - MY APPROACH
+	public Node nthElementFromLast(int n){
+		Node temp = head;
+		int count = 1;
+		while(temp!=null){
+			count+=1;
+			temp = temp.next;
+		}
+		temp = head;
+		n = count - n;
+		count = 1;
+		while(temp!=null){
+			if(n==count)
+				break;
+			count++;
+			temp = temp.next;
+		}
+		return temp;
+	}
+	
+	// 2.2
+	// FIND THE NTH NODE FROM THE LAST ELEMENT - SOLUTION
+	public Node nthElementFromLastSolution(int n){
+		if(head == null || n<1)return null;
+		Node p1=head,p2=head;	// Set the initial headers
+		for(int j=0;j<n-1;j++){			// Move by n-1 positions, to create a distance of 'n' between p1 and p2
+			if(p2==null)return null;	
+			p2 = p2.next;				// Moving p2 by n distance from p1
+		}
+		while(p2.next!=null){			// Now, moving p2 to last, and return the value of p1, with the original distance 
+			p1 = p1.next;				// between them is fixed
+			p2 = p2.next;
+		}
+		return p1;
 	}
 }
