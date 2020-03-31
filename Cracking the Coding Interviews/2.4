@@ -1,0 +1,22 @@
+import java.util.Scanner;
+public class ci_two_four {
+	public static void main(String args[]){
+		LinkedList llist1 = new LinkedList();
+		llist1.push(5);
+		llist1.push(1);
+		llist1.push(3);
+		LinkedList llist2 = new LinkedList();
+		llist2.push(2);
+		llist2.push(9);
+		llist2.push(5);
+		System.out.println("Linked list 1");
+		llist1.printList();
+		System.out.println("Linked list 2");
+		llist2.printList();
+		LinkedList llist3 = new LinkedList();
+		llist3 = llist1.sumOfLinkedList(llist2);
+		System.out.println("New Linked list");
+		llist3.printList();
+	}
+
+}
