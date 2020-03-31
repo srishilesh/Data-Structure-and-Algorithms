@@ -2,12 +2,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class LinkedList {
 	Node head;
-	public static void main(String args[]){
-		LinkedList llist = new LinkedList();
-		llist.push(7);
-		llist.push(1);
-		System.out.println("\nCreated Linked list is: ");
-		llist.printList();
+//	public static void main(String args[]){
+//		LinkedList llist = new LinkedList();
+//		llist.push(7);
+//		llist.push(1);
+//		System.out.println("\nCreated Linked list is: ");
+//		llist.printList();
+//	}
+	
+	// GET A NODE
+	public Node getNode(int n){
+		int count = 1;
+		Node tmp = head;
+		while(tmp!=null)
+		{
+			if(count==n)
+				return tmp;
+			count++;
+			tmp = tmp.next;
+		}
+		return null;
 	}
 	// PRINTING THE ENTIRE LIST
 	public void printList(){
@@ -134,5 +148,19 @@ public class LinkedList {
 			p2 = p2.next;
 		}
 		return p1;
+	}
+	
+	// 2.3
+	// DELETE A NODE IN THE MIDDLE OF THE LINKED LIST, GIVEN ACCESS ONLY TO THAT NODE
+	public void deleteMiddleNode(Node middle){
+		if(middle==null)return;
+		while(middle.next.next!=null)
+		{
+			middle.data = middle.next.data;
+			middle = middle.next;
+		}
+		middle.data = middle.next.data;
+		middle.next = null;
+		
 	}
 }
