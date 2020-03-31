@@ -161,6 +161,29 @@ public class LinkedList {
 		}
 		middle.data = middle.next.data;
 		middle.next = null;
-		
+	}
+	
+	// 2.4
+	// GIVEN 2 LINKED LISTS, FIND A NEW LINKED LIST WITH THE CORRESPONDING SUMMATION OF BOTH
+	public LinkedList sumOfLinkedList(LinkedList a)
+	{
+		LinkedList c = new LinkedList();
+		Node ahead = a.head;
+		Node temp =head;
+		if(ahead==null || temp==null)return null;
+		int carry = 0;
+		while(ahead!=null && temp!=null)
+		{
+			int sum = ahead.data + temp.data+carry;
+			if(sum>=10)
+			{
+				carry = (int)sum/10;
+				sum = (int)sum%10;
+			}
+			c.push(sum);
+			ahead = ahead.next;
+			temp = temp.next;
+		}
+		return c;
 	}
 }
