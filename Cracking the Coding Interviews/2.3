@@ -1,0 +1,18 @@
+import java.util.Scanner;
+
+public class ci_two_three {
+	public static void main(String args[])
+	{
+		LinkedList llist = new LinkedList();
+		llist.push(5);
+		llist.push(4);
+		llist.push(3);
+		llist.push(2);
+		llist.push(1);
+		System.out.println("Linked list");
+		llist.printList();
+		llist.deleteMiddleNode(llist.getNode(3));
+		System.out.println("New Linked List");
+		llist.printList();
+	}
+}
