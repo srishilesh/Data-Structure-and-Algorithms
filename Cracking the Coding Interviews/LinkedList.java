@@ -23,6 +23,18 @@ public class LinkedList {
 		}
 		return null;
 	}
+	// MAKE THE LINKED LIST CIRCULAR LINKED LIST
+	public void circular()
+	{
+		Node start = head;
+		while(head.next!=null)
+		{
+			head = head.next;
+		}
+		head.next = start;
+		head = start;
+	}
+	
 	// PRINTING THE ENTIRE LIST
 	public void printList(){
 		Node tnode = head;
@@ -31,6 +43,15 @@ public class LinkedList {
 			tnode = tnode.next;
 		}
 	}
+	// PRINTING THE ENTIRE CIRCULAR LIST
+		public void printCircularList(){
+			Node tnode = head;
+			while(tnode.next!=head){
+				System.out.println(tnode.data+" ");
+				tnode = tnode.next;
+			}
+			System.out.println(tnode.data);
+		}
 	
 	// INSERT FIRST
 	public void push(int new_data){	
@@ -185,5 +206,34 @@ public class LinkedList {
 			temp = temp.next;
 		}
 		return c;
+	}
+	
+	// 2.5
+	// GIVEN A CIRCULAR LINKED LIST, FIND THE STARTING NODE OF A LOOP
+	public Node loopStartNode()
+	{
+		Node n1 = head;
+		Node n2 = head;
+		// Find meeting point
+		while(n2.next!=null)
+		{
+			n1 = n1.next;
+			n2 = n2.next.next;
+			if(n1 == n2)
+				break;
+		}
+		// Error check- there is no meeting point and therefore no loop
+		if(n2.next==null)
+			return null;
+		// Move n1 to head. Keep n2 at meeting point. Each are k steps from loop start
+		// If they move at same pace, they must meet at loop start
+		n1 = head;
+		while(n1!=n2)
+		{
+			n1 = n1.next;
+			n2 = n2.next;
+		}
+		// Now n2 points to the start of the loop
+		return n2;
 	}
 }
