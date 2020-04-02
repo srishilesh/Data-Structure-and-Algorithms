@@ -1,0 +1,17 @@
+public class ci_two_five {
+	public static void main(String args[]){
+		LinkedList llist = new LinkedList();
+		llist.push(3);
+		llist.push(5);
+		llist.push(4);
+		llist.push(3);
+		llist.push(2);
+		llist.push(1);
+		llist.circular();
+		System.out.println("Circular Linked list");
+		llist.printCircularList();
+		Node circular = llist.loopStartNode();
+		System.out.println("Loop starting node is "+circular.data);
+	}
+
+}
