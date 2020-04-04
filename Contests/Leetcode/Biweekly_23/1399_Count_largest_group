@@ -1,0 +1,62 @@
+// https://leetcode.com/problems/count-largest-group
+
+// My approach
+class Solution:
+    def countLargestGroup(self, n: int) -> int:
+        nums = []
+        dictionary = {}
+        for i in range(1,n+1):
+            nums.append(i)
+            li = sum(list(map(int,str(i))))
+            if li not in dictionary:
+                dictionary[li] = 1
+            else:
+                dictionary[li]+=1
+        maximum = (max(dictionary.values()))
+        c = 0
+        for value in dictionary.values():
+            if value == maximum:
+                c+=1
+        return c
+        
+// Other approaches
+
+class Solution {
+    public int countLargestGroup(int n) {
+        int[] size = new int[100];
+        for (int i = 1; i <= n; ++i) {
+            int num = i;
+            int val = 0;
+            while (num > 0) {
+                val+=num%10;
+                num/=10;
+            }
+            size[val]++;
+        }
+        int max = 0;
+        int ans = 0;
+        for (int i = 0; i < 100; ++i) {
+            if (size[i]>max) {
+                max = size[i];
+                ans = 0;
+            }
+            if (size[i]==max)
+                ans++;
+        }
+        return ans;
+    }
+}
+
+// Other approach
+
+class Solution:
+    def countLargestGroup(self, n: int) -> int:
+        
+        def sod(x):
+            return sum(map(int, str(x)))
+        
+        d = collections.Counter()
+        for i in range(1, n + 1):
+            d[sod(i)] += 1
+        m = max(d.values())
+        return sum(1 for i in d.values() if i == m)
