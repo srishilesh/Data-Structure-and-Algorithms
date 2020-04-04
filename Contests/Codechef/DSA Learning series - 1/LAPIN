@@ -1,0 +1,54 @@
+// https://www.codechef.com/LRNDSA01/problems/LAPIN
+
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-- > 0)
+		{
+		    String s = sc.next();
+		    int len = s.length();
+		    String a,b;
+		    if(len%2==0)
+		    {
+		        a = s.substring(0,(int)len/2);
+		        b = s.substring((int)len/2,len);
+		    }
+		    else
+		    {
+		        a = s.substring(0,(int)len/2);
+		        b = s.substring((int)len/2 + 1,len);
+		    }
+		    if(hash(a,b))
+		    System.out.println("YES");
+		    else
+		    System.out.println("NO");
+		}
+	}
+	public static boolean hash(String a, String b)
+	{
+	    HashMap<Character,Integer> first = new HashMap<Character,Integer>();
+	    HashMap<Character,Integer> second = new HashMap<Character,Integer>();
+	    for(int i=0;i<a.length();i++)
+	    {
+	        first.put(a.charAt(i),first.getOrDefault(a.charAt(i),0)+1);    
+	    }
+	    for(int i=0;i<b.length();i++)
+	    {
+	        second.put(b.charAt(i),second.getOrDefault(b.charAt(i),0)+1);    
+	    }
+	    if(first.equals(second))
+	    return true;
+	    else
+	    return false;
+	}
+}
