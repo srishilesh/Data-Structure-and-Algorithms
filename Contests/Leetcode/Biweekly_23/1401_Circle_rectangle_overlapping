@@ -1,0 +1,25 @@
+// https://leetcode.com/problems/circle-and-rectangle-overlapping/
+
+// My approach
+
+class Solution:
+    def checkOverlap(self, radius: int, x_center: int, y_center: int, x1: int, y1: int, x2: int, y2: int) -> bool:
+        if(((x_center+radius) not in range(x1,x2+1)) or ((x_center-radius) not in range(x1,x2+1)) or ((x_center) not in range(x1,x2+1))):
+            return False
+        if(((y_center+radius) not in range(y1,y2+1)) or ((y_center-radius) not in range(y1,y2+1)) or ((y_center) not in range(y1,y2+1))):
+            return False
+        for i in range(x1,x2+1):
+            for j in range(y1,y2+1):
+                if(((i-x_center)**2) + ((j-y_center)**2)<=(radius**2)):
+                    return True
+        return False
+        
+// Solution
+
+class Solution {
+    public boolean checkOverlap(int radius, int x, int y, int x1, int y1, int x2, int y2) {
+        int yy = (y <= y2 && y >= y1) ? 0 : Math.min(Math.abs(y1 - y), Math.abs(y2 - y));
+        int xx = (x >= x1 && x <= x2) ? 0 : Math.min(Math.abs(x1 - x), Math.abs(x2 - x));
+        return xx * xx + yy * yy <= radius * radius;
+    }
+}
