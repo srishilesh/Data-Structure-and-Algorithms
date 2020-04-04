@@ -1,0 +1,85 @@
+// https://leetcode.com/problems/construct-k-palindrome-strings/
+
+// My approach
+
+class Solution:
+    def canConstruct(self, s: str, k: int) -> bool:
+        palinCount = 0
+        if(len(s)==k):
+            return True
+        dictionary = {}
+        for i in s:
+            if i not in dictionary:
+                dictionary[i] = 1
+            else:
+                dictionary[i] +=1
+        even = 0
+        for i in dictionary.values():
+            if (i%2==0):
+                even+=1
+                palinCount*=i
+        for i in dictionary.values():
+            if(i%2!=0):
+                palinCount += even*i
+        #print(dictionary)
+        # res = self.fact((len(s)//2))
+        # oddFreq = False
+        # for i in dictionary.values():
+        #     half = int(i//2)
+        #     if(i%2!=0):
+        #         if(oddFreq==True):
+        #             res = 0
+        #         oddFreq = True
+        #     res = int(res/self.fact(half))
+        # print(res)
+        if(palinCount>=k):
+            return True
+        else:
+            return False
+        
+        
+    def fact(self, n: int) -> int:
+        res = 1
+        for i in range(2,n+1):
+            res = res * i
+        return res
+        
+// Solution
+
+Explanation
+Condition 1. odd characters <= k
+Count the occurrences of all characters.
+If one character has odd times occurrences,
+there must be at least one palindrome,
+with odd length and this character in the middle.
+So we count the characters that appear odd times,
+the number of odd character should not be bigger than k.
+
+Condition 2. k <= s.length()
+Also, if we have one character in each palindrome,
+we will have at most s.length() palindromes,
+so we need k <= s.length().
+
+The above two condition are necessary and sufficient conditions for this problem.
+So we return odd <= k <= n
+
+
+Complexity
+Time O(N)
+Space O(1)
+
+Java:
+
+    public boolean canConstruct(String s, int k) {
+        int odd = 0, n = s.length(), count[] = new int[26];
+        for (int i = 0; i < n; ++i) {
+            count[s.charAt(i) - 'a'] ^= 1;
+            odd += count[s.charAt(i) - 'a'] > 0 ? 1 : -1;
+        }
+        return odd <= k && k <= n;
+    }
+    
+Python:
+
+    def canConstruct(self, s, k):
+        return sum(i & 1 for i in collections.Counter(s).values()) <= k <= len(s)    
