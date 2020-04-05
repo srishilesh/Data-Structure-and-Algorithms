@@ -1,0 +1,27 @@
+// https://leetcode.com/problems/minimum-subsequence-in-non-increasing-order/
+
+// My try
+
+class Solution:
+    def minSubsequence(self, nums: List[int]) -> List[int]:
+        sum1 = []
+        sum2 = []
+        subsequence = []
+        # while(len(nums)>0):
+        #     maximum = max(nums)
+        #     sum1.append(maximum)
+        #     nums.remove(maximum)
+        #     sum2 = sum(nums)
+        #     if(sum(sum1)>(sum2)):
+        #         subsequence.append(sum(sum1))
+        #     print(sum1)
+        #     print(sum2)
+        # return sum1.index(max(subsequence))
+        nums.sort(reverse=True)
+        for i in range(len(nums)):
+            sum1 = [nums[i]]
+            for j in range(i+1,len(nums)):
+                
+                
+        return nums
+            
