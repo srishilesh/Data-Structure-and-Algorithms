@@ -1,0 +1,120 @@
+// https://leetcode.com/problems/group-anagrams
+
+// My approach
+
+import java.util.List;
+import java.util.ArrayList;
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> out = new ArrayList<List<String>>();
+        // HashMap<Integer,Integer> hash = new HashMap<Integer,Integer>();
+        int a[] = new int[strs.length];
+        int ascii[];
+        int i=0;
+        while(i<strs.length)
+        {
+            int f=0,count=1;
+            ascii = new int[256];
+            List<String> temp = new ArrayList<String>();
+            String y = strs[i];
+            if(a[i]==1)
+            {
+                
+                i++;
+                continue;
+            }
+            else
+                a[i] = 1;
+            temp.add(y);
+            //System.out.println((int)("".charAt(0)));
+            int m=0,n=0;
+            for(int j=0;j<y.length();j++)
+            {
+                ascii[y.charAt(j)]++;
+                m++;
+            }
+                
+            for(int j=i+1;j<strs.length;j++)
+            {
+                
+                String x = strs[j];
+                if(x.equals(y) && x.length()==y.length())
+                {
+                    a[j] = 1;
+                    temp.add(x);
+                    continue;
+                }
+                if(x.equals(""))
+                    continue;
+                if(a[j]==1)
+                    continue;
+                
+                for(int k=0;k<x.length();k++)
+                {
+                    if(ascii[x.charAt(k)]!=0)
+                        f=1;
+                    else
+                    {
+                        f=0;
+                        break;
+                    }
+                }
+                System.out.println(f);
+                if(f==1 && a[j]!=1 && x.length()==y.length())   
+                {
+                    a[j] = 1;
+                    temp.add(x);
+                }
+                    
+                
+            }
+            // for(int p=0;p<temp.size();p++)
+            //         System.out.println(temp.get(p));
+            out.add(temp);
+            i++;
+        }
+        return out;
+    }
+}
+
+
+// Solution 1
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs.length == 0) return new ArrayList();
+        Map<String, List> ans = new HashMap<String, List>();
+        for (String s : strs) {
+            char[] ca = s.toCharArray();
+            Arrays.sort(ca);
+            String key = String.valueOf(ca);
+            if (!ans.containsKey(key)) ans.put(key, new ArrayList());
+            ans.get(key).add(s);
+        }
+        return new ArrayList(ans.values());
+    }
+}
+
+// Solution 2
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs.length == 0) return new ArrayList();
+        Map<String, List> ans = new HashMap<String, List>();
+        int[] count = new int[26];
+        for (String s : strs) {
+            Arrays.fill(count, 0);
+            for (char c : s.toCharArray()) count[c - 'a']++;
+
+            StringBuilder sb = new StringBuilder("");
+            for (int i = 0; i < 26; i++) {
+                sb.append('#');
+                sb.append(count[i]);
+            }
+            String key = sb.toString();
+            if (!ans.containsKey(key)) ans.put(key, new ArrayList());
+            ans.get(key).add(s);
+        }
+        return new ArrayList(ans.values());
+    }
+}
