@@ -1,0 +1,58 @@
+// https://leetcode.com/problems/squares-of-a-sorted-array
+
+// My approach
+
+class Solution {
+    public int[] sortedSquares(int[] A) {
+        for(int i=0;i<A.length;i++)
+            A[i]*=A[i];
+        Arrays.sort(A);
+        return A;
+    }
+}
+
+/*
+Complexities:
+Time 	- O(NlogN)
+Space	- O(N)
+
+Explanation:
+1) Square each of the elements in the array
+2) Sort them
+*/
+
+/*
+class Solution {
+    public int[] sortedSquares(int[] A) {
+        int N = A.length;
+        int j = 0;
+        while (j < N && A[j] < 0)
+            j++;
+        int i = j-1;
+
+        int[] ans = new int[N];
+        int t = 0;
+
+        while (i >= 0 && j < N) {
+            if (A[i] * A[i] < A[j] * A[j]) {
+                ans[t++] = A[i] * A[i];
+                i--;
+            } else {
+                ans[t++] = A[j] * A[j];
+                j++;
+            }
+        }
+
+        while (i >= 0) {
+            ans[t++] = A[i] * A[i];
+            i--;
+        }
+        while (j < N) {
+            ans[t++] = A[j] * A[j];
+            j++;
+        }
+
+        return ans;
+    }
+}
+*/
