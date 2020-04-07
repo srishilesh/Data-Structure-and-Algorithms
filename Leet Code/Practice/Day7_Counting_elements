@@ -1,0 +1,26 @@
+// https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/528/week-1/3289/
+
+// My approach
+class Solution:
+    def countElements(self, arr: List[int]) -> int:
+        unique = set(arr)
+        count = 0
+        for i in arr:
+            if (i+1) in arr:
+                count+=1
+        return count
+        
+// Solution
+
+public int countElements(int[] arr) {
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int a : arr) {
+            count.put(a, count.getOrDefault(a, 0) + 1);
+        }
+        int res = 0;
+        for (Map.Entry<Integer, Integer> e : count.entrySet()) {
+            if (count.containsKey(e.getKey() + 1)) {
+                res += e.getValue();
+            }
+        }
+        return res;    
