@@ -1,0 +1,156 @@
+// https://leetcode.com/problems/merge-intervals/
+
+// My approach
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        if(intervals.length==0)return new int[][]{};
+//         int a[] = new int[intervals.length*2];
+//         int p=0;
+//         for(int i=0;i<intervals.length;i++)
+//         {
+//             a[p] = intervals[i][0];
+//             a[p+1] = intervals[i][1];
+//             p+=2;
+//         }
+//         Arrays.sort(a);
+//         int tmp = a[0];
+//         for(int i=0;i<a.length-1;i++)
+//         {
+//             if(tmp>=a[i+1])
+//             {
+                
+//                 tmp = a[i+1];
+//                 a[i] = -1;
+//                 a[i+1] = -1;
+//             }
+//             else
+//                 tmp = a[i+1];
+//         }
+//         // List<List<Integer>> ans = new ArrayList<List<Integer>>();
+//         // List<Integer> li = new ArrayList<Integer>();
+//         int count = 0;
+//         for(int i=0;i<a.length;i++)
+//         {
+//             if(a[i]!=-1)
+//                 count++;
+//         }
+//         int ans[][] = new int[count/2][2];
+//         int temp[] = new int[count];
+//         int t=0;
+//         for(int i=0;i<a.length;i++)
+//         {
+//             if(a[i]!=-1)
+//             {
+//                 temp[t] = a[i];
+//                 //System.out.println(temp[t]);
+//                 t++;
+//             }
+//         }
+//         int k = 0;
+//         for(int i=0;i<(count/2);i++)
+//         {
+//             for(int j=0;j<2;j++)
+//             {
+//                 //System.out.println(i+" "+j+" "+k);
+//                 ans[i][j] = temp[k];
+//                 k++;
+//             }
+//         }
+        int a = intervals[0][0];
+        int b = intervals[0][1];
+        int e=a,f=b;
+        List<Integer> tmp = new ArrayList<Integer>();
+        for(int i=1;i<intervals.length;i++)
+        {
+            //for(int j=0;j<2;j++)
+            {
+                int c = intervals[i][0];
+                int d = intervals[i][1];
+                if(c<a)
+                    a = c;
+                if(c>b && d>b)
+                {
+                    a = c;
+                    b = d;
+                }
+                if(d>b)
+                    b = d;
+                System.out.println(b);
+                if(tmp.contains(a)==false && tmp.contains(b)==false)
+                {tmp.add(a);
+                tmp.add(b);}
+                
+            }
+        }   
+        int len = tmp.size();
+        if(len==0)
+        {
+            tmp.add(a);
+            tmp.add(b);
+        }
+        if(len>=2)
+        if(f<=tmp.get(1) && e<=tmp.get(0))
+        {
+            tmp.add(e);
+            tmp.add(f);
+        }
+        
+        len = tmp.size();
+        int ans[][] = new int[len/2][2];
+        int k = 0;
+        for(int i=0;i<(len/2);i++)
+        {
+            ans[i][0] = tmp.get(k);
+            ans[i][1] = tmp.get(k+1);
+            k = k + 2;
+        }
+        return ans;
+    }
+}
+
+// Solution 1
+class Solution{
+    private class IntervalComparator implements Comparator<int[]> {
+        @Override
+        public int compare(int[] a,int[] b){
+            return a[0]<b[0]?-1:a[0]==b[0]?0:1;
+        }
+    }
+    public int[][] merge(int[][] intervals){
+        Collections.sort(Arrays.asList(intervals), new IntervalComparator());
+        LinkedList<int[]> merged = new LinkedList<>();
+        for(int[] interval:intervals){
+            if(merged.isEmpty() || merged.getLast()[1]<interval[0]){
+                merged.add(interval);
+            }
+            else{
+                merged.getLast()[1] = Math.max(merged.getLast()[1],interval[1]);
+            }
+        }
+        return merged.toArray(new int[merged.size()][]);
+    }
+}
+
+// Solution 2
+
+class Solution {
+	public int[][] merge(int[][] intervals) {
+		if (intervals.length <= 1)
+			return intervals;
+
+		// Sort by ascending starting point
+		Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
+
+		List<int[]> result = new ArrayList<>();
+		int[] newInterval = intervals[0];
+		result.add(newInterval);
+		for (int[] interval : intervals) {
+			if (interval[0] <= newInterval[1]) // Overlapping intervals, move the end if needed
+				newInterval[1] = Math.max(newInterval[1], interval[1]);
+			else {                             // Disjoint intervals, add the new interval to the list
+				newInterval = interval;
+				result.add(newInterval);
+			}
+		}
+
