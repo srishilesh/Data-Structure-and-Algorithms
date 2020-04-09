@@ -1,0 +1,88 @@
+// https://leetcode.com/problems/backspace-string-compare/
+
+// My approach
+
+class Solution:
+    def backspaceCompare(self, S: str, T: str) -> bool:
+        stack1 = []
+        stack2 = []
+        for i in S:
+            if i!='#':
+                stack1.append(i)
+            else:
+                if(len(stack1)!=0):
+                    stack1.pop()
+        for i in T:
+            if i!='#':
+                stack2.append(i)
+            else:
+                if(len(stack2)!=0):
+                    stack2.pop()    
+        if(stack1==stack2):
+            return True
+        else:
+            return False
+        
+// Java soln
+
+class Solution {
+    public boolean backspaceCompare(String S, String T) {
+        return build(S).equals(build(T));
+    }
+
+    public String build(String S) {
+        Stack<Character> ans = new Stack();
+        for (char c: S.toCharArray()) {
+            if (c != '#')
+                ans.push(c);
+            else if (!ans.empty())
+                ans.pop();
+        }
+        return String.valueOf(ans);
+    }
+}
+
+// Solution 2
+/*
+Intuition
+
+When writing a character, it may or may not be part of the final string depending on how many backspace keystrokes occur in the future.
+
+If instead we iterate through the string in reverse, then we will know how many backspace characters we have seen, and therefore whether the result includes our character.
+
+Algorithm
+
+Iterate through the string in reverse. If we see a backspace character, the next non-backspace character is skipped. If a character isn't skipped, it is part of the final answer.
+
+See the comments in the code for more details.
+
+
+*/
+
+class Solution {
+    public boolean backspaceCompare(String S, String T) {
+        int i = S.length() - 1, j = T.length() - 1;
+        int skipS = 0, skipT = 0;
+
+        while (i >= 0 || j >= 0) { // While there may be chars in build(S) or build (T)
+            while (i >= 0) { // Find position of next possible char in build(S)
+                if (S.charAt(i) == '#') {skipS++; i--;}
+                else if (skipS > 0) {skipS--; i--;}
+                else break;
+            }
+            while (j >= 0) { // Find position of next possible char in build(T)
+                if (T.charAt(j) == '#') {skipT++; j--;}
+                else if (skipT > 0) {skipT--; j--;}
+                else break;
+            }
+            // If two actual characters are different
+            if (i >= 0 && j >= 0 && S.charAt(i) != T.charAt(j))
+                return false;
+            // If expecting to compare char vs nothing
+            if ((i >= 0) != (j >= 0))
+                return false;
+            i--; j--;
+        }
+        return true;
+    }
+}
