@@ -1,0 +1,75 @@
+// https://leetcode.com/problems/diameter-of-binary-tree/
+
+// My approach
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int maxsofar = 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root == null)return 0;
+        else
+        {
+            return maxDiameter(root);
+        }
+    }
+    public int maxDiameter(TreeNode root)
+    {
+        if(root==null)return 0;
+        else
+        {
+            int lDepth = maxDepth(root.left);
+            int rDepth = maxDepth(root.right);
+            if(maxsofar<(lDepth+rDepth))
+                maxsofar = lDepth+rDepth;
+            if(lDepth>rDepth)
+                maxDiameter(root.left);
+            else
+                maxDiameter(root.right);
+    
+        }        
+        return maxsofar;
+    }
+    public int maxDepth(TreeNode root)
+    {
+        if(root==null)
+            return 0;
+        else
+        {
+            int lDepth = maxDepth(root.left);
+            int rDepth = maxDepth(root.right);
+            int max = 0;
+            if(lDepth>rDepth)
+                max = lDepth+1;
+            else
+                max = rDepth+1;
+            return max;
+            
+        }
+    }
+}
+
+// Solution
+
+class Solution {
+    int ans;
+    public int diameterOfBinaryTree(TreeNode root) {
+        ans = 1;
+        depth(root);
+        return ans - 1;
+    }
+    public int depth(TreeNode node) {
+        if (node == null) return 0;
+        int L = depth(node.left);
+        int R = depth(node.right);
+        ans = Math.max(ans, L+R+1);
+        return Math.max(L, R) + 1;
+    }
+}
