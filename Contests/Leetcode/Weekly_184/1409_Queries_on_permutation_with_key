@@ -1,0 +1,29 @@
+// https://leetcode.com/problems/queries-on-a-permutation-with-key/
+
+// My approach
+
+class Solution:
+    def processQueries(self, queries: List[int], m: int) -> List[int]:
+        p = [i for i in range(m,0,-1)]
+        pos = []
+        for i in queries:
+            pval = p.index(i)
+            pos.append(m-pval-1)
+            tmp = p[pval]
+            p.remove(i)
+            p.append(i)
+        return pos
+        
+// Solution
+
+class Solution(object):
+    def processQueries(self, queries, m):
+        P = range(1, m + 1)
+        ans = []
+        for q in queries:
+            i = P.index(q)
+            ans.append(i)
+            P2 = [P.pop(i)]
+            P2.extend(P)
+            P = P2
+        return ans    
