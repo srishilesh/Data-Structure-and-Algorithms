@@ -1,0 +1,55 @@
+// https://leetcode.com/problems/html-entity-parser/
+
+// My approach
+class Solution:
+    def entityParser(self, text: str) -> str:
+        text = text.replace("&quot;","\"")
+        text = text.replace("&apos;","\'")
+        text = text.replace("&amp;","&")
+        text = text.replace("&gt;",">")
+        text = text.replace("&lt;","<")
+        text = text.replace("&frasl;","/")
+        return text
+
+// Solution
+class Solution(object):
+    def entityParser(self, text):
+        ans = []
+        i = 0
+        """
+        Quotation Mark: the entity is &quot; and symbol character is ".
+Single Quote Mark: the entity is &apos; and symbol character is '.
+Ampersand: the entity is &amp; and symbol character is &.
+Greater Than Sign: the entity is &gt; and symbol character is >.
+Less Than Sign: the entity is &lt; and symbol character is <.
+Slash: the entity is &frasl; and symbol character is /.
+        """
+        while i < len(text):
+            if text[i] != '&':
+                ans.append(text[i])
+                i += 1
+                continue
+            else:
+                if text[i+1:i+6] == 'quot;':
+                    ans.append('"')
+                    i += 6
+                elif text[i+1:i+6] == 'apos;':
+                    ans.append("'")
+                    i += 6
+                elif text[i+1:i+5] == 'amp;':
+                    ans.append('&')
+                    i += 5
+                elif text[i+1:i+4] == 'gt;':
+                    ans.append('>')
+                    i += 4
+                elif text[i+1:i+4] == 'lt;':
+                    ans.append('<')
+                    i += 4
+                elif text[i+1:i+7] == 'frasl;':
+                    ans.append('/')
+                    i += 7
+                else:
+                    ans.append(text[i])
+                    i += 1
+        
+        return "".join(ans)        
