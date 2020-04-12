@@ -17,6 +17,19 @@ class Solution:
 # Solutions 
 # https://leetcode.com/articles/missing-number/
 
+
+# JAVA SOLUTION
+class Solution
+{
+    public int missingNumber(int[] nums)
+    {
+        int missing = nums.length;
+        for(int i=0;i<nums.length;i++)
+            missing^=i^nums[i];
+        return missing;
+    }
+}
+
 '''
 Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
 
