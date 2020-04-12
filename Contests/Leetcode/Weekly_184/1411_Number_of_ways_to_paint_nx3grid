@@ -1,0 +1,32 @@
+// https://leetcode.com/problems/number-of-ways-to-paint-n-3-grid/
+
+// Solution
+
+class Solution(object):
+    def numOfWays(self, n):
+        MOD = 10**9 + 7
+        dp = [0] * 27
+        for a in range(3):
+            for b in range(3):
+                for c in range(3):
+                    if a != b != c:
+                        code = 9 * a + 3 * b + c
+                        dp[code] = 1
+        for _ in xrange(n-1):
+            dp2 = [0] * 27
+            for state1 in xrange(27):
+                a0 = state1 // 9
+                b0 = state1 % 9 // 3
+                c0 = state1 % 3
+                for a in xrange(3):
+                    if a != a0:
+                        for b in xrange(3):
+                            if b0 != b != a:
+                                for c in xrange(3):
+                                    if b != c != c0:
+                                        state2 = 9 *a + 3*b + c
+                                        dp2[state2] += dp[state1]
+                                        dp2[state2] %= MOD
+            
+            dp = dp2
+        return sum(dp) % MOD
