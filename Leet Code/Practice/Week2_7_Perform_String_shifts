@@ -1,0 +1,85 @@
+// https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/529/week-2/3299/
+
+// My approach
+
+class Solution {
+    public String stringShift(String s, int[][] shift) {
+        int direction = shift[0][0];
+        int num = shift[0][1];
+        for(int i=1;i<shift.length;i++)
+        {
+            //for(int j=0;j<2;j++)
+            {
+                int a = shift[i][0];
+                int b = shift[i][1];
+                if(a==direction)
+                    num = (num+b)%(s.length());
+                else
+                {
+                    if(num>=b)
+                    {
+                        num = num - b;
+                    }
+                    else
+                    {
+                        num = b - num;
+                        direction = a;
+                    }
+                }
+            }
+        }
+        System.out.println(direction+" "+num);
+        if(direction==0)
+            s = leftrotate(s,num);
+        else
+            s = rightrotate(s,num);
+        return s;
+    }
+    public String leftrotate(String s,int d)
+    {
+        String ans = s.substring(d)+s.substring(0,d);
+        return ans;
+    }
+    public String rightrotate(String s,int d)
+    {
+        return leftrotate(s,s.length()-d);
+    }
+}
+    
+//         String[] a = s.split("");
+//         List<String> ch = Arrays.asList(a);
+//         int shiftIndex;
+//         for(int i=0;i<shift.length;i++)
+//         {
+//             for(int j=0;j<2;j++)
+//             {
+//                 if(shift[i][0]==0)
+//                     shiftIndex = 0;
+//                 else
+//                     shiftIndex = 1;
+//                 int num = shift[i][1];
+//                 ch = shift(ch,shiftIndex,num);
+//             }
+//         }
+//         String ans = "";
+//         for(String c:ch)ans+=c;
+//         return ans;
+//     }
+//     public List<String> shift(List<String> ch, int shiftIndex , int num)
+//     {
+//         int len = ch.size() - 1;
+//         if(shiftIndex == 0)
+//         {
+//             String c = ch.get(shiftIndex);
+//             ch.remove(shiftIndex);
+//             ch.add(c);
+//         }
+//         else
+//         {
+//             String c = ch.get(len);
+//             ch.add(0,c);
+//             if(ch.size()>len)
+//                 ch.remove(ch.get(len));
+            
+//         }
+//         return ch;
