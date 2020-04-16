@@ -1,0 +1,25 @@
+// https://leetcode.com/problems/longest-continuous-increasing-subsequence/
+
+// My approach
+
+class Solution {
+    public int findLengthOfLCIS(int[] nums) {
+        int count = 1;
+        int max = 0;
+        for(int i=0;i<nums.length;i++)
+        {
+            count = 1;
+            for(int j=i;j<nums.length-1;j++)
+            {
+                if((nums[j+1]-nums[j])>0)
+                    count++;
+                else
+                    break;
+            }
+            System.out.println(count);
+            if(max<count)
+                max = count;
+        }
+        return max;
+    }
+}
