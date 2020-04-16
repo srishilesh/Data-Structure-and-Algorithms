@@ -1,0 +1,120 @@
+// https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/
+
+// My approach
+
+class Solution {
+    public int countCharacters(String[] words, String chars) {
+        int[] ascii = new int[256];
+        for(int i=0;i<chars.length();i++)
+            ascii[chars.charAt(i)] += 1;
+        int count = 0;
+        int f = 0;
+        HashMap<Character,Integer> hash;
+        for(String s:words){
+            hash = new HashMap<Character,Integer>();
+            f = 0;
+            for(int i=0;i<s.length();i++)
+                hash.put(s.charAt(i),hash.getOrDefault(s.charAt(i),0)+1);
+           for(Map.Entry mape: hash.entrySet())
+           {
+               char key = (char)mape.getKey();
+               int val = (int)mape.getValue();
+               System.out.println(ascii[key]+"  "+key+"  "+val);
+               if(ascii[key]==0)
+               {
+                   f=0;
+                   break;
+               }
+               else if(ascii[key]>=val)
+                   f = 1;
+               else
+               {
+                   f = 0;
+                  break;
+               }
+           }
+           if(f==1)
+           {
+               System.out.println(s);
+               count+=s.length();
+           }
+               
+            System.out.println();
+        }
+//         for(int i=0;i<words.length;i++)
+//         {
+//             f = 0;
+//             for(int j=0;j<words[i].length();j++)
+//             {
+//                 char ch = words[i].charAt(j);
+//                 if(ascii[ch]>=1)
+//                 {
+//                     f = 1;
+//                 }
+//                 else
+//                 {
+//                     f = 0;
+//                     break;
+//                 }
+//             }
+//             if(f == 1)
+//             {
+//                 System.out.println(words[i]);
+//                count+=words[i].length(); 
+//             }
+               
+//         }
+        return count;
+    }
+}
+
+// Solution 1
+
+public int countCharacters(String[] words, String chars) {
+    
+    int []freq = new int[26];
+    for(char ch:chars.toCharArray())
+        freq[ch - 'a'] += 1;
+    
+    int count = 0;
+    for(String word:words){
+        if(isValid(word,freq))
+            count += word.length();
+    }
+    return count;
+}
+
+public boolean isValid(String word,int []freq){
+    
+    int []temp = Arrays.copyOf(freq,freq.length);
+    for(char ch:word.toCharArray()){
+        if(temp[ch-'a'] == 0)
+            return false;
+        temp[ch-'a']--;
+    }
+    return true;
+}
+
+// Solution 2
+from collections import Counter as cnt
+class Solution:
+    def countCharacters(self, words: List[str], chars: str) -> int:
+        return sum(not cnt(w) - cnt(chars) and len(w) for w in words)
+        
+// Solution 3
+
+class Solution:
+    def countCharacters(self, words: List[str], chars: str) -> int:
+        totalSum = 0
+        for i in words:
+            temp = []
+            temp.extend(chars)
+            
+            for ch in i:
+                if ch in temp:
+                    temp.remove(ch)
+                    
+            if len(chars) - len(i) == len(temp):
+                totalSum += len(i)
+                
+        return totalSum     
