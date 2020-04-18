@@ -1,0 +1,39 @@
+// https://leetcode.com/contest/biweekly-contest-24/problems/find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k/
+
+// My Approach
+
+class Solution:
+    def findMinFibonacciNumbers(self, k: int) -> int:
+        stack = []
+        a =1
+        b = 1
+        stack.append(a)
+        stack.append(b)
+        count = 1
+        while((a+b)<=k):
+            c = a+b
+            stack.append(c)
+            a = b
+            b = c
+        add = k - stack.pop()
+        stack.reverse()
+        for i in stack:
+            if(add>=i):
+                add = add - i
+                count+=1
+        return count
+        
+// Best
+
+class Solution(object):
+    def findMinFibonacciNumbers(self, k):
+        fib = [1,1]
+        ans = 0
+        while fib[-1] < k:
+            fib.append(fib[-1] + fib[-2])
+        while fib and k:
+            x = fib.pop()
+            if k>=x:
+                k-=x
+                ans += 1
+        return ans
