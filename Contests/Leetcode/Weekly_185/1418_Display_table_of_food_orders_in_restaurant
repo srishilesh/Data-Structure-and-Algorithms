@@ -1,0 +1,80 @@
+// https://leetcode.com/problems/display-table-of-food-orders-in-a-restaurant/
+
+// My approach
+
+import collections
+class Solution:
+    def displayTable(self, orders: List[List[str]]) -> List[List[str]]:
+        table ={}
+        ans = []
+        f = []
+        for i in orders:
+            if i[2] not in f:
+                f.append(i[2])
+        f.sort()
+        ans.append(["Table"]+f)
+        fo ={}
+        for i in f:
+            fo[i] = 0
+        #print(fo)
+        for i in orders:
+            if(int(i[1]) not in table):
+                food = fo.copy()
+                food[i[2]]+=1
+                table[int(i[1])] = food
+            else:
+                table[int(i[1])][i[2]]+=1
+        table = dict(sorted(table.items()))
+        for tab in table:
+            temp = []
+            #print(tab)
+            temp.append(str(tab))
+            for i,j in table[tab].items():
+                temp.append(str(j))
+            ans.append(temp)
+        
+        return ans
+        
+// Solution
+
+import collections
+class Solution:
+    def displayTable(self, orders: List[List[str]]) -> List[List[str]]:
+        desk = collections.defaultdict(collections.Counter)
+        meal = set()
+        for _, table, food in orders:
+            meal.add(food)
+            desk[table][food] += 1
+        foods = sorted(meal)
+        result = [['Table'] + [food for food in foods]]
+        for table in sorted(desk, key=int):
+            result.append([table] + [str(desk[table][food]) for food in foods])
+        return result
+        
+// JAVA Solution
+
+public List<List<String>> displayTable(List<List<String>> orders) {
+        final Map<Integer, Map<String, Integer>> map = new HashMap<>();
+        final Set<String> dishes = new HashSet<>();
+        for (List<String> o : orders) {
+            map.computeIfAbsent(Integer.parseInt(o.get(1)), v -> new HashMap<>())
+               .merge(o.get(2), 1, Integer::sum);
+            dishes.add(o.get(2));
+        }
+        final List<String> sortedDish = new ArrayList<>(dishes);
+        final List<Integer> tables = new ArrayList<>(map.keySet());
+        Collections.sort(sortedDish);
+        Collections.sort(tables);
+        final List<List<String>> res = new ArrayList<>();
+        for (Integer table : tables) {
+            final List<String> append = new ArrayList<>(Collections.singleton(String.valueOf(table)));
+            final Map<String, Integer> currTable = map.get(table);
+            for (String s : sortedDish) {
+                append.add(String.valueOf(currTable.getOrDefault(s, 0)));
+            }
+            res.add(append);
+        }
+        sortedDish.add(0, "Table");
+        res.add(0, sortedDish);
+        return res;
+    }
