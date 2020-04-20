@@ -1,0 +1,37 @@
+// https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+
+// Solution
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode bstFromPreorder(int[] preorder) {
+        TreeNode root = new TreeNode(preorder[0]);
+        for(int i=1;i<preorder.length;i++)
+        {
+            root = insert(root,preorder[i]);
+            //System.out.println(root.val);
+        }
+        return root;
+    }
+    public TreeNode insert(TreeNode root,int data){
+       if(root == null){
+           root = new TreeNode(data);
+           return root;
+       }
+        if(data<root.val){
+            root.left = insert(root.left,data);
+        }
+        else if(data>root.val){
+            root.right = insert(root.right,data);
+        }
+        return root;
+    }
+}
