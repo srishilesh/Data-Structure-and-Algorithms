@@ -1,0 +1,73 @@
+// https://leetcode.com/problems/reformat-the-string/
+
+class Solution:
+    def reformat(self, s: str) -> str:
+            a, b = [], []
+            for c in s:
+                if 'a' <= c <= 'z':
+                    a.append(c)
+                else:
+                    b.append(c)
+            if len(a) < len(b):
+                a, b = b, a
+            if len(a) - len(b) >= 2:
+                return ''
+            ans = ''
+            for i in range(len(a)+len(b)):
+                if i % 2 == 0:
+                    ans += a[i//2]
+                else:
+                    ans += b[i//2]
+            return ans
+
+# class Solution:
+#     def reformat(self, s: str) -> str:
+#         alpha = []
+#         num = []
+#         ans = []
+#         for i in s:
+#             asci = ord(i)
+#             if(asci>=97 and asci<=122):
+#                 alpha.append(i)
+#             elif(asci>=48 and asci<=57):
+#                 num.append(i)
+#         f = 0
+#         alpLen = len(alpha)
+#         numLen = len(num)
+#         if(alpLen>numLen):
+#             f = 1
+#             maxLen = alpLen
+#             minLen = numLen
+#         else:
+#             f = 2
+#             maxLen = numLen         
+#             minLen = alpLen
+#         if((len(alpha)==0 and len(num)==0) or (maxLen-minLen)>1):
+#             return ""
+#         elif(len(s)==1):
+#             return s
+#         else:
+#             k = 0
+#             j = 0
+#             while(k<maxLen and j<minLen):
+#                 if(f==1):
+#                     ans.append(alpha[k])
+#                     ans.append(num[j])
+#                 else:
+#                     ans.append(num[k])
+#                     ans.append(alpha[j])
+#                 j+=1  
+#                 k+=1
+#             if(f==1 and (maxLen+minLen)%2!=0):
+#                 ans.append(alpha[alpLen-1])
+#             elif((maxLen+minLen)%2!=0 and f==2):
+#                 ans.append(num[numLen-1])
+#             # if(minLen==alpLen):
+#             #     while(k<numLen):
+#             #         ans.append(num[k])
+#             #         k+=1
+#             # else:
+#             #     while(k<alpLen):
+#             #         ans.append(alpha[k])
+#             #         k+=1
+#         return ''.join([str(elem) for elem in ans])
