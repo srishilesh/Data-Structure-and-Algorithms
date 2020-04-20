@@ -1,0 +1,96 @@
+// Design a stack with push, pop and minimum value functions operating with O(n)
+
+
+// Approach 1 - Attach the Min value header to each nodes (Not efficient)
+// Approach 2 - Use separate stack to keep track of the minimum values
+
+import java.util.Stack;
+
+public class stacklinkedlist {
+	StackNode root;
+	Stack<Integer> MinStack;
+	public stacklinkedlist(){
+		MinStack = new Stack<Integer>();
+	}
+	static class StackNode{
+		int data;
+		StackNode next;
+		StackNode(int data)
+		{
+			this.data = data;
+		}
+	}
+	public boolean isEmpty()
+	{
+		if(root == null)
+			return true;
+		else
+			return false;
+	}
+	public void push(int data)
+	{
+		StackNode node = new StackNode(data);
+		if(root == null)
+			root = node;
+		else
+		{
+			
+			StackNode temp = root;
+			root = node;
+			node.next = temp;
+		}
+		if(data<=min())
+			MinStack.push(data);
+//		if(minValue>data)
+//			minValue = data;
+		System.out.println(data + " pushed to stack"); 
+	}
+	public int min()
+	{
+		if(MinStack.isEmpty())
+			return Integer.MAX_VALUE;
+		else
+			return MinStack.peek();
+	}
+	public int pop()
+	{
+		int popped = Integer.MIN_VALUE;
+		if(root == null)
+			System.out.println("Stack is empty");
+		else
+		{
+			popped = root.data;
+			root = root.next;
+		}
+		if(popped==min())
+			MinStack.pop();
+		return popped;
+	}
+//	public int min()
+//	{
+//		return minValue;
+//	}
+	public int peek() 
+    { 
+        if (root == null) { 
+            System.out.println("Stack is empty"); 
+            return Integer.MIN_VALUE; 
+        } 
+        else { 
+            return root.data; 
+        } 
+    } 
+	public static void main(String args[])
+	{
+		stacklinkedlist sll = new stacklinkedlist();
+		sll.push(10);
+		System.out.println("Minimum "+sll.min());
+		sll.push(20);
+		System.out.println("Minimum "+sll.min());
+		sll.push(30);
+		System.out.println("Minimum "+sll.min());
+		System.out.println("Popping "+sll.pop());
+		System.out.println("Peeking "+sll.peek());
+		System.out.println("Minimum "+sll.min());
+	}
+}
