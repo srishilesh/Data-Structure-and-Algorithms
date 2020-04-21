@@ -1,0 +1,41 @@
+// https://leetcode.com/problems/remove-outermost-parentheses/
+
+// My approach
+
+ public String removeOuterParentheses(String S) {
+        Stack<Character> stack = new Stack<Character>();
+        char []ch = S.toCharArray();
+        int count = 0;
+        String ans = "";
+        for(int i=0;i<ch.length;i++)
+        {
+            
+            if(ch[i]=='(')
+            {
+                stack.push(ch[i]);
+                if(stack.size()>1)
+                ans+=ch[i];
+            }
+            else
+            {
+                stack.pop();
+                if(stack.size()>=1)
+                ans+=ch[i];
+            }
+        }
+        return ans;
+    }
+    
+// SOlution
+
+class Solution {
+    public String removeOuterParentheses(String S) {
+        StringBuilder s = new StringBuilder();
+        int opened = 0;
+        for (char c : S.toCharArray()) {
+            if (c == '(' && opened++ > 0) s.append(c);
+            if (c == ')' && opened-- > 1) s.append(c);
+        }
+        return s.toString();
+    }
+    }
