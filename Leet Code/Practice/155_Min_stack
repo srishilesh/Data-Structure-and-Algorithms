@@ -3,58 +3,95 @@
 // My approach
 
 class MinStack {
-
-    /** initialize your data structure here. */
-    int MAX = 10000;
-    int top;
-    int a[] = new int[MAX];
-    public MinStack() {
-        top = -1;
+    Stack<Integer> minStack;
+    Stack<Integer> stack;
+    public MinStack()
+    {
+        minStack = new Stack<Integer>();
+        stack = new Stack<Integer>();
     }
-    
-    public void push(int x) {
-        if(top>MAX)
+    public void push(int x)
+    {
+        if(x<=getMin())
+            minStack.push(x);
+        stack.push(x);
+    }
+    public void pop()
+    {
+        if(stack.isEmpty())
             return;
         else
         {
-            a[++top] = x;
+            int val = stack.pop();
+            if(val == getMin())
+                minStack.pop();
         }
     }
-    
-    public int pop() {
-        if(top>=0)
-        {
-            int x = a[top--];
-            return x;
-        }
+    public int getMin()
+    {
+        if(minStack.isEmpty())
+            return Integer.MAX_VALUE;
         else
-            return 0;
+            return minStack.peek();
     }
-    
-    public int top() {
-        // for(int i=0;i<=top;i++)
-        //     System.out.print(a[i]+ " ");
-        // System.out.println();
-        if(top<0)
-            return 0;
+    public int top()
+    {
+        if(stack.isEmpty())
+            return -1;
         else
-        {
-            int x = a[top];
-            return x;
-        }
+            return stack.peek();
+    }
+    /** initialize your data structure here. */
+//     int MAX = 10000;
+//     int top;
+//     int a[] = new int[MAX];
+//     public MinStack() {
+//         top = -1;
+//     }
+    
+//     public void push(int x) {
+//         if(top>MAX)
+//             return;
+//         else
+//         {
+//             a[++top] = x;
+//         }
+//     }
+    
+//     public int pop() {
+//         if(top>=0)
+//         {
+//             int x = a[top--];
+//             return x;
+//         }
+//         else
+//             return 0;
+//     }
+    
+//     public int top() {
+//         // for(int i=0;i<=top;i++)
+//         //     System.out.print(a[i]+ " ");
+//         // System.out.println();
+//         if(top<0)
+//             return 0;
+//         else
+//         {
+//             int x = a[top];
+//             return x;
+//         }
         
-    }
+//     }
     
-    public int getMin() {
-        int temp = top;
-        int min = Integer.MAX_VALUE;
-        for(int i=0;i<=temp;i++)
-        {
-            if(a[i]<min)
-                min = a[i];
-        }
-        return min;
-    }
+//     public int getMin() {
+//         int temp = top;
+//         int min = Integer.MAX_VALUE;
+//         for(int i=0;i<=temp;i++)
+//         {
+//             if(a[i]<min)
+//                 min = a[i];
+//         }
+//         return min;
+//     }
 }
 
 /**
@@ -64,6 +101,4 @@ class MinStack {
  * obj.pop();
  * int param_3 = obj.top();
  * int param_4 = obj.getMin();
- */
- 
- 
+ */ 
