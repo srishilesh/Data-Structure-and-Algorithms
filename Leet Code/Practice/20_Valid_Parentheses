@@ -1,5 +1,37 @@
 // https://leetcode.com/problems/valid-parentheses/
 
+// My approach
+
+class Solution {
+    private HashMap<Character,Character> mappings;
+    public Solution(){
+        this.mappings = new HashMap<Character,Character>();
+        this.mappings.put('(',')');
+        this.mappings.put('[',']');
+        this.mappings.put('{','}');
+    }
+    public boolean isValid(String s){
+        Stack<Character> stack = new Stack<Character>();
+        char ch[] = s.toCharArray();
+        for(int i=0;i<s.length();i++){
+            if(ch[i]=='(' || ch[i]=='[' || ch[i]=='{')stack.push(ch[i]);
+            else if(stack.isEmpty()==false)
+                {if(stack.peek()=='(' && ch[i]==mappings.get('('))stack.pop();
+                else if(stack.peek()=='[' && ch[i]==mappings.get('['))stack.pop();
+                else if(stack.peek()=='{' && ch[i]==mappings.get('{'))stack.pop();
+                else return false;}
+            else
+                return false;
+        }
+        if(stack.isEmpty())   
+            return true;
+        else
+            return false;
+    }
+}
+
+// Solution
+
 class Solution {
 
   // Hash table that takes care of the mappings.
