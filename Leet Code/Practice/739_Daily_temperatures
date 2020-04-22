@@ -1,0 +1,53 @@
+// https://leetcode.com/problems/daily-temperatures/
+
+class Solution {
+    public int[] dailyTemperatures(int[] nums){
+        int ans[] = new int[nums.length];
+        Stack<Integer> stack = new Stack<Integer>();
+        for(int i=nums.length-1;i>=0;i--)
+        {
+            while(!stack.isEmpty() && (nums[i]>=nums[stack.peek()]))stack.pop();
+            ans[i] = stack.isEmpty()?0:stack.peek()-i;
+            stack.push(i);
+        }
+        return ans;
+    }
+}
+    // public int[] dailyTemperatures(int[] nums) {
+    //     Stack<Integer> stack = new Stack<Integer>();
+    //     Stack<Integer> days = new Stack<Integer>();
+    //     for(int i=0;i<nums.length;i++)
+    //     {
+    //         stack.push(nums[i]);
+    //     }
+    //     int count = 0;
+    //     int max = stack.peek();
+    //     days.push(0);
+    //     int val = 0;
+    //     while(stack.isEmpty()==false)
+    //     {
+    //         int top = stack.pop();
+    //         int nexttop = stack.peek();
+    //         if(nexttop>top)
+    //         {
+    //             if(nexttop>max)
+    //                 max = nexttop;
+    //             count = 0;
+    //             days.push(0);
+    //         }
+    //         else
+    //         {
+    //             count++;
+    //             days.push(1);
+    //         }
+    //     }
+    //     int ans[] = new int[days.size()];
+    //     int index = 0;
+    //     while(days.isEmpty()==false)
+    //     {
+    //         ans[index] = days.pop();
+    //         index++;
+    //     }
+    //     return ans;
+    // }
+// }
