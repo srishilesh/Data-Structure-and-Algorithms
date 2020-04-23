@@ -1,0 +1,64 @@
+// https://leetcode.com/problems/evaluate-reverse-polish-notation/
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<String> stack = new Stack<String>();
+        int sum = 0;
+        if(tokens.length==1)
+            return Integer.parseInt(tokens[0]);
+        for(int i=0;i<tokens.length;i++)
+        {
+            if(Character.isDigit(tokens[i].charAt(0))==true || tokens[i].length()>1)
+                stack.push(tokens[i]);
+            else
+            {
+                int op1 = Integer.parseInt(stack.peek());
+                stack.pop();
+                int op2 = Integer.parseInt(stack.peek());
+                stack.pop();
+                sum=operation(tokens[i],op2,op1);
+                stack.push(sum+"");
+            }
+        }
+        return sum;
+    }
+        public int operation(String operator,int a, int b)
+   {
+        if(operator.equals("+"))
+            return a+b;
+       else if(operator.equals("*"))
+           return a*b;
+       else if(operator.equals("-"))
+           return a-b;
+       else 
+           return a/b;
+   }
+}
+//         Stack<String> stack = new Stack<String>();
+//         for(int i=0;i<tokens.length;i++)
+//             stack.push(tokens[i]);
+//         return evaluate(stack);
+//     }
+//     public int evaluate(Stack<String> stack){
+//         if(Character.isDigit(stack.peek().charAt(0)))
+//             return Integer.parseInt(stack.pop());
+//         else{
+//             String operator = stack.pop();
+//             String val1 = stack.pop();
+//             int result = operation(operator,Integer.parseInt(val1),evaluate(stack));
+//             return result;
+//            }
+//    }
+   //  public int operation(String operator,int a, int b)
+   // {
+   //      if(operator.equals("+"))
+   //          return a+b;
+   //     else if(operator.equals("*"))
+   //         return a*b;
+   //     else if(operator.equals("-"))
+   //         return a-b;
+   //     else 
+   //         return a/b;
+   // }
+                                   
+// }
