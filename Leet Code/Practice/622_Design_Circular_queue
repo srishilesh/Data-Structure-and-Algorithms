@@ -1,0 +1,100 @@
+// https://leetcode.com/problems/design-circular-queue/
+
+class MyCircularQueue {
+    int front;
+    int rear;
+    int size;
+    int queue[];
+    /** Initialize your data structure here. Set the size of the queue to be k. */
+    public MyCircularQueue(int k) {
+        size = k;
+        queue = new int[size];
+        front = -1;
+        rear = -1;
+    }
+    
+    /** Insert an element into the circular queue. Return true if the operation is successful. */
+    public boolean enQueue(int value) {
+        if(isFull())
+            return false;
+        else if(front==-1)
+        {
+            front = 0;
+            rear = 0;
+            queue[rear] = value;
+            return true;
+        }
+        else
+        {
+            rear = (rear + 1)%size;
+            queue[rear] = value;
+            return true;
+        }
+    }
+    
+    /** Delete an element from the circular queue. Return true if the operation is successful. */
+    public boolean deQueue() {
+        if(isEmpty())
+            return false;
+        else if(front==rear)
+        {
+            queue[front] = -1;
+            front = -1;
+            rear = -1;
+            return true;
+        }
+        else
+        {
+            queue[front] = -1;
+            front = (front + 1)%size;
+            return true;
+        }
+    }
+    
+    /** Get the front item from the queue. */
+    public int Front() {
+        if(isEmpty())
+            return -1;
+        else
+            return queue[front];
+        
+    }
+    
+    /** Get the last item from the queue. */
+    public int Rear() {
+        if(isEmpty())
+            return -1;
+        else
+            return queue[rear];
+    }
+    
+    /** Checks whether the circular queue is empty or not. */
+    public boolean isEmpty() {
+        if(front==-1)
+            return true;
+        else
+            return false;
+    }
+    
+    /** Checks whether the circular queue is full or not. */
+    public boolean isFull() {
+        if((rear+1)%size==front)
+            return true;
+        else
+            return false;
+    }
+}
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue obj = new MyCircularQueue(k);
+ * boolean param_1 = obj.enQueue(value);
+ * boolean param_2 = obj.deQueue();
+ * int param_3 = obj.Front();
+ * int param_4 = obj.Rear();
+ * boolean param_5 = obj.isEmpty();
+ * boolean param_6 = obj.isFull();
+ */
+
+// ["MyCircularQueue","enQueue","enQueue","enQueue","enQueue","Rear","isFull","deQueue","enQueue","Rear"]
+// [[3],[1],[2],[3],[4],[],[],[],[4],[]]
