@@ -1,39 +1,68 @@
 // https://leetcode.com/problems/evaluate-reverse-polish-notation/
 
 class Solution {
-    public int evalRPN(String[] tokens) {
-        Stack<String> stack = new Stack<String>();
-        int sum = 0;
-        if(tokens.length==1)
-            return Integer.parseInt(tokens[0]);
-        for(int i=0;i<tokens.length;i++)
+    public int evalRPN(String[] tokens){
+        int a,b;
+        Stack<Integer> stack = new Stack<Integer>();
+        for(String s:tokens)
         {
-            if(Character.isDigit(tokens[i].charAt(0))==true || tokens[i].length()>1)
-                stack.push(tokens[i]);
-            else
+            if(s.equals("+"))
+                stack.push(stack.pop()+stack.pop());
+            else if(s.equals("-"))
             {
-                int op1 = Integer.parseInt(stack.peek());
-                stack.pop();
-                int op2 = Integer.parseInt(stack.peek());
-                stack.pop();
-                sum=operation(tokens[i],op2,op1);
-                stack.push(sum+"");
+                b = stack.pop();
+                a = stack.pop();
+                stack.push(a-b);
             }
+            else if(s.equals("*"))
+                stack.push(stack.pop()*stack.pop());
+            else if(s.equals("/"))
+            {
+                b = stack.pop();
+                a = stack.pop();
+                stack.push(a/b);
+            }
+            else
+                stack.push(Integer.parseInt(s));
         }
-        return sum;
+        return stack.pop();
     }
-        public int operation(String operator,int a, int b)
-   {
-        if(operator.equals("+"))
-            return a+b;
-       else if(operator.equals("*"))
-           return a*b;
-       else if(operator.equals("-"))
-           return a-b;
-       else 
-           return a/b;
-   }
 }
+//     public int evalRPN(String[] tokens) {
+//         Stack<String> stack = new Stack<String>();
+//         int sum = 0;
+//         if(tokens.length==1)
+//             return Integer.parseInt(tokens[0]);
+//         for(int i=0;i<tokens.length;i++)
+//         {
+//             if(Character.isDigit(tokens[i].charAt(0))==true || tokens[i].length()>1)
+//                 stack.push(tokens[i]);
+//             else
+//             {
+//                 int op1 = Integer.parseInt(stack.peek());
+//                 stack.pop();
+//                 int op2 = Integer.parseInt(stack.peek());
+//                 stack.pop();
+//                 sum=operation(tokens[i],op2,op1);
+//                 stack.push(sum+"");
+//             }
+//         }
+//         return sum;
+//     }
+//         public int operation(String operator,int a, int b)
+//    {
+//         if(operator.equals("+"))
+//             return a+b;
+//        else if(operator.equals("*"))
+//            return a*b;
+//        else if(operator.equals("-"))
+//            return a-b;
+//        else 
+//            return a/b;
+//    }
+// }
+    
+    
 //         Stack<String> stack = new Stack<String>();
 //         for(int i=0;i<tokens.length;i++)
 //             stack.push(tokens[i]);
