@@ -1,0 +1,47 @@
+// https://leetcode.com/problems/bitwise-and-of-numbers-range/
+
+class Solution {
+    // BRIAN KERNIGHAN'S ALGORITHM
+    public int rangeBitwiseAnd(int m,int n)
+    {
+        while(n>m)
+        {
+            n&=(n-1);
+        }
+        return m&n;
+    }
+}
+    
+// BY FINDING THE COMMON BIT PATTERNS
+//     public int rangeBitwiseAnd(int m,int n)
+//     {
+//         int factor = 1;
+//         while(m!=n)
+//         {
+//             m>>=1;
+//             n>>=1;
+//             factor <<=1;
+//             System.out.println(m+" "+n+" "+factor);
+//         }
+//         return m*factor;
+//     }
+// }
+    
+// MY METHOD    
+//     public int rangeBitwiseAnd(int m, int n) {
+//         int sum = m,max = 0;
+//         if(m==n)
+//             return m;
+       
+//         for(int i=m+1;i<=n;i++)
+//         {
+//             sum = sum & i;
+//             max = sum;
+//             if(i==2147483647)
+//                 break;
+//             if(sum==0)
+//                 break;
+//         }
+//         return max;
+//     }
+// }
