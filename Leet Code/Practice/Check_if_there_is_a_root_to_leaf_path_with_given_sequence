@@ -1,0 +1,48 @@
+// https://leetcode.com/explore/featured/card/30-day-leetcoding-challenge/532/week-5/3315/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isValidSequence(TreeNode root, int[] arr) {
+        //int position = 0;
+        // if(root.val != arr[0])
+        //     return false;
+        // else
+            // return callDFS(root.left,1,arr) || callDFS(root.right,1,arr);
+        return callDFS(root,0,arr);
+    }
+    public boolean callDFS(TreeNode root, int index, int[] arr) {
+        if(index<arr.length)
+        {
+        if(root == null)return arr.length==0;
+        if((root.left==null && root.right==null) && (root.val==arr[index]) && (root.val==arr[arr.length-1]))
+            return true;
+        return (index<arr.length && (root.val==arr[index] && (callDFS(root.left,index+1,arr) ||           callDFS(root.right, index+1,arr))));
+        }
+        return false;
+//         if(pos<arr.length)
+//         {
+            
+//             if(root.val != arr[pos])
+//                 return false;
+//             else
+//             {
+//                 return callDFS(root.left,pos+1,arr) || callDFS(root.right,pos+1,arr);
+//             }
+//         }
+//         return true;
+    }
+}
