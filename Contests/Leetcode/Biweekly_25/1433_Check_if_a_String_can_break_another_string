@@ -1,0 +1,26 @@
+// https://leetcode.com/problems/check-if-a-string-can-break-another-string/
+
+// My approach
+
+class Solution:
+    def checkIfCanBreak(self, s1: str, s2: str) -> bool:
+        a = []
+        b = []
+        for i in s1:
+            a.append(ord(i))
+        for i in s2:
+            b.append(ord(i))
+        a.sort()
+        b.sort()
+        c = []
+        for i in range(len(a)):
+            c.append(a[i]-b[i])
+        orig = sum(c)
+        dup = 0
+        for i in c:
+            dup+=abs(i)
+        print(orig,dup)
+        if(orig<dup and abs(orig)!=abs(dup)):
+            return False
+        return True
+        
