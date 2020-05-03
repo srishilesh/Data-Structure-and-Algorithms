@@ -1,0 +1,42 @@
+// https://leetcode.com/problems/destination-city/submissions/
+
+// My approach
+
+class Solution:
+    def destCity(self, paths: List[List[str]]) -> str:
+        city = {}
+        mapping = {}
+        for path in paths:
+            mapping[path[0]] = path[1]
+            if(path[0] not in city):
+                city[path[0]] = 0
+            else:
+                city[path[0]]+=1
+            if(path[1] not in city):
+                city[path[1]] = 0
+            else:
+                city[path[1]]+=1
+        print(city)
+        for key,val in city.items():
+            if(val==0 and key not in mapping):
+                return key
+        
+        return ""
+            
+// Java solution
+
+class Solution {
+    public String destCity(List<List<String>> paths) {
+        if(paths==null || paths.size()==0) return "";
+        Map<String, String> map = new HashMap<>();
+        for(List<String> path : paths) {
+            map.put(path.get(0), path.get(1));
+        }
+        for(String city : map.values()) {
+            if(!map.containsKey(city)) {
+                return city;
+            }
+        }
+        return "";
+    }
+}
