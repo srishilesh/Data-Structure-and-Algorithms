@@ -1,0 +1,41 @@
+// https://leetcode.com/problems/check-if-all-1s-are-at-least-length-k-places-away/
+
+// My approach
+
+class Solution:
+    def kLengthApart(self, nums: List[int], k: int) -> bool:
+        ones = [-99999]
+        f = 1
+        for i in range(len(nums)):
+            if nums[i]==1:
+                if((i-ones[-1]-1)>=k):
+                    f = 1
+                    ones.append(i)
+                else:
+                    f = 0
+                    break
+        print(ones)
+        if(f==0):
+            return False
+        else:        
+            return True
+        #f = 1
+        
+        # for i in range(len(ones)):
+        #     for j in range(i+1,len(ones)):
+        #         if((ones[j]-ones[i]-1)>=k):
+        #             f = 1
+        #         else:
+        #             f = 0
+        #             break
+
+// Java Solution
+
+public boolean kLengthApart(int[] nums, int k) {
+	for(Integer previousOneIndex = null,i=0; i<nums.length; i++)
+		if(nums[i]==1) {
+			if(previousOneIndex != null && i-previousOneIndex <= k) return false;
+			previousOneIndex = i;
+		}
+	return true;
+}
