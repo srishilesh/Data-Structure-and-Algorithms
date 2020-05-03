@@ -1,0 +1,28 @@
+// https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
+
+// My approach
+
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        count = 0
+        minsofar = 0
+        maxsofar = 0
+        for i in range(len(nums)):
+            maxsum = nums[i]
+            minsum = nums[i]
+            c = 0
+            for j in range(i,len(nums)):
+                if(maxsum<nums[j]):
+                    maxsum = nums[j]
+                if(minsum>nums[j]):
+                    minsum = nums[j]
+                if(abs(maxsum-minsum)<=limit):
+                    c = j-i+1
+                else:
+                    break
+            if(count<c):
+                count = c
+            if(count==len(nums)):
+                break
+        return count
+                
