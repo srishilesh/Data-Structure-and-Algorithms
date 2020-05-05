@@ -1,0 +1,71 @@
+// https://leetcode.com/problems/implement-stack-using-queues/
+
+// My solution
+
+class MyStack {
+    //LinkedList<Integer> stack;
+    LinkedList<Integer> q1;
+    int top;
+    /** Initialize your data structure here. */
+    public MyStack() {
+         //stack = new LinkedList<Integer>();
+        q1 = new LinkedList<Integer>();
+        top = -1;
+    }
+    
+    /** Push element x onto stack. */
+    public void push(int x) {
+        // stack.add(x);
+        // top++;
+        q1.add(x);
+    int sz = q1.size();
+    while (sz > 1) {
+        q1.add(q1.remove());
+        sz--;
+    }
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    public int pop() {
+        // int tmp = top;
+        // while(tmp!=0) {
+        //     stack.add(stack.remove());
+        //     tmp--;
+        // }
+        // top--;
+        // // stack.remove();
+        // return stack.remove();
+        return q1.remove();
+    }
+    
+    /** Get the top element. */
+    public int top() {
+        // int tmp = top;
+        // while(tmp!=0) {
+        //     stack.add(stack.remove());
+        //     tmp--;
+        // }
+        // int peek = stack.remove();
+        // stack.add(peek);
+        // return peek;
+        return q1.peek();
+    }
+    
+    /** Returns whether the stack is empty. */
+    public boolean empty() {
+        // if(top==-1)
+        //    return true;
+        // else
+        //     return false;
+        return q1.isEmpty();
+    }
+}
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * boolean param_4 = obj.empty();
+ */
