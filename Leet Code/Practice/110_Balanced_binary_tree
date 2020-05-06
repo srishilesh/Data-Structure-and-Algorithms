@@ -1,0 +1,80 @@
+// https://leetcode.com/problems/balanced-binary-tree/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+//     int f = 0;
+//     public boolean isBalanced(TreeNode root) {
+//         if(root==null)
+//             return true;
+//         int maxheight = height(root);
+//         System.out.println(maxheight);
+//         return inorder(root,maxheight);
+//     }
+//     public int height(TreeNode root) {
+//         if(root==null)
+//             return 0;
+//         else
+//         {
+//             int left = height(root.left);
+//             int right = height(root.right);
+//             if(left>right)
+//                 return left+1;
+//             else
+//                 return right+1;
+//         }
+//     }
+//     public boolean inorder(TreeNode root, int maxheight) {
+//         if(root!=null) {
+//             inorder(root.left,maxheight);
+//             // if(root.left!=null && root.right!=null)
+//             System.out.println(height(root.left)+" "+height(root.right));
+//             if(Math.abs(height(root.right)-height(root.left))>1)
+//                 f = 1;
+//             inorder(root.right,maxheight);
+//             //return true;
+//         }
+//         if(f==0)
+//         return true;
+//         else
+//             return false;
+        
+//     }
+    public boolean isBalanced(TreeNode root) {
+    if(root==null){
+        return true;
+    }
+    return height(root)!=-1;
+    
+}
+public int height(TreeNode node){
+    if(node==null){
+        return 0;
+    }
+    int lH=height(node.left);
+    if(lH==-1){
+        return -1;
+    }
+    int rH=height(node.right);
+    if(rH==-1){
+        return -1;
+    }
+    if(lH-rH<-1 || lH-rH>1){
+        return -1;
+    }
+    return Math.max(lH,rH)+1;
+}
+}
