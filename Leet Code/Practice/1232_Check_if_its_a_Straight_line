@@ -1,0 +1,30 @@
+// https://leetcode.com/problems/check-if-it-is-a-straight-line/
+
+class Solution {
+    int x1=-1,x2=-1,y1=-1,y2=-1;
+        
+    public boolean checkStraightLine(int[][] coordinates) {
+        if(coordinates.length<2)
+            return false;
+        x1 = coordinates[0][0];
+        y1 = coordinates[0][1];
+        x2 = coordinates[1][0];
+        y2 = coordinates[1][1];
+        for(int i=2;i<coordinates.length;i++) {
+            if(checkEquation(coordinates[i][0],coordinates[i][1])==false)
+                return false;
+        }
+        return true;
+    }
+    public boolean checkEquation(int x, int y) {
+       int lhs =0,rhs=0;
+        if(x1!=x2)
+            lhs = (int)((x-x1)/(x2-x1));
+        if(y1!=y2)
+            rhs = ((int)((y-y1)/(y2-y1)));
+        if(lhs == rhs || (lhs == 0 && x1==x) || (rhs==0 && y1==y))
+            return true;
+        else
+            return false;
+    }
+}
