@@ -1,0 +1,37 @@
+// https://leetcode.com/problems/find-the-town-judge/
+
+// class Solution {
+//     public int findJudge(int N, int[][] trust) {
+//         HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+//         if(N==1 || trust.length==0)
+//             return 1;
+//         List<Integer> untrusted = new ArrayList<Integer>();
+//         for(int i=0;i<trust.length;i++) {
+//             map.put(trust[i][1],map.getOrDefault(trust[i][1],0)+1);
+//             untrusted.add(trust[i][0]);
+//         }
+//         System.out.println(map);
+//         for(Map.Entry mape: map.entrySet()) {
+//             int val = (int)mape.getValue();
+//             int key = (int)mape.getKey();
+//             if(val==N-1 && untrusted.contains(key)==false)
+//                 return key;
+//         }
+//         return -1;
+//     }
+// }
+
+class Solution {
+    
+    public int findJudge(int N, int[][] trust) {
+        int[] isTrusted = new int[N+1];
+        for(int[] person : trust){
+            isTrusted[person[0]]--;
+            isTrusted[person[1]]++;
+        }
+        for(int i = 1;i < isTrusted.length;i++){
+            if(isTrusted[i] == N-1) return i;
+        }
+        return -1;
+    }
+}
