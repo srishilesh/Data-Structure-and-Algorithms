@@ -1,0 +1,53 @@
+// https://leetcode.com/problems/flood-fill/
+
+// My Approach
+
+
+// class Solution {
+//     int start;
+//     //int newC;
+//     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+//         start = image[sr][sc];
+//         int[][] result = new int[image.length][image[0].length];
+//         //newC = newColor;
+//         for(int i=0;i<image.length;i++) {
+//             for(int j=0;j<image[i].length;j++) {
+//                 if(image[i][j] == start) {
+//                     if(callDFS(image,i-1,j)==start || callDFS(image,i+1,j)==start || callDFS(image,i,j-1)==start || callDFS(image,i,j+1)==start)
+//                         result[i][j] = newColor;
+//                     else
+//                         continue;
+                    
+//                 }
+//                 else
+//                         result[i][j] = image[i][j];
+//             }
+//         }
+//         return result;
+//     }
+//     public int callDFS(int[][] image,int i, int j) {
+//         if(i<0 || j<0 || i>=image.length || j>=image[i].length || image[i][j]!=start)
+//             return -1;
+//         else
+//             return image[i][j];
+//     }
+// }
+
+// Solution
+
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        int color = image[sr][sc];
+        if (color != newColor) dfs(image, sr, sc, color, newColor);
+        return image;
+    }
+    public void dfs(int[][] image, int r, int c, int color, int newColor) {
+        if (image[r][c] == color) {
+            image[r][c] = newColor;
+            if (r >= 1) dfs(image, r-1, c, color, newColor);
+            if (c >= 1) dfs(image, r, c-1, color, newColor);
+            if (r+1 < image.length) dfs(image, r+1, c, color, newColor);
+            if (c+1 < image[0].length) dfs(image, r, c+1, color, newColor);
+        }
+    }
+}
