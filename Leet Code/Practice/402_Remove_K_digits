@@ -1,0 +1,85 @@
+// https://leetcode.com/problems/remove-k-digits/
+
+// USING GREEDY APPROACH - SOLUTION 2
+class Solution {
+    public String removeKdigits(String num, int k) {
+        int len = num.length();
+        int digits = len - k;
+        if(len == k)return "0";
+        char[] nums = new char[len];
+        int i = 0;
+        int top = 0;
+        while(i<len) {
+            char c = num.charAt(i);
+            while(k>0 && top>0 && nums[top-1]>c) {
+                top--;
+                k--;
+            }
+            nums[top++] = c;
+            i++;
+        }
+        int idx = 0;
+        while(idx<digits && nums[idx]=='0')idx++;
+        return idx==digits?"0":new String(nums,idx,digits-idx);
+    }
+}
+
+// USING STACK - SOLUTION 1
+// class Solution {
+//     public String removeKdigits(String num, int k) {
+//         int len = num.length();
+//         if(len == k)return "0";
+//         Stack<Character> stack = new Stack<>();
+//         for(int i=0;i<len;i++) {
+//             while(k>0 && !stack.isEmpty() && stack.peek()>num.charAt(i)) {
+//                 stack.pop();
+//                 k--;
+//             }
+//             stack.push(num.charAt(i));
+//         }
+//         while(k>0) {
+//             stack.pop();
+//             k--;
+//         }
+//         StringBuilder sb = new StringBuilder();
+//         while(!stack.isEmpty()) { 
+//             sb.append(stack.pop());
+//         }
+//         sb.reverse();
+//         while(sb.length()>1 && sb.charAt(0)=='0')
+//             sb.deleteCharAt(0);
+//         return sb.toString();
+//     }
+// }
+
+// MY APPROACH
+// class Solution {
+//     public String removeKdigits(String num, int k) {
+//         if(num.length() == k) return "0";
+//         int a[] = new int[num.length()];
+//         char nums[] = num.toCharArray();
+//         for(int i=1;i<nums.length-1;i++) {
+//             //System.out.println(Character. getNumericValue(nums[i]));
+//             a[i-1] = Character. getNumericValue(nums[i]) - Character. getNumericValue(nums[i-1]);
+//         }
+//         a[nums.length - 1] = Character. getNumericValue(nums[nums.length-1]);
+//         String result = "";
+//         for(int i=0;i<a.length;i++) {
+//             if(a[i] >= 0) {
+//                 if(a[i]>0 && nums[i] == '0') {
+//                     if(i<nums.length)
+//                     result += nums[i+1];
+//                     else
+//                        result += nums[i];
+//                     continue;
+//                 }
+                    
+//                 result += nums[i];
+//             }
+//         }
+//         System.out.println(result);
+//         int ans = Integer.parseInt(result);
+//         String fin = ans+"";
+//         return fin;
+//     }
+// }
