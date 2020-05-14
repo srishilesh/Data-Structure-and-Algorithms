@@ -1,0 +1,73 @@
+// https://leetcode.com/problems/add-and-search-word-data-structure-design/
+
+class WordDictionary {
+
+    /** Initialize your data structure here. */
+    private class TrieNode {
+        Map<Character,TrieNode> children;
+        boolean endOfWord;
+        TrieNode() {
+            children = new HashMap<Character,TrieNode>();
+            endOfWord = false;
+        }
+    }
+    private final TrieNode root;
+    public WordDictionary() {
+        root = new TrieNode();
+    }
+    
+    /** Adds a word into the data structure. */
+    public void addWord(String word) {
+        TrieNode current = root;
+        for(int i=0;i<word.length();i++) {
+            char ch = word.charAt(i);
+            TrieNode node = current.children.get(ch);
+            if(node == null) {
+                node = new TrieNode();
+                current.children.put(ch,node);
+            }
+            current = node;
+        }
+        current.endOfWord = true;
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    public boolean search(String word) {
+        // TrieNode current = root;
+        // for(int i=0;i<word.length();i++) {
+        //     char ch = word.charAt(i);
+        //     if(ch == '.')
+        //         TrieNode node = chooseLetter(current, i, word);
+        //     else
+        //         TrieNode node = current.children.get(ch);
+        //     if(node == null)
+        //         return false;
+        //     current = node;
+        // }
+        // return current.endOfWord;
+        return search(word, 0 ,root);
+    }
+    public boolean search(String word, int idx, TrieNode node) {
+       if(idx == word.length())
+           return node.endOfWord;
+        if(word.charAt(idx)=='.') {
+            for(char c:node.children.keySet()) {
+                if(search(word,idx+1,node.children.get(c)))
+                    return true;
+            }
+        }
+        else {
+            if(node.children.get(word.charAt(idx))!=null) {
+                return search(word,idx+1,node.children.get(word.charAt(idx)));
+            }
+        }
+        return false;
+    }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
