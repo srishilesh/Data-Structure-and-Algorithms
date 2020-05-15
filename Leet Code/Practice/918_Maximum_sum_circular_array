@@ -1,0 +1,41 @@
+// https://leetcode.com/problems/maximum-sum-circular-subarray/
+
+class Solution {
+    public int maxSubarraySumCircular(int[] A) {
+        int total = 0, maxSum = -99999, minSum = 99999, curMax = 0, curMin = 0;
+        for(int a:A){
+            curMax = Math.max(a, a+curMax);
+            maxSum = Math.max(maxSum, curMax);
+            curMin = Math.min(a, a+curMin);
+            minSum = Math.min(minSum, curMin);
+            total+=a;
+        }
+        return maxSum>0?Math.max(maxSum,total-minSum):maxSum;
+    }
+}
+// class Solution {
+//     public int maxSubarraySumCircular(int[] A) {
+//         if(A.length==1)return A[0];
+//         int dp[] = new int[A.length];
+//         dp[0] = A[0];
+//         int max1 = A[0];
+//         for(int i=1;i<A.length;i++) {
+//             dp[i] = A[i] + (dp[i-1]>0?dp[i-1]:0);
+//             max1 = Math.max(max1,dp[i]);
+//         }
+//         dp[0] = A[0];
+//         dp[1] = A[1];
+//         int max2 = A[1];
+//         for(int i=2;i<A.length;i++) {
+//             dp[i] = A[i] + (dp[i-1]>0?dp[i-1]:0);
+//             max2 = Math.max(max2,dp[i]);
+//             //System.out.println(max2);
+//         }
+//         dp[0] = A[0] + (dp[A.length-1]>0?dp[A.length-1]:0);
+//         max2 = Math.max(max2,dp[0]);
+//         dp[1] = A[1] + (dp[0]>0?dp[0]:0);
+//         max2 = Math.max(max2,dp[1]);
+//         //System.out.println(max1+" "+max2);
+//         return Math.max(max1,max2);
+//     }
+// }
