@@ -1,0 +1,109 @@
+// https://www.hackerrank.com/challenges/contacts/problem
+
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+import java.util.List; 
+import java.util.ArrayList;
+
+public class Solution {
+    public static class TrieNode {
+        Map<Character,TrieNode> children;
+        boolean endOfWord;
+        int count;
+        public TrieNode() {
+            children = new HashMap<Character,TrieNode>();
+            endOfWord = false;
+            count = 0;
+        }
+    }
+    public static TrieNode root;
+    // public Solution() {
+    //     root = new TrieNode();
+    // }
+    public static void insert(String word) {
+        TrieNode current = root;
+        for(int i=0;i<word.length();i++) {
+            char ch = word.charAt(i);
+            TrieNode node;
+            //System.out.println(current.children);
+            if(current.children.size()>0)
+                node = current.children.get(ch);
+            else {
+                node = new TrieNode();
+                current.children.put(ch,node);
+                current.count = current.count + 1;
+            }
+            current = node;
+        }
+        current.endOfWord = true;
+    }
+    static int search(String word) {
+        TrieNode current = root;
+        for(int i=0;i<word.length();i++) {
+            char ch = word.charAt(i);
+            TrieNode node;
+            if(current.children.containsKey(ch)==true)
+             node = current.children.get(ch);
+            else
+                return 0;
+            current = node;
+        }
+        return current.children.size();
+    }
+    static int[] contacts(String[][] queries) {
+        root = new TrieNode();
+        List<Integer> result = new ArrayList<Integer>();
+        for(int i=0;i<queries.length;i++) {
+            for(int j=0;j<2;j++)
+            {
+                if(queries[i][0].equals("add"))
+                    insert(queries[i][1]);
+                else {
+                    int c=search(queries[i][1]);
+                    if(c!=-1)
+                        result.add(c);
+                }
+            }
+        }
+        int[] arr = new int[result.size()]; 
+        for(int i=0;i<result.size();i++)
+            arr[i] = result.get(i);
+        return arr;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int queriesRows = Integer.parseInt(scanner.nextLine().trim());
+
+        String[][] queries = new String[queriesRows][2];
+
+        for (int queriesRowItr = 0; queriesRowItr < queriesRows; queriesRowItr++) {
+            String[] queriesRowItems = scanner.nextLine().split(" ");
+
+            for (int queriesColumnItr = 0; queriesColumnItr < 2; queriesColumnItr++) {
+                String queriesItem = queriesRowItems[queriesColumnItr];
+                queries[queriesRowItr][queriesColumnItr] = queriesItem;
+            }
+        }
+        
+        int[] result = contacts(queries);
+
+        for (int resultItr = 0; resultItr < result.length; resultItr++) {
+            bufferedWriter.write(String.valueOf(result[resultItr]));
+
+            if (resultItr != result.length - 1) {
+                bufferedWriter.write("\n");
+            }
+        }
+
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+    }
+}
