@@ -1,0 +1,36 @@
+// https://leetcode.com/problems/simplified-fractions/
+
+// My approach
+
+class Solution {
+    public List<String> simplifiedFractions(int n) {
+        if(n==1)
+            return new ArrayList<String>();
+        List<String> result = new ArrayList<String>();
+        String tmp = "";
+        if(n==2)
+            result.add("1/2");
+        for(int i=1;i<n;i++) {
+            for(int j=i+1;j<=n;j++) {
+                if(gcd(j,i)==1) {
+                    if(j<=n)
+                    tmp = i+"/"+j;
+                }
+                if(result.contains(tmp)==false && tmp!="")
+                result.add(tmp);
+            }
+        }
+        return result;
+    }
+    public int gcd(int a, int b) { 
+        if (a == 0) 
+          return b; 
+        if (b == 0) 
+          return a; 
+        if (a == b) 
+            return a; 
+        if (a > b) 
+            return gcd(a-b, b); 
+        return gcd(a, b-a); 
+    }
+}
