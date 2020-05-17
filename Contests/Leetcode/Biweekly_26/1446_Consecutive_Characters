@@ -1,0 +1,22 @@
+// https://leetcode.com/problems/consecutive-characters/
+
+class Solution {
+    public int maxPower(String s) {
+        int a[] = new int[s.length()];
+        if(s.length()==0)
+            return 0;
+        if(s.length()==1)
+            return 1;
+        a[0] = 1;
+        int max = 0;
+        for(int i=1;i<s.length();i++) {
+            if(s.charAt(i)==s.charAt(i-1))
+                a[i] = a[i-1] + 1;
+            else
+                a[i] = 1;
+            if(max<a[i])
+                max = a[i];
+        }
+        return max;
+    }
+}
