@@ -1,0 +1,30 @@
+// https://leetcode.com/problems/permutation-in-string/
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int[] char_counts = new int[26];
+        for(char c : s1.toCharArray())
+            char_counts[c-'a']++;
+        
+        int start = 0;
+        int end = 0;
+        int count = s1.length();
+        
+        while(end < s2.length()) {
+            if(char_counts[s2.charAt(end)-'a'] >= 1) 
+                count--;
+            char_counts[s2.charAt(end)-'a']--;
+            end++;
+            
+            if(count == 0)return true;
+            
+            if(end - start == s1.length()) {
+                if(char_counts[s2.charAt(start)-'a'] >= 0) 
+                    count++;
+                char_counts[s2.charAt(start)-'a']++;
+                start++;
+            }
+        }
+        return false;
+    }
+}
