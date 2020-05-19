@@ -1,0 +1,55 @@
+// https://www.hackerrank.com/challenges/missing-numbers/problem
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the missingNumbers function below.
+def missingNumbers(arr, brr):
+    original = {}
+    dup = {}
+    if(len(arr) == len(brr)):
+        return []
+    result = []
+    for i in brr:
+        if i in original:
+            original[i]+=1
+        else:
+            original[i] = 1
+    for i in arr:
+        if i in dup:
+            dup[i]+=1
+        else:
+            dup[i] = 1
+    for key,item in original.items():
+        if(key not in dup):
+            result.append(key)
+        else:
+            if(dup[key]!=item):
+                for i in range(abs(item-dup[key])):
+                    result.append(key)
+    result = list(set(result))
+    result.sort()
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input())
+
+    arr = list(map(int, input().rstrip().split()))
+
+    m = int(input())
+
+    brr = list(map(int, input().rstrip().split()))
+
+    result = missingNumbers(arr, brr)
+
+    fptr.write(' '.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
