@@ -1,0 +1,72 @@
+// https://leetcode.com/problems/online-stock-span/
+
+class StockSpanner {
+    Stack<Integer> prices,weights;
+    public StockSpanner() {
+        prices = new Stack<Integer>();
+        weights = new Stack<Integer>();
+    }
+    public int next(int price) {
+        int w = 1;
+        while(!prices.isEmpty() && prices.peek() <= price) {
+            prices.pop();
+            w+=weights.pop();
+        }
+        prices.push(price);
+        weights.push(w);
+        return w;
+    }
+}
+
+// class StockSpanner {
+//     List<Integer> stock;
+//     List<Integer> result;
+//     int pointer;
+//     int length;
+//     public StockSpanner() {
+//         stock = new ArrayList<Integer>();
+//         result = new ArrayList<Integer>();
+//         pointer = 0;
+//         length = 0;
+//     }
+    
+//     public int next(int price) {
+//         System.out.println(price);
+//         if(length == 0) {
+//             stock.add(price);
+//             pointer++;
+//             length++;
+//             result.add(null);
+//         }
+//         else if(stock.get(pointer)>=price) {
+//             stock.add(price);
+//             pointer++;
+//             length++;
+//             result.add(length - pointer);
+//         }
+//         else {
+//             int idx = pointer;
+//             while(stock.get(idx)<price) {
+//                 idx--;
+//             }
+//             stock.add(idx,price);
+//             length++;
+//             pointer = length - 1;
+//             result.add(length - idx);
+//         }
+//         System.out.println(stock.get(1));
+//         System.out.println(result.get(1));
+//         return result.get(result.size()-1);
+//     }
+// }
+
+// /**
+//  * Your StockSpanner object will be instantiated and called as such:
+//  * StockSpanner obj = new StockSpanner();
+//  * int param_1 = obj.next(price);
+//  */
+
+// /*
+// ["StockSpanner","next","next","next","next","next","next","next"]
+// [[],[100],[80],[60],[70],[60],[75],[85]]
+// */
