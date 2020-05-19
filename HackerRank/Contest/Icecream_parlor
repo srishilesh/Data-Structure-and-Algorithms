@@ -1,0 +1,42 @@
+// https://www.hackerrank.com/challenges/icecream-parlor/problem
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the icecreamParlor function below.
+def icecreamParlor(m, arr):
+    result = []
+    for idx,val in enumerate(arr):
+        if(m-val in arr[idx+1:]):
+            result.append(idx+1)
+            #print(arr[idx+1:].index(m-val) + idx + 2)
+            result.append(arr[idx+1:].index(m-val)+idx+2)
+            break
+    if(len(result)>0):
+        return result
+    else:
+        return -1
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    t = int(input())
+
+    for t_itr in range(t):
+        m = int(input())
+
+        n = int(input())
+
+        arr = list(map(int, input().rstrip().split()))
+
+        result = icecreamParlor(m, arr)
+
+        fptr.write(' '.join(map(str, result)))
+        fptr.write('\n')
+
+    fptr.close()
