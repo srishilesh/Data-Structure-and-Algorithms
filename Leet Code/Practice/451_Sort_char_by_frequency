@@ -1,0 +1,119 @@
+// https://leetcode.com/problems/sort-characters-by-frequency/
+
+// SOLUTION APPROACH 2 - HEAP
+public class Solution {
+    public String frequencySort(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : s.toCharArray())
+            map.put(c, map.getOrDefault(c, 0) + 1);
+						
+        PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+        pq.addAll(map.entrySet());
+				
+        StringBuilder sb = new StringBuilder();
+        while (!pq.isEmpty()) {
+            Map.Entry e = pq.poll();
+            for (int i = 0; i < (int)e.getValue(); i++) 
+                sb.append(e.getKey());
+        }
+        return sb.toString();
+    }
+}
+
+// SOLUTION APPROACH 1 - BUCKETS
+class Solution {
+    public String frequencySort(String s) {
+        HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+        for(char c:s.toCharArray()) {
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        List<Character>[] bucket = new List[s.length()+1];
+        for(char key:map.keySet()) {
+            int freq = map.get(key);
+            if(bucket[freq]==null)bucket[freq] = new ArrayList<>();
+            bucket[freq].add(key);
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int i=bucket.length-1;i>=0;i--) {
+            if(bucket[i]!=null) {
+                for(char c : bucket[i]) {
+                    for(int j=0;j<i;j++)
+                        sb.append(c);
+                }
+            }
+        }
+    return sb.toString();
+    }
+}
+
+// MY APPROACH 2 - WORKING
+// class Solution {
+//     public String frequencySort(String s) {
+//         HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+//         for(char c: s.toCharArray()) {
+//             map.put(c,map.getOrDefault(c,0)+1);
+//         }
+//         List<Map.Entry<Character,Integer>> list = new LinkedList<Map.Entry<Character,Integer>>(map.entrySet());
+//         Collections.sort(list,new Comparator<Map.Entry<Character,Integer>>(){
+//             public int compare(Map.Entry<Character, Integer> o1,  
+//                                Map.Entry<Character, Integer> o2) 
+//             { 
+//                 return (o1.getValue()).compareTo(o2.getValue()); 
+//             } 
+             
+//         });
+//         StringBuilder sb = new StringBuilder();
+//         for(Map.Entry<Character,Integer> aa:list) {
+//             int k = (int)aa.getValue();
+//             while(k>0) {
+//                 sb.append((char)aa.getKey());
+//                 k--;
+//             }
+//         }
+//         sb.reverse();
+//         return sb.toString();
+//     }
+// }
+
+// MY APPROACH 1
+// class Solution {
+//     public String frequencySort(String s) {
+//         if(s.equals(""))return "";
+//         int alphasmall[] = new int[26];
+//         int alphacaps[] = new int[26];
+//         for(char c:s.toCharArray()) {
+//             if(Character.isLowerCase(c))
+//                 alphasmall[c-'a']++;
+//             else
+//                 alphacaps[c-'A']++;
+//         }
+//         StringBuilder sb = new StringBuilder();
+//         int maxcount = 0;
+//         for(int i=0;i<26;i++) {
+//             //System.out.println(alphasmall[i]);
+//             int temp = alphasmall[i] + alphacaps[i];
+//             if(maxcount>temp && temp>0) {
+//                 while(alphasmall[i]>0) {
+//                     sb.insert(sb.length(),(char)(i+'a'));
+//                     alphasmall[i]--;
+//                 }
+//                 while(alphacaps[i]>0) {
+//                     sb.insert(sb.length(),(char)(i+'A'));
+//                     alphacaps[i]--;
+//                 }
+//             }
+//             else if(temp>0) {
+//                 while(alphasmall[i]>0) {
+//                     sb.insert(0,(char)(i+'a'));
+//                     alphasmall[i]--;
+//                 }
+//                 while(alphacaps[i]>0) {
+//                     sb.insert(0,(char)(i+'A'));
+//                     alphacaps[i]--;
+//                 }
+//                 maxcount = temp;
+//             }
+//         }
+//         return sb.toString();
+//     }
+// }
