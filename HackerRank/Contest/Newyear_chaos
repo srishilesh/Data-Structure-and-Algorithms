@@ -1,0 +1,40 @@
+// https://www.hackerrank.com/challenges/new-year-chaos/problem
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the minimumBribes function below.
+def minimumBribes(q):
+    count = 0
+    # for i in range(len(q)):
+    f = 0
+    for i in range(len(q)): 
+        #for j in range(0, len(q)-i-1): 
+        if((q[i]-(i+1))>2):
+            print("Too chaotic")
+            return
+            # if q[j] > q[j+1] : 
+            #     q[j], q[j+1] = q[j+1], q[j] 
+            #     count+=1
+        for j in range(max(q[i]-2,0),i):
+            if q[j]-1 > q[i]-1:
+                count+=1
+    if(f==0):
+        print(count)
+            
+
+if __name__ == '__main__':
+    t = int(input())
+
+    for t_itr in range(t):
+        n = int(input())
+
+        q = list(map(int, input().rstrip().split()))
+
+        minimumBribes(q)
+    
