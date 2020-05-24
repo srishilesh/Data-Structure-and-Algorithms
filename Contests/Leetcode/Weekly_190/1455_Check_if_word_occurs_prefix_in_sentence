@@ -1,0 +1,10 @@
+// https://leetcode.com/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/
+
+class Solution:
+    def isPrefixOfWord(self, sentence: str, searchWord: str) -> int:
+        sent = sentence.split(" ")
+        for i in sent:
+            if searchWord in i:
+                if i[0:len(searchWord)] == searchWord:
+                    return sent.index(i)+1
+        return -1
