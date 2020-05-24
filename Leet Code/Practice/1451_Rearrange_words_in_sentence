@@ -1,0 +1,56 @@
+// https://leetcode.com/problems/rearrange-words-in-a-sentence/
+
+// My approach
+
+class Solution {
+    public String arrangeWords(String text) {
+        String result = "";
+        String[] arr = text.toLowerCase().split(" ");
+        for (int i=0;i<arr.length;i++) {
+            for (int j=0;j<(arr.length - i - 1);j++) {
+                if(arr[j].length() > arr[j+1].length()) {
+                    String c = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = c;
+                }
+            }
+        }
+        StringBuffer sb = new StringBuffer();
+        sb.append(Character.toUpperCase(arr[0].charAt(0))+arr[0].substring(1,arr[0].length())+" ");
+        for(int i =1;i<arr.length-1;i++) {
+            sb.append(arr[i] + " ");
+        }
+        sb.append(arr[arr.length-1]);
+        return sb.toString();
+    }
+}
+
+// Other solution 1
+
+public String arrangeWords(String text) {
+        String []s = text.toLowerCase().split(" ");
+        Arrays.sort(s, (a,b) ->  a.length() - b.length());
+        String ans = String.join(" ", s);
+        return Character.toUpperCase(ans.charAt(0)) + ans.substring(1);
+    }
+    
+    
+// Solution 2
+
+public String arrangeWords(String text) {
+        TreeMap<Integer, StringBuilder> map=new TreeMap<>();
+        String[] strs=text.split(" ");
+        for(int i=0;i<strs.length;i++) {
+            StringBuilder tmp=map.getOrDefault(strs[i].length(), new StringBuilder());
+            tmp.append(strs[i]).append(" ");
+            map.put(strs[i].length(), tmp);
+        }
+        StringBuilder sb=new StringBuilder();
+        for(int k : map.keySet()) {
+            StringBuilder tmp=map.get(k);
+            if(tmp.charAt(0)<'a') tmp.setCharAt(0, (char)('a'+tmp.charAt(0)-'A'));
+            sb.append(tmp);
+        }
+        if(sb.charAt(0)>'Z') sb.setCharAt(0, (char)('A'+sb.charAt(0)-'a'));
+        return sb.deleteCharAt(sb.length()-1).toString();
+    }
