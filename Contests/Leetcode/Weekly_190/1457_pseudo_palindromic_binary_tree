@@ -1,0 +1,71 @@
+// https://leetcode.com/problems/pseudo-palindromic-paths-in-a-binary-tree/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int count = 0;
+    public int pseudoPalindromicPaths (TreeNode root) {
+        if(root.left == null && root.right ==null)
+            return 1;
+        printPaths(root);
+        return count;
+    }
+    public void printPaths(TreeNode node)  
+    { 
+        int path[] = new int[1000]; 
+        printPathsRecur(node, path, 0); 
+    } 
+    public void printPathsRecur(TreeNode node, int path[], int pathLen)  
+    { 
+        if (node == null) 
+            return; 
+        path[pathLen] = node.val; 
+        pathLen++; 
+
+        if (node.left == null && node.right == null) 
+            printArray(path, pathLen); 
+        else 
+        { 
+            printPathsRecur(node.left, path, pathLen); 
+            printPathsRecur(node.right, path, pathLen); 
+        } 
+    } 
+    public void printArray(int ints[],int len) {
+        HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+        for(int i=0;i<len;i++) {
+            //System.out.print(ints[i]+" ");
+            map.put(ints[i],map.getOrDefault(ints[i],0)+1);
+        }
+        // System.out.println(map);
+        // System.out.println();
+        int even = 0, odd =0,total = 0;
+        for(Map.Entry mape : map.entrySet()) {
+            int val = (int)mape.getValue();
+            if(val%2==0)
+                even+=1;
+            else
+                odd+=1;
+            total+=val;
+        }
+        // System.out.println(even+" "+odd);
+        if((total%2!=0 && odd%2!=0 && even==0)||(total%2!=0 && odd ==0)){
+            System.out.println(map);
+            count++;
+        }
+        //System.out.println(count);
+    }
+    
+}
