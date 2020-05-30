@@ -1,0 +1,90 @@
+// https://leetcode.com/problems/course-schedule-iv/
+
+# class AdjNode: 
+#     def __init__(self, data): 
+#         self.vertex = data 
+#         self.next = None
+class Solution:
+#     def __init__(self, vertices): 
+#         self.V = vertices 
+#         self.graph = [None] * self.V 
+        
+#     def add_edge(self, src, dest): 
+#         node = AdjNode(dest) 
+#         node.next = self.graph[src] 
+#         self.graph[src] = node 
+  
+#         # Adding the source node to the destination as 
+#         # it is the undirected graph 
+#         node = AdjNode(src) 
+#         node.next = self.graph[dest] 
+#         self.graph[dest] = node 
+        
+#     def print_graph(self): 
+#         for i in range(self.V): 
+#             print("Adjacency list of vertex {}\n head".format(i), end="") 
+#             temp = self.graph[i] 
+#             while temp: 
+#                 print(" -> {}".format(temp.vertex), end="") 
+#                 temp = temp.next
+#             print(" \n") 
+    def checkIfPrerequisite(self, n: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
+        # for i in range(0,len(prerequisites)-1):
+        #     if prerequisites[i][1] == prerequisites[i+1][0]:
+        #         prerequisites.append([prerequisites[i][0],prerequisites[i+1][1]])
+        # print(prerequisites)
+        
+        # nodes = set()
+        # edge_u = []
+        # edge_v = []
+#         self.graph = Solution(n)
+#         for i in prerequisites:
+#             self.graph.add_edge(i[0],i[1])
+        
+#         adjList = [[] for k in range(len(nodes))]
+ 
+     
+    
+#         for i in range(len(edge_u)):
+#             u = edge_u[i]
+#             v = edge_v[i]
+#             for j in range(0,len(edge_u)):
+#                 if v == edge_u[j]:
+#                     adjList[u].append(edge_v[j])
+#             adjList[u].append(v)
+            
+        
+#         for i in range(len(adjList)):
+#             print(i, ":", adjList[i])
+        adjList = {}
+        for li in prerequisites:
+            u = li[0]
+            v = li[1]
+            if u not in adjList:
+                adjList[u] = [v]
+            else:
+                adjList[u].append(v)
+           
+        result = []
+        for i in queries:
+            for key,val in adjList.items():
+                for j in val:
+                    if j in adjList and i[1] in adjList[j]:
+                        result.append(True)
+                        break
+                        
+            result.append(False)
+                        
+                
+#         print(adjList)
+#         # self.graph.print_graph() 
+            
+#         result = []
+#         for i in queries:
+#             u = i[0]
+#             v = i[1]
+#             if u in adjList and v in adjList[u]:
+#                 result.append(True)
+#             else:
+#                 result.append(False)
+        return result
