@@ -1,0 +1,32 @@
+// https://leetcode.com/problems/check-if-a-string-contains-all-binary-codes-of-size-k/
+
+class Solution:
+    def hasAllCodes(self, s: str, k: int) -> bool:
+        if( k == 0):
+            return False
+        result = []
+        #original = set([i for i in range(2**k)])
+        for i in range(0,len(s)-k+1):
+            tmp = s[i:i+k]
+            #print(tmp)
+            result.append(int(tmp,2))
+        
+        result.sort()
+        result = list(set(result))
+        print(result)
+        if (len(result) < 2**k):
+            return False
+        x = 0
+        f = 0
+        for i in range(2**k):
+            if (x < len(result)):
+                if result[x] == i:
+                    f = 1
+                else:
+                    f = 0
+                    break
+            x+=1
+        if (f == 1):
+            return True
+        else:
+            return False
