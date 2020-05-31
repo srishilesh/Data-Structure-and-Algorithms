@@ -1,0 +1,48 @@
+// https://leetcode.com/problems/maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts/
+
+
+// My try
+
+class Solution {
+    public int maxArea(int h, int w, int[] horizontalCuts, int[] verticalCuts) {
+        int MOD = 1000000007;
+        for (int i=0; i<horizontalCuts.length-1; i++) { 
+            horizontalCuts[i] = horizontalCuts[i]%MOD;
+        }
+        for (int i=0; i<verticalCuts.length-1; i++) { 
+            verticalCuts[i] = verticalCuts[i]%MOD;
+        }
+        h = h%MOD;
+        w = w%MOD;
+        Arrays.sort(horizontalCuts);
+        Arrays.sort(verticalCuts);
+
+        if (horizontalCuts.length==0 && verticalCuts.length==0)
+            return ((h+1)*(w+1))%MOD;
+        
+        int maxRowI = 0;
+        int maxRow = (horizontalCuts[0] - 0)%MOD;
+        for (int i=0; i<horizontalCuts.length-1; i++) { 
+            if (maxRow < (horizontalCuts[i+1]-horizontalCuts[i])%MOD) {
+                maxRow = (horizontalCuts[i+1]-horizontalCuts[i])%MOD;
+                maxRowI = horizontalCuts[i];
+            }
+                
+        }
+        if (horizontalCuts[horizontalCuts.length-1]<h && maxRow < (h-horizontalCuts[horizontalCuts.length-1])%MOD)
+            maxRow = (h-horizontalCuts[horizontalCuts.length-1])%MOD;
+        
+        int maxCol = (verticalCuts[0] - 0)%MOD;
+        for (int i=0; i<verticalCuts.length-1; i++) { 
+            if (maxCol < (verticalCuts[i+1]-verticalCuts[i])%MOD) {
+                if (verticalCuts[i] == maxRowI)
+                    maxCol = (verticalCuts[i+1]-verticalCuts[i])%MOD;
+            }
+                
+        }
+        if (verticalCuts[verticalCuts.length-1]<w && maxCol < (w-verticalCuts[verticalCuts.length-1])%MOD)
+            maxCol = (w-verticalCuts[verticalCuts.length-1])%MOD;
+        //System.out.println(maxRow+ " "+maxCol);
+        return (maxRow * maxCol)%MOD;
+    }
+}
