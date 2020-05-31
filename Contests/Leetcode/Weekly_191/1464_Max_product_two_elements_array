@@ -1,0 +1,30 @@
+// https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/
+
+// My approach
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        nums.sort()
+        if (len(nums)>=2):
+            return (nums[-1]-1)*(nums[-2]-1)
+        else:
+            return 1
+            
+            
+// Solution
+class Solution {
+    public int maxProduct(int[] nums) {
+        int firstMax = Integer.MIN_VALUE;
+        int secondMax = firstMax;
+        
+        for (int num : nums) {
+            if (num >= firstMax) {
+                secondMax = firstMax;
+                firstMax = num;
+            }
+            else if (num > secondMax) {
+                secondMax = num;
+            }
+        }
+        return (firstMax - 1)*(secondMax - 1);
+    }
+}
