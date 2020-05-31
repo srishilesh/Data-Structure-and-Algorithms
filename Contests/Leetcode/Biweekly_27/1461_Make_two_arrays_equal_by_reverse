@@ -9,3 +9,21 @@ class Solution:
             return True
         else:
             return False
+
+
+// Best solution
+
+class Solution {
+    public boolean canBeEqual(int[] target, int[] arr) {
+        int check[] = new int[1001];
+        for (int i=0; i<target.length; i++) {
+            check[target[i]]++;
+            check[arr[i]]--;
+        }
+        for (int i : check) {
+            if (i!=0)
+                return false;
+        }
+        return true;
+    }
+}
