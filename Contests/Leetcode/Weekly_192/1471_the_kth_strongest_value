@@ -1,0 +1,32 @@
+// https://leetcode.com/problems/the-k-strongest-values-in-an-array/
+
+import collections
+class Solution:
+    def getStrongest(self, arr: List[int], k: int) -> List[int]:
+        arr.sort()
+        median = arr[(len(arr)-1)//2]
+        result = []
+        medianarr = []
+        for i in arr:
+            medianarr.append(abs(i-median))
+        # while(start<end):
+        #     if (abs(arr[end]-median)>abs(arr[start]-median)):
+        #         print(arr[end],arr[start])
+        #         result.append(arr[end])
+        #         result.append(arr[start])
+        #     elif (abs(arr[end]-median)==abs(arr[start]-median)):
+        #         print(arr[end],arr[start])
+        #         result.append(arr[end])
+        #         result.append(arr[start])
+        #     start+=1
+        #     end-=1
+        #print(arr,medianarr)
+        sorted_dict = [x for _,x in sorted(zip(medianarr,arr))]
+        # for key in sorted_dict:
+        #     result.append(key)
+        # result.sort(reverse=True)
+        # print(result)
+        #print(sorted_dict)
+        res = sorted_dict[len(arr)-k:]
+        res.reverse()
+        return res
