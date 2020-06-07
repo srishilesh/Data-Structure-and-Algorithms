@@ -1,0 +1,15 @@
+// https://leetcode.com/problems/shuffle-the-array/
+
+class Solution:
+    def shuffle(self, nums: List[int], n: int) -> List[int]:
+        if n>len(nums):
+            return []
+        a = nums[0:n]
+        b = nums[n:]
+        result = []
+        k = 0
+        while (len(result)<(2*n)):
+            result.append(a[k])
+            result.append(b[k])
+            k+=1
+        return result
