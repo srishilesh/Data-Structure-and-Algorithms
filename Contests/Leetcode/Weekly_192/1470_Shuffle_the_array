@@ -13,3 +13,25 @@ class Solution:
             result.append(b[k])
             k+=1
         return result
+        
+// Solution 1
+
+class Solution:
+    def shuffle(self, nums: List[int], n: int) -> List[int]:
+        result = []
+        N = len(nums)
+        for index in range(N//2):
+            result.append(nums[index])
+            result.append(nums[index + N//2])
+        return result
+        
+// Solution 2
+
+class Solution {
+    public int[] shuffle(int[] nums, int n) {
+        int[] res = new int[2 * n];
+        for(int i = 0; i < nums.length; i++)
+            res[i] = i % 2 == 0 ? nums[i/2] : nums[n + i/2];
+        return res;
+    }
+}
