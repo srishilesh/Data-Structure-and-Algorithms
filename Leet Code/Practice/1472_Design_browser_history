@@ -1,0 +1,90 @@
+// https://leetcode.com/problems/design-browser-history/
+
+// 2 Stack solution
+
+class BrowserHistory {
+    Stack<String> h_back, h_forward;
+    String cur;
+    public BrowserHistory(String homepage) {
+        cur = homepage;
+        h_forward = new Stack<>();
+        h_back = new Stack<>();
+    }
+    
+    public void visit(String url) {
+        h_forward = new Stack<String>();
+        h_back.push(cur);
+        cur = url;
+    }
+    
+    public String back(int steps) {
+        while (--steps >= 0 && !h_back.isEmpty()) {
+            h_forward.push(cur);
+            cur = h_back.peek();
+            h_back.pop();
+        }
+        return cur;
+    }
+    
+    public String forward(int steps) {
+        while (--steps >= 0 && !h_forward.isEmpty()) {
+            h_back.push(cur);
+            cur = h_forward.peek();
+            h_forward.pop();
+        }
+        return cur;
+    }
+}
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory obj = new BrowserHistory(homepage);
+ * obj.visit(url);
+ * String param_2 = obj.back(steps);
+ * String param_3 = obj.forward(steps);
+ */
+ 
+ // List solution
+ 
+ class BrowserHistory {
+
+    int current = -1;
+    int top = 0;
+    String[] h;
+
+    public BrowserHistory(String homepage) {
+        h = new String[101];
+        current++;
+        h[current] = homepage;
+        top++;
+    }
+
+    public void visit(String url) {
+        current++;
+        h[current] = url;
+        top = current + 1;
+    }
+
+    public String back(int steps) {
+        if (current <= steps) current = 0;
+        else {
+            current = current - steps;
+        }
+        return h[current];
+    }
+
+    public String forward(int steps) {
+        if (current + steps + 1 >= top) {
+            current = top - 1;
+        } else current += steps;
+        return h[current];
+    }
+}
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory obj = new BrowserHistory(homepage);
+ * obj.visit(url);
+ * String param_2 = obj.back(steps);
+ * String param_3 = obj.forward(steps);
+ */
