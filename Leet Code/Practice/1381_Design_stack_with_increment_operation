@@ -1,0 +1,91 @@
+// https://leetcode.com/problems/design-a-stack-with-increment-operation/
+
+class CustomStack {
+    int n;
+    int[] inc;
+    Stack<Integer> stack;
+    public CustomStack(int maxSize) {
+        n = maxSize;
+        inc = new int[n];
+        stack = new Stack<>();
+    }
+
+    public void push(int x) {
+        if (stack.size() < n)
+            stack.push(x);
+    }
+
+    public int pop() {
+        int i = stack.size() - 1;
+        if (i < 0)
+            return -1;
+        if (i > 0)
+            inc[i - 1] += inc[i];
+        int res = stack.pop() + inc[i];
+        inc[i] = 0;
+        System.out.println("POp()");
+        for (int j : inc)
+            System.out.print(j+ " ");
+        System.out.println();
+        return res;
+    }
+
+    public void increment(int k, int val) {
+        int i = Math.min(k, stack.size()) - 1;
+        if (i >= 0)
+            inc[i] += val;
+        System.out.println("Inc");
+        for (int j : inc)
+            System.out.print(j+ " ");
+        System.out.println();
+    }
+}
+
+// class CustomStack {
+//     int maxsize;
+//     Stack<Integer> stack;
+//     public CustomStack(int maxSize) {
+//         maxsize = maxSize;
+//         stack = new Stack<Integer>();
+//     }
+    
+//     public void push(int x) {
+//         if (stack.size() < maxsize )
+//             stack.push(x);
+//     }
+    
+//     public int pop() {
+//         if (!stack.isEmpty())
+//             return stack.pop();
+//         else
+//             return -1;
+//     }
+    
+//     public void increment(int k, int val) {
+//         Stack<Integer> temp = new Stack<Integer>();
+//         if (stack.size() < k) {
+//             while (!stack.isEmpty()) {
+//                 temp.push(stack.pop() +val);
+//             }
+//         }
+//         else {
+//             while (!stack.isEmpty()) {
+//                 temp.push(stack.pop());
+//             }
+//             while (k-- > 0) {
+//                 stack.push(temp.pop() + val);
+//             }
+//         }
+//         while (!temp.isEmpty()) {
+//                 stack.push(temp.pop());
+//             }
+//     }
+// }
+
+// /**
+//  * Your CustomStack object will be instantiated and called as such:
+//  * CustomStack obj = new CustomStack(maxSize);
+//  * obj.push(x);
+//  * int param_2 = obj.pop();
+//  * obj.increment(k,val);
+//  */
