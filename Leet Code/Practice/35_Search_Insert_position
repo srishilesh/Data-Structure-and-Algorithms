@@ -1,0 +1,54 @@
+# https://leetcode.com/problems/search-insert-position/
+
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        if(target in nums):
+            return nums.index(target)
+        else:
+            nums.append(target)
+            nums.sort()
+            return nums.index(target)
+            
+# OTHER APPROACH
+
+def searchInsert(self, nums, target):
+    return sorted(nums + [target]).index(target)
+
+// class Solution {
+//     public int searchInsert(int[] nums, int target) {
+//         if (target < nums[0])
+//             return 0;
+//         for (int i=0; i<nums.length; i++) {
+//             nums[i] = target - nums[i];
+//         }
+        
+//         for (int i=0; i<nums.length-1; i++) {
+//             if (nums[i] == 0)
+//                 return i;
+//             if ((nums[i]*nums[i+1])<0)
+//                 return i+1;
+//         }
+//         if (nums[nums.length - 1] == 0) 
+//             return nums.length - 1;
+//         return nums.length;
+//     }
+// }
+
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int low = 0;
+        int high = nums.length - 1;
+        int mid = 0;
+        while (low <= high) {
+            mid = low + (high - low)/2;
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[mid] > target)
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+        return low;
+    }
+}
+
