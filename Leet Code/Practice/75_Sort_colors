@@ -1,0 +1,60 @@
+// https://leetcode.com/problems/sort-colors/
+
+// class Solution {
+//     public void sortColors(int[] nums) {
+//         for (int i=0; i<nums.length; i++) {
+//             for (int j=0; j<nums.length-i-1; j++) {
+//                 if (nums[j] > nums[j+1]) {
+//                     int c = nums[j];
+//                     nums[j] = nums[j+1];
+//                     nums[j+1] = c;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// class Solution {
+//     public void sortColors(int[] nums) {
+//         if (nums == null || nums.length < 2)return;
+//         int low = 0;
+//         int high = nums.length - 1;
+//         for (int i=low; i<=high;) {
+//             if (nums[i] == 0) {
+//                 int temp = nums[i];
+//                 nums[i] = nums[low];
+//                 nums[low] = temp;
+//                 i++;
+//                 low++;
+//             }
+//             else if (nums[i] == 2) {
+//                 int temp = nums[i];
+//                 nums[i] = nums[high];
+//                 nums[high] = temp;
+//                 high--;
+//             }
+//             else
+//               i++;  
+//         }
+//     }
+// }
+
+class Solution {
+    public void sortColors(int[] nums) {
+        int n0 = -1, n1 = -1, n2 = -1;
+        for (int i=0; i<nums.length; i++) {
+            if (nums[i] == 0) {
+                nums[++n2] = 2;
+                nums[++n1] = 1;
+                nums[++n0] = 0;
+            } else if (nums[i] == 1) {
+                nums[++n2] = 2;
+                nums[++n1] = 1;
+            } else {
+                nums[++n2] = 2;
+            }
+        }
+    }
+}
+
+// Other solutions - https://leetcode.com/problems/sort-colors/discuss/26500/Four-different-solutions
