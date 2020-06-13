@@ -1,0 +1,19 @@
+// https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/
+
+// My approach
+
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        result = []
+        for i in range(len(prices)):
+            nextsmall = prices[i]
+            f = 0
+            for j in range(i+1,len(prices)):
+                if prices[j] <= nextsmall:
+                    f = 1
+                    nextsmall = prices[j]
+                    result.append(prices[i] - nextsmall)
+                    break
+            if (f==0):
+                result.append(prices[i])
+        return result
