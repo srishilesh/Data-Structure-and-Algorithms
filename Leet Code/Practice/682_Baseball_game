@@ -1,0 +1,77 @@
+// https://leetcode.com/problems/baseball-game/
+
+// My approach
+
+class Solution {
+    int sum = 0;
+    Stack<Integer> stack = new Stack<Integer>();
+    public int calPoints(String[] ops) {
+        for (String ch : ops) {
+            if (ch.equals("C"))
+                remove();
+            else if (ch.equals("D"))
+                doubled();
+            else if (ch.equals("+"))
+                summation();
+            else {
+                stack.push(Integer.parseInt(ch));
+                sum += Integer.parseInt(ch);
+            }
+            //System.out.println(stack.peek()+" "+sum);
+        }
+        return sum;
+    }
+    public void remove() {
+        int rem = 0;
+        if (!stack.isEmpty())
+            rem = stack.pop();
+        else
+            rem = 0;
+        sum -= rem;
+    }
+    public void doubled() {
+        int last = stack.peek();
+        sum += (last*2);
+        stack.push(last*2);
+    }
+    public void summation() {
+        int flast = 0, slast = 0;
+        //System.out.println(stack.peek());
+        if (stack.size() >= 1) {
+            flast = stack.pop();
+            slast = stack.pop();
+        }
+        stack.push(slast);
+        stack.push(flast);
+        stack.push(flast+slast);
+        //System.out.println(stack.size());
+        sum += (flast+slast);
+    }
+}
+
+// Solution
+
+class Solution {
+    public int calPoints(String[] ops) {
+        Stack<Integer> stack = new Stack();
+
+        for(String op : ops) {
+            if (op.equals("+")) {
+                int top = stack.pop();
+                int newtop = top + stack.peek();
+                stack.push(top);
+                stack.push(newtop);
+            } else if (op.equals("C")) {
+                stack.pop();
+            } else if (op.equals("D")) {
+                stack.push(2 * stack.peek());
+            } else {
+                stack.push(Integer.valueOf(op));
+            }
+        }
+
+        int ans = 0;
+        for(int score : stack) ans += score;
+        return ans;
+    }
+}
