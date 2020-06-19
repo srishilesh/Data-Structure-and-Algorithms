@@ -1,0 +1,46 @@
+// https://leetcode.com/problems/next-greater-element-i/
+
+// Brute Force approach
+
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        if (nums1.length == 0)
+            return new int[0];
+        int[] newMax = new int[nums2.length];
+        for (int i=0; i<nums2.length; i++)
+            newMax[i] = -1;
+        for (int i=0; i<nums2.length; i++) {
+            for (int j=i+1; j<nums2.length; j++) {
+                if (nums2[j] > nums2[i]) {
+                    newMax[i] = nums2[j];
+                    break;
+                }
+            }
+        }
+        
+        int[] ans = new int[nums1.length];
+        for (int i=0; i<nums1.length; i++) {
+            for (int j=0; j<nums2.length; j++) {
+                if (nums2[j] == nums1[i]) {
+                    ans[i] = newMax[j];
+                }
+            }
+        }
+        return ans;
+    }
+}
+
+// Best solution
+
+public int[] nextGreaterElement(int[] findNums, int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>(); // map from x to next greater element of x
+        Stack<Integer> stack = new Stack<>();
+        for (int num : nums) {
+            while (!stack.isEmpty() && stack.peek() < num)
+                map.put(stack.pop(), num);
+            stack.push(num);
+        }   
+        for (int i = 0; i < findNums.length; i++)
+            findNums[i] = map.getOrDefault(findNums[i], -1);
+        return findNums;
+    }
