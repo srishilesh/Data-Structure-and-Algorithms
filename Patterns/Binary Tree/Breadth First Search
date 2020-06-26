@@ -1,0 +1,29 @@
+/*
+1) Queues - nodes in each level
+2) Level counter - level of tree
+3) Size counter - number of nodes in each level
+*/
+
+// Sample program to find the minimum depth of a tree 
+public int minDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+        Queue<TreeNode> queue = new LinkedList();
+        int level = 1;                                              // Root has level 1
+        queue.add(root);                                            // Add root to queue
+        while (!queue.isEmpty()) {                                  // Loop until reaches last level
+            int size = queue.size();  
+            while (size > 0) {                                      // Loop through each nodes for one level
+                TreeNode node = queue.poll();                       // Expand for each node in each level
+                if (node.left == null && node.right == null)
+                    return level;
+                if (node.left != null)                              // Left subtree of each node 
+                    queue.add(node.left);
+                if (node.right != null)                             // Right subtree of each node
+                    queue.add(node.right);
+                size--;
+            }
+            level++;                                                // Moving to next level
+        }
+        return level;
+    }
