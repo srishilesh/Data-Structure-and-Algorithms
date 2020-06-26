@@ -1,0 +1,102 @@
+// https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        Node level = root;
+        Node start = level;
+        while (level != null) {
+            Node cur = level;
+            while (cur != null) {
+                if (cur.left != null)
+                    cur.left.next = cur.right;
+                if (cur.right != null && cur.next != null)
+                    cur.right.next = cur.next.left;
+                cur = cur.next;
+            }
+            level = level.left;
+        }
+        return start;
+    }
+}
+        
+        // OTHER REFERRED APPROACH
+//         if (root == null)
+//             return null;
+//         Queue<Node> queue = new LinkedList();
+//         queue.add(root);
+//         queue.add(null);
+//         Node curr = null;
+//         Node start = curr;
+//         while (!queue.isEmpty()) {
+//             curr = queue.poll();
+            
+//             if (curr == null) {
+//                 if (queue.size() > 0)
+//                     queue.add(null);
+//             }
+//             else {
+//                 //System.out.println(curr.val);
+//                 curr.next = queue.poll();
+//                 if (curr.left != null)
+//                     queue.add(curr.left);
+//                 if (curr.right != null)
+//                     queue.add(curr.right);
+//             }
+//         }
+//         return start;
+        
+        
+        // MY APPROACH
+        // Queue<Node> queue = new LinkedList();
+        // // Node node = new Node(root.val);
+        // Node node = new Node(-1);
+        // Node start = node;
+        // // node.next = null;
+        // queue.add(root);
+        // while (!queue.isEmpty()) {
+        //     int size = queue.size();
+        //     //Node node = null;
+        //     while (size > 0) {
+        //         Node n = queue.poll();
+        //         node.next = new Node(n.val);
+        //         node = node.next;
+        //         if (n.left == null && n.right == null)
+        //             break;
+        //         if (n.left != null) {
+        //             //node.next = new Node(n.left.val);
+        //             queue.add(n.left);
+        //             //node = node.next;
+        //         }
+        //         if (n.right != null) {
+        //             //node.next = new Node(n.right.val);
+        //             queue.add(n.right);
+        //             //node = node.next;
+        //         }
+        //         size --;
+        //     }
+        //     node.next = null;
+        // }
+        // return start.next;
