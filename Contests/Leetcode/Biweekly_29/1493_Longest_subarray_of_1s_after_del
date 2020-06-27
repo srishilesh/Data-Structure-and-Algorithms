@@ -1,0 +1,40 @@
+// https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/
+
+// My approach
+
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        add = sum(nums)
+        n = len(nums)
+        if (add == 0):
+            return 0
+        if (add == n):
+            return add - 1
+        for i in range(1,n):
+            if (nums[i] == 1):
+                nums[i] += nums[i-1]
+        
+        print(nums)
+        stack = []
+        for i in nums:
+            if (i == 0):
+                stack.append(i)
+            else:
+                if (len(stack)>0 and stack[-1] == 0):
+                    stack.append(i)
+                elif (len(stack)>0 and stack[-1] < i and stack[-1] != 0):
+                    stack.pop()
+                    stack.append(i)
+                else:
+                    stack.append(i)
+        print(stack)
+        ans = 0
+        maxans = max(stack)
+        for i in range(1,len(stack)-1):
+            if (stack[i-1]!=0 and stack[i]==0 and stack[i+1]!=0):
+                ans = stack[i-1] + stack[i+1]
+                if (maxans < ans):
+                    maxans = ans
+            
+        return maxans
+        
