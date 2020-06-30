@@ -1,0 +1,10 @@
+// https://www.geeksforgeeks.org/program-to-find-absolute-value-of-a-given-number/#:~:text=For%20any%20positive%20number%2C%20the,multiplied%20by%20the%20negative%20number.''
+
+// User function Template for Java
+
+class Absolute {
+    // You need to complete this function
+    public int absolute(int I) {
+        return Math.abs(I);
+    }
+}
