@@ -1,0 +1,19 @@
+// https://leetcode.com/problems/minimum-subsequence-in-non-increasing-order/
+
+class Solution {
+    public List<Integer> minSubsequence(int[] nums) {
+        Arrays.sort(nums);
+        int sum = 0;
+        for (int i : nums)
+            sum += i;
+        List<Integer> result = new ArrayList<Integer>();
+        int count = 0;
+        for (int i=nums.length - 1; i>=0; i--) {
+            result.add(nums[i]);
+            count += nums[i];
+            if (count > (sum-count))
+                break;
+        }
+        return result;
+    }
+}
