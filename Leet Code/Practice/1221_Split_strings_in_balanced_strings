@@ -1,0 +1,45 @@
+// https://leetcode.com/problems/split-a-string-in-balanced-strings/
+
+class Solution {
+    public int balancedStringSplit(String s) {
+        int count = 0;
+        int maxCount = 0;
+        for (char ch : s.toCharArray()) {
+            if (ch == 'L')
+                count ++;
+            if (ch == 'R')
+                count --;
+            if (count == 0)
+                maxCount ++;
+        }
+        return maxCount;
+    }
+}
+// FIRST TRY
+// class Solution {
+//     public int balancedStringSplit(String s) {
+//         int rCount = 0;
+//         int lCount = 0;
+//         int maxCount = 0;
+//         char last = 'R';
+//         for (char ch : s.toCharArray()) {
+//             if (ch == 'R') {
+//                 rCount ++;
+//                 last = ch;
+//             }
+//             if (ch == 'L') {
+//                 lCount ++;
+//                 last = ch;
+//             }
+//             if (lCount == rCount) {
+//                 if (maxCount < (lCount+rCount))
+//                     maxCount = lCount + rCount;
+//             }
+//             if (lCount < rCount && last == 'L') {
+//                 //rCount = 0;
+//                 lCount = 0;
+//             }  
+//         }
+//         return maxCount;
+//     }
+// }
