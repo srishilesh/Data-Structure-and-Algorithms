@@ -1,0 +1,61 @@
+// https://leetcode.com/problems/prison-cells-after-n-days/
+
+// SOLUTION
+class Solution {
+    public int[] prisonAfterNDays(int[] cells, int N) {
+        Map<String, Integer> seen = new HashMap<>();
+        while (N > 0) {
+            int[] cells2 = new int[8];
+            seen.put(Arrays.toString(cells), N--);
+            for (int i=1; i<7; i++) 
+                cells2[i] = cells[i-1] == cells[i+1] ? 1 : 0;
+            cells = cells2;
+            if (seen.containsKey(Arrays.toString(cells)))
+                N %= seen.get(Arrays.toString(cells)) - N;
+        }
+        return cells;
+    }
+}
+
+
+// TLE
+// class Solution {
+//     public int[] prisonAfterNDays(int[] cells, int N) {
+//         while (N>0) {
+//             int result[] = new int[8];
+//             for (int i=1; i<7; i++) {
+//                 if (cells[i-1] == cells[i+1])
+//                     result[i] = 1;
+//                 else
+//                     result[i] = 0;
+//             } 
+//             cells = result;
+//             N--;
+//         }
+//         return cells;
+//     }
+// }
+
+// MY APPROACH
+//         cells[0] = 0;
+        
+//         int previous = cells[0];
+//         while (N>0) {
+//             for (int i=1; i<cells.length - 1; i++) {
+//                 int tmp = cells[i];
+//                 if (previous == cells[i+1])
+//                     //result[i] = 1;
+//                     cells[i] = 1;
+//                 else
+//                     // result[i] = 0;
+//                     cells[i] = 0;
+//                 previous = tmp;
+//                 System.out.println(previous+" "+cells[i]);
+//             }
+//             // cells = result;
+//             // result = new int[cells.length];
+//             cells[cells.length-1] = 0;
+//             System.out.println();
+//             N--;
+//         }
+//         return cells;
