@@ -1,0 +1,65 @@
+// https://leetcode.com/problems/island-perimeter/
+
+// My approach
+
+class Solution {
+    public int islandPerimeter(int[][] grid) {
+        // int[][] new_grid = new int[grid[0].length+1][grid.length+1];
+        // for (int i=1; i<grid.length; i++) {
+        //     for (int j=1; j<grid[i].length; j++) {
+        //         new_grid[i][j] = grid[i][j];
+        //     }
+        // }
+        int count = 0;
+        for (int i=0; i<grid.length; i++) {
+            for (int j=0; j<grid[i].length; j++) {
+                if (grid[i][j] == 1) 
+                    count += check(grid, i, j);           
+            }
+        }
+        return count;
+    }
+    public int check(int[][] grid, int i, int j) {
+        int count = 0;
+        if (i == 0) 
+            count ++;
+        if (i == grid.length - 1)
+            count ++;
+        if (j == 0)
+            count ++;
+        if (j == grid[i].length - 1)
+            count ++;
+        if (i > 0 && grid[i-1][j] == 0)
+            count ++;
+        if (j > 0 && grid[i][j-1] == 0)
+            count ++;
+        if (i < grid.length-1 && grid[i+1][j] == 0)
+            count ++;
+        if (j < grid[i].length-1 && grid[i][j+1] == 0)
+            count ++;
+        return count;
+    }
+}
+
+// Solution
+
+class Solution {
+    public int islandPerimeter(int[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;
+        
+        int count = 0;
+        for (int i=0; i<grid.length; i++) {
+            for (int j=0; j<grid[i].length; j++) {
+                if (grid[i][j] == 1) {
+                    count += 4;
+                    
+                    if (i > 0 && grid[i-1][j] == 1)
+                    count -= 2;
+                    if (j > 0 && grid[i][j-1] == 1)
+                        count -= 2;
+                }
+            }
+        }
+        return count;
+    }
+}
