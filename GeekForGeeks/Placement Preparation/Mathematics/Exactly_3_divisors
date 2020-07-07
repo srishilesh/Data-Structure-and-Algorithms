@@ -1,0 +1,55 @@
+// https://practice.geeksforgeeks.org/problems/exactly-3-divisors/1/?track=ppc-mathematics&batchId=221
+
+class Divisors
+{
+    public int exactly3Divisors(int N) {
+        boolean[] prime = new boolean[N+1];
+        Arrays.fill(prime,true);
+        prime[0] = prime[1] = false;
+        for (int p=2; p*p<=N; p++) {
+            if (prime[p] == true) {
+                for (int i=p*2; i<=N; i+=p) 
+                    prime[i] = false;
+            }
+        }
+        int count = 0;
+        for (int i=0; i*i<=N; i++) {
+            if (prime[i])
+                count++;
+        }
+        return count;
+    }
+    // public int exactly3Divisors(int N)
+    // {
+    //     int arr[] = new int[N+1];
+    //     // for (int i=1; i<=N; i++)
+    //     //     arr[i] = 1;
+    //     int pos = 1;
+    //     while (pos <= N) {
+    //         for (int j=pos; j>=1; j--) {
+    //             if (pos%j == 0)
+    //                 arr[pos]++;
+    //         }
+    //         pos ++;
+    //     }
+    //     int count = 0;
+    //     for (int i=1; i<=N; i++) {
+    //         if (arr[i] == 3) 
+    //             count++;
+    //     }
+    //     return count;
+    
+    
+    //     // int count = 0;
+        // for (int i=1; i<=N; i++) {
+        //     int x = 0;
+        //     for (int j=1; j<=i; j++) {
+        //         if (i%j == 0)
+        //             x++;
+        //     }
+        //     if (x == 3)
+        //         count ++;
+        // }
+        // return count;
+    // }
+}
