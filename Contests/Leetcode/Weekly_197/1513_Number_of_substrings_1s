@@ -1,0 +1,40 @@
+// https://leetcode.com/problems/number-of-substrings-with-only-1s/
+
+class Solution {
+    public int numSub(String s) {
+        long count = 0;
+        long MOD = 1000000007;
+        int arr[] = new int[s.length()+1];
+        for (int i=0; i<s.length(); i++) {
+            if (s.charAt(i) == '0')
+                arr[i] = 0;
+            else
+                arr[i] = 1;
+        }
+        List<Integer> sub = new ArrayList<Integer>();
+        int tmp = 0;
+        for (int i=0; i<arr.length; i++) {
+             if (arr[i] == 0) {
+                if (i >= 1) {
+                    sub.add(tmp);
+                    tmp = 0;   
+                }
+            }
+            else {
+                arr[i] = ++tmp;
+            }   
+            //System.out.println(arr[i]);
+        }
+        for (int i=0; i<sub.size(); i++) {
+            long val = (long)sub.get(i)%MOD;
+            System.out.println(val);
+            count = (count+(val*(val+1))/2)%MOD;
+            // while (val > 0) {
+            //     count += val%MOD;
+            //     val --;
+            // }
+        }
+            // count += factorial(sub.get(i))%MOD;
+        return (int)count;
+    }
+}
