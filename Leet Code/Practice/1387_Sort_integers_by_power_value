@@ -1,0 +1,65 @@
+// https://leetcode.com/problems/sort-integers-by-the-power-value/
+
+class Solution {
+    public int getKth(int lo, int hi, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->b[1]!=a[1]?a[1]-b[1]:a[0]-b[0]);
+        for (int i=lo; i<=hi; i++) 
+            pq.add(new int[]{i,loop(i,0)});
+        while (!pq.isEmpty() && k-- > 1)
+            pq.poll();
+        return pq.poll()[0];
+        
+    }
+    public int loop(int val, int count) {
+        if (val == 1)
+            return count;
+        if (val % 2 == 0)
+            val = val / 2;
+        else
+            val = 3 * val + 1;
+        count ++;
+        return loop(val, count);
+    }
+}
+
+// class Solution {
+//     public int getKth(int lo, int hi, int k) {
+//         HashMap<Integer, Integer> power = new HashMap();
+//         for (int i=lo; i<=hi; i++) {
+//             int x = (loop(i,0));
+//             power.put(i, x);
+//         }
+//         ArrayList<Map.Entry<Integer, Integer>> arr = new ArrayList();
+//         for (Map.Entry e : power.entrySet())
+//             arr.add(e);
+        
+//         Comparator<Map.Entry<Integer,Integer>> valueComp = new Comparator<Map.Entry<Integer,Integer>>() {
+//             public int compare(Map.Entry<Integer,Integer> e1, Map.Entry<Integer,Integer> e2) {
+//                 Integer v1 = e1.getValue();
+//                 Integer v2 = e2.getValue();
+//                 return v1.compareTo(v2);
+//             }
+//         };
+//             //HashMap<Integer, Integer> linkedMap = new HashMap();
+//             Collections.sort(arr, valueComp);
+//             for (Map.Entry<Integer,Integer> e: arr) {
+//                 k--;
+//                 System.out.println(e.getKey()+" "+e.getValue());
+//                 //linkedMap.put(e.getKey(),e.getValue());
+//                 // if (k == 0)
+//                 //     return e.getKey();
+//             }
+        
+//         return 0;
+//     }
+    // public int loop(int val, int count) {
+    //     if (val == 1)
+    //         return count;
+    //     if (val % 2 == 0)
+    //         val = val / 2;
+    //     else
+    //         val = 3 * val + 1;
+    //     count ++;
+    //     return loop(val, count);
+    // }
+// }
