@@ -1,0 +1,36 @@
+// https://leetcode.com/problems/reverse-words-in-a-string/
+
+// MY approach
+
+class Solution {
+    public String reverseWords(String s) {
+        if (s.length() == 0 || s.equals("") || s.equals(" "))
+            return "";
+        StringBuffer sb = new StringBuffer();
+        int i = 0;
+        String tmp = "";
+        
+        int f = 0;
+        while(i < s.length()) {
+            while (i<s.length() && s.charAt(i)!=' ') {
+                tmp += s.charAt(i);
+                f = 1;
+                i++;
+            }
+            if (f == 1) {
+                sb.insert(0,tmp+" ");
+                tmp = "";    
+                f = 0;
+            }
+            i++;
+        }
+
+        if (sb.length() > 0) {
+            while (sb.charAt(sb.length()-1)==' ')
+                sb.deleteCharAt(sb.length()-1);    
+        }
+        
+        return sb.toString();
+        
+    }
+}
