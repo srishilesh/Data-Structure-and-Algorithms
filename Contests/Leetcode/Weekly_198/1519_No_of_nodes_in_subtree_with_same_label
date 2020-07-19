@@ -1,0 +1,50 @@
+// https://leetcode.com/problems/number-of-nodes-in-the-sub-tree-with-the-same-label/
+
+// DID NOT WORK
+
+class Solution {
+    HashMap<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+    public int[] countSubTrees(int n, int[][] edges, String labels) {
+        int[] arr = new int[labels.length()];
+        
+        for (int i=0; i<edges.length; i++) {
+            if (map.containsKey(edges[i][0]) == false) {
+                List<Integer> li = new ArrayList<Integer>();
+                li.add(edges[i][1]);
+                map.put(edges[i][0], li);
+            }
+            else {
+                List<Integer> li = map.get(edges[i][0]);
+                li.add(edges[i][1]);
+                map.put(edges[i][0], li);
+            }       
+        }
+        int k = 0;
+        for (int i=0; i<labels.length(); i++) {
+            int pos = i;
+            char ch = labels.charAt(pos);
+            int count = 1;
+            while (pos < labels.length()) {
+                // count = countNum(labels, i, pos, ch, count);
+                int left = 2*pos + 1;
+                int right = 2*pos + 2;
+                if (left < labels.length() && labels.charAt(left) == ch && map.containsKey(i) && map.get(i).contains(left))
+                    count++;
+                if (right<labels.length() && labels.charAt(right) == ch && map.containsKey(i) && map.get(i).contains(right))
+                    count++;
+                pos++;
+            }
+            //System.out.println(count);
+            arr[i] = count;
+        }
+        return arr;
+    }
+    public int traverse(String labels, int i, int pos, char ch, int count) {
+        if (pos  labels.length() - 1)
+            return 1;
+        
+        return countNum(labels, i, left, ch, count) + countNum(labels, i, right, ch, count) ;
+    }
+        
+        
+}
