@@ -1,0 +1,18 @@
+// https://leetcode.com/problems/water-bottles/
+
+class Solution {
+    public int numWaterBottles(int numBottles, int numExchange) {
+        int full = 0;
+        int count = 0;
+        int empty = 0;
+        count = numBottles;
+        while (numBottles >= numExchange) {
+            full = numBottles/numExchange;
+            empty = numBottles%numExchange;
+            count += full;
+            numBottles = full + empty;
+            System.out.println(numBottles);
+        }
+        return count;
+    }
+}
