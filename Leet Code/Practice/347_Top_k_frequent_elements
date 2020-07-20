@@ -1,0 +1,31 @@
+// https://leetcode.com/problems/top-k-frequent-elements/
+
+// My approach
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int num : nums) 
+            map.put(num, map.getOrDefault(num, 1) + 1);
+        int arr[] = new int[k];
+        List<Map.Entry<Integer, Integer>> list = new LinkedList<Map.Entry<Integer, Integer>>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+           public int compare(Map.Entry<Integer, Integer> one, Map.Entry<Integer, Integer> two)  {
+               return two.getValue().compareTo(one.getValue());
+           }
+        });
+        HashMap<Integer, Integer> sortedMap = new LinkedHashMap<Integer, Integer>();
+        for (Map.Entry<Integer, Integer> aa : list) {
+            sortedMap.put(aa.getKey(), aa.getValue());
+        }
+        int pos = 0;
+        for (Map.Entry mape : sortedMap.entrySet()) {
+            if (k == 0)
+                break;
+            arr[pos] = (int)mape.getKey();
+            pos++;
+            k--;
+        }
+        return arr;
+    }
+}
