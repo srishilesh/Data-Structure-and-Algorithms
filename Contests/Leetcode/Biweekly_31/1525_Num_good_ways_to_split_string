@@ -1,0 +1,48 @@
+// https://leetcode.com/problems/number-of-good-ways-to-split-a-string/
+
+class Solution {
+    public int numSplits(String s) {
+        char[] arr = s.toCharArray();
+        if (s.length() < 2)
+            return 0;
+        if (s.length() == 2)
+            return 1;
+            
+        HashMap<Character, Integer> map1 = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> map2 = new HashMap<Character, Integer>();
+        int first = 0, second = 1;
+        map1.put(s.charAt(0), 1);
+        while (second < s.length()) {
+            map2.put(s.charAt(second), map2.getOrDefault(s.charAt(second), 0) + 1);
+            second ++;
+        }
+        int one = 1; int two = 0;
+        for (Map.Entry mape : map2.entrySet()) {
+            two ++;
+        }
+        int count = 0;
+        if (map1.size() == map2.size())
+            count ++;
+        second = 1;
+        
+        while (second < s.length()) {
+            char tmp = s.charAt(second);
+            // System.out.println(one + " "+ two);
+            map1.put(tmp, map1.getOrDefault(tmp, 0) + 1);
+            int no = map2.get(tmp);
+            if (no == 1) {
+                map2.remove(tmp);
+            }
+            else 
+                map2.put(tmp, map2.get(tmp) - 1);
+            if (map1.size() == map2.size()) {
+                
+                count ++;
+            }
+             //System.out.println(map1+"  "+map2);   
+            first ++;
+            second ++;
+        }
+        return count;
+    }
+}
