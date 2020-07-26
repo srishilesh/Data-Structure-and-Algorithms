@@ -1,0 +1,139 @@
+// https://leetcode.com/problems/search-suggestions-system/
+
+// SOLUTION 2 - USING BINARY SEARCH
+class Solution {
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        List<List<String>> ans = new ArrayList<>();
+        Arrays.sort(products);
+        for (int i = 1; i <= searchWord.length(); i ++) {
+            String cur = searchWord.substring(0, i);
+            int k = Arrays.binarySearch(products, cur);
+            while (k > 0 && cur.equals(products[k - 1]))
+                --k;
+            if (k < 0)
+                k = ~k;
+            List<String> suggestion = new ArrayList<>();
+            for (int j = k + 3; k < products.length && k < j && products[k].startsWith(cur); ++k )
+                suggestion.add(products[k]);
+            ans.add(suggestion);
+        }
+        return ans;
+    }
+}
+
+// SOLUTION 1 - USING TRIES
+// class Solution {
+//     class Trie {
+//         Trie[] sub = new Trie[26];
+//         LinkedList<String> suggestion = new LinkedList<>();
+//     }
+//     public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+//         Arrays.sort(products);
+//         Trie root= new Trie();
+//         for (String p : products) {
+//             insert(p, root);
+//         }
+//         return search(searchWord, root);
+//     }
+//     private void insert(String p, Trie root) {
+//         Trie t = root;
+//         for (char c : p.toCharArray()) {
+//             if (t.sub[c - 'a'] == null)
+//                 t.sub[c - 'a'] = new Trie();
+//             t = t.sub[c - 'a'];
+//             if (t.suggestion.size() < 3)
+//                 t.suggestion.offer(p);
+//         }
+//     }
+//     private List<List<String>> search(String searchWord, Trie root) {
+//         List<List<String>> ans = new ArrayList<>();
+//         for (char c : searchWord.toCharArray()) {
+//             if (root != null)
+//                 root = root.sub[c - 'a'];
+//             ans.add(root == null ? Arrays.asList() : root.suggestion);
+//         }
+//         return ans;
+//     }
+    
+// }
+
+// MY APPROACH
+// class Trie {
+//     private class TrieNode {
+//         Map<Character,TrieNode> children;
+//         boolean endOfWord;
+//         TrieNode(){
+//             children = new HashMap<Character,TrieNode>();
+//             endOfWord = false;
+//         }
+//     }
+//     /** Initialize your data structure here. */
+//     public TrieNode root;
+//     public Trie() {
+//         root = new TrieNode();
+//     }
+    
+//     /** Inserts a word into the trie. */
+//     public void insert(String word) {
+//         TrieNode current = root;
+//         for(int i=0;i<word.length();i++) {
+//             char ch = word.charAt(i);
+//             TrieNode node = current.children.get(ch);
+//             if(node == null) {
+//                 node = new TrieNode();
+//                 current.children.put(ch,node);
+//             }
+//             current = node;
+//         }
+//         current.endOfWord = true;
+//     }
+    
+//     /** Returns if the word is in the trie. */
+//     public boolean search(String word) {
+//         TrieNode current = root;
+//         for(int i=0;i<word.length();i++) {
+//             char ch = word.charAt(i);
+//             TrieNode node = current.children.get(ch);
+//             if(node == null)
+//                 return false;
+//             current = node;
+//         }
+//         return current.endOfWord;
+//     }
+    
+//     /** Returns if there is any word in the trie that starts with the given prefix. */
+//     public boolean startsWith(String prefix) {
+//         TrieNode current = root;
+//         for(int i=0;i<prefix.length();i++) {
+//             char ch = prefix.charAt(i);
+//             TrieNode node = current.children.get(ch);
+//             if(node == null)
+//                 return false;
+//             current = node;
+//         }
+//         return true;
+//     }
+// }
+
+// /**
+//  * Your Trie object will be instantiated and called as such:
+//  * Trie obj = new Trie();
+//  * obj.insert(word);
+//  * boolean param_2 = obj.search(word);
+//  * boolean param_3 = obj.startsWith(prefix);
+//  */
+// class Solution {
+//     Trie trie = new Trie();
+//     public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+//         for (String product : products)
+//             trie.insert(product);
+//         List<List<String>> result = new ArrayList<List<String>>();
+//         int len = searchWord.length();
+//         String prefix = "";
+//         for (int i = 0; i < len; i ++) {
+//             List<String> possible = new ArrayList<>(3);
+//             prefix += searchWord.charAt(i);
+            
+//         }
+//     }
+// }
