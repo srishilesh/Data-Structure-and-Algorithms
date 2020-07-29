@@ -1,0 +1,29 @@
+// https://leetcode.com/problems/search-a-2d-matrix/
+
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return false;
+        for (int arr[] : matrix) {
+            int first = arr[0];
+            int last = arr[arr.length - 1];
+            if (target >= first && target <= last)
+                return binarySearch(arr, target);
+        }
+        return false;
+    }
+    public boolean binarySearch(int[] arr, int target) {
+        int mid = 0;
+        int low = 0;
+        int high = arr.length - 1;
+        while (low <= high) {
+            mid = low + (high - low)/2;
+            if (arr[mid] == target)
+                return true;
+            else if (arr[mid] < target)
+                low = mid + 1;
+            else 
+                high = mid - 1;
+        }
+        return false;
+    }
+}
