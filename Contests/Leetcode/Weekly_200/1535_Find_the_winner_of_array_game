@@ -1,0 +1,99 @@
+// https://leetcode.com/problems/find-the-winner-of-an-array-game/
+
+class Solution {
+    public class ListNode{
+        int val;
+        ListNode next;
+        ListNode(int val) {
+            this.val = val;   
+        }
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+    public int getWinner(int[] arr, int k) {
+        int pos = 0;
+        ListNode initial = new ListNode(-1);
+        ListNode cur = initial;
+        ListNode last = cur;
+        while (pos < arr.length) {
+            ListNode tmp = new ListNode(arr[pos]);
+            if (pos == arr.length - 1)
+                last = tmp;
+            cur.next = tmp;
+            cur = cur.next;
+            pos ++;
+        }
+        ListNode head = initial.next;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int round = 0;
+        if (k > 1000000)
+            k = 1000;
+        while (true) {
+            ListNode first = initial.next;
+            ListNode second = first.next;
+            //System.out.println(first.val+" "+second.val);
+            if (first.val < second.val) {
+                map.put(second.val, map.getOrDefault(second.val, 0) + 1);
+                if (map.get(second.val) == k) {
+                    //System.out.println(map);
+                    return second.val;
+                }
+                {
+                    ListNode tmp = first;
+                    initial.next = initial.next.next;
+                    last.next = tmp;
+                    last = last.next;
+                }
+                //System.out.println("After "+initial.next.val+" "+last.val);
+            }
+            else {
+                map.put(first.val, map.getOrDefault(first.val, 0) + 1);
+                if (map.get(first.val) == k) {
+                    //System.out.println(map);
+                    return first.val;
+                }
+                {
+                    ListNode tmp = first.next;
+                    first.next = first.next.next;
+                    last.next = tmp;
+                    last = last.next;
+                }
+                //System.out.println("After "+first.val+" "+last.val);
+                
+            }
+        }
+    }
+}
+//     public int getWinner(int[] arr, int k) {
+//         int first = 0, second = 1;
+//         int round = 0;
+//         HashMap<Integer, Integer> map = new HashMap<>();
+//         int ans = 0;
+//         while (first < arr.length && second < arr.length) {
+//             round ++;
+//             if (arr[first] < arr[second]) {
+//                 map.put(arr[second], map.getOrDefault(arr[second], 0) + 1);
+//                 if (map.get(arr[second]) == k) {
+//                     ans = arr[second];
+//                     break;
+//                 }
+                    
+//                 first = second;
+//                 second ++;
+//             }
+//             else {
+//                 map.put(arr[first], map.getOrDefault(arr[first], 0) + 1);
+//                 if (map.get(arr[first]) == k) {
+//                     ans = arr[first];
+//                     break;
+//                 }
+//                 second ++;
+//             }
+//             //System.out.println(arr[first]+" "+arr[second]);
+//         }
+//         System.out.println(map);
+//         return ans;
+//     }
+    
