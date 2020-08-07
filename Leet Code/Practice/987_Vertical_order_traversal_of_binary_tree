@@ -1,0 +1,102 @@
+// https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
+
+// /**
+//  * Definition for a binary tree node.
+//  * public class TreeNode {
+//  *     int val;
+//  *     TreeNode left;
+//  *     TreeNode right;
+//  *     TreeNode() {}
+//  *     TreeNode(int val) { this.val = val; }
+//  *     TreeNode(int val, TreeNode left, TreeNode right) {
+//  *         this.val = val;
+//  *         this.left = left;
+//  *         this.right = right;
+//  *     }
+//  * }
+//  */
+
+// SOLUTION
+
+class Solution {
+    int min = 0, max = 0;
+    Map<Integer, List<Integer>> map = new HashMap<>();
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+        Queue<TreeNode> qt = new LinkedList();
+        Queue<Integer> qi = new LinkedList();
+        qt.add(root);
+        qi.add(0);
+        while (!qt.isEmpty()) {
+            int size = qt.size();
+            Map<Integer, List<Integer>> tmp = new HashMap<>();
+            while (size > 0) {
+                TreeNode cur = qt.poll();
+                int idx = qi.poll();
+                if (!tmp.containsKey(idx)) tmp.put(idx, new ArrayList<Integer>());
+                tmp.get(idx).add(cur.val);
+                if (idx < min) min = idx;
+                if (idx > max) max = idx;
+                if (cur.left != null) {
+                    qt.add(cur.left);
+                    qi.add(idx - 1);
+                }
+                if (cur.right != null) {
+                    qt.add(cur.right);
+                    qi.add(idx + 1);
+                }
+                size --;
+            }
+            for (int key : tmp.keySet()) {
+                if (!map.containsKey(key)) map.put(key, new ArrayList<Integer>());
+                List<Integer> list = tmp.get(key);
+                Collections.sort(list);
+                map.get(key).addAll(list);
+            }
+        }
+        for (int i=min; i<=max; i++){
+            List<Integer> list = map.get(i);
+            result.add(list);
+        }
+        return result;
+    }
+}
+
+// MY APPROACH
+
+// class Solution {
+//     HashMap<Integer, List<Integer>> map;
+    
+//     public List<List<Integer>> verticalTraversal(TreeNode root) {
+//         int index = 0;
+//         map = new HashMap<Integer, List<Integer>>();
+//         List<List<Integer>> result = new ArrayList<>();
+//         callDFS(index, root);
+//         List<Integer> sortedKeys = new ArrayList<>(map.keySet());
+//         Collections.sort(sortedKeys);
+//         for (int x : sortedKeys) {
+//             result.add(map.get(x));
+//         }
+//         return result;
+//     }
+//     public void callDFS(int index, TreeNode root) {
+//         if (root != null) {
+//             if (map.containsKey(index) == false) {
+//                 List<Integer> temp = new ArrayList<>();
+//                 temp.add(root.val);
+//                 map.put(index, temp);
+//             }
+//             else {
+//                 List<Integer> temp = map.get(index);
+//                 temp.add(root.val);
+//                 map.put(index, temp);
+//             }
+                
+//         }
+//         else
+//             return;
+//         callDFS(index - 1, root.left);
+//         callDFS(index + 1, root.right);
+//     }
+// }
