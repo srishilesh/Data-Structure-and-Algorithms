@@ -1,0 +1,19 @@
+// https://leetcode.com/problems/kth-missing-positive-number/
+
+class Solution {
+    public int findKthPositive(int[] arr, int k) {
+        boolean[] array = new boolean[2000];
+        for (int i : arr) {
+            array[i-1] = true;
+        }
+        int pos = 0;
+        while (k > 0) {
+            if (array[pos] == false)
+                k --;
+            if (k == 0)
+                break;
+            pos ++;
+        }
+        return pos + 1;
+    }
+}
