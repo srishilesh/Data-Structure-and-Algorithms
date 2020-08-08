@@ -1,0 +1,55 @@
+// https://leetcode.com/problems/path-sum-iii/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+// SOLUTION
+class Solution {
+    public int pathSum(TreeNode root, int sum) {
+        if (root == null) return 0;
+        return pathSumFrom(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+    }
+    private int pathSumFrom(TreeNode node, int sum) {
+        if (node == null) return 0;
+        return (node.val == sum ? 1 : 0) + pathSumFrom(node.left, sum - node.val) + pathSumFrom(node.right, sum - node.val);
+    }
+}
+
+// MY APPROACH
+// class Solution {
+//     int count = 0;
+//     public int pathSum(TreeNode root, int sum) {
+//         if (root == null)
+//             return 0;
+//         countSum(root, root.val, sum);
+//         return count;
+//     }
+//     public void countSum(TreeNode root, int sum, int target) {
+//         if (root == null)
+//             return;
+//         // if (root.left == null || root.right == null)
+//         //     return 1;
+//         if (root.left == null || root.right == null)
+//             return;
+//         if (sum > target) {
+//             sum = 0;
+//         }
+//         if (sum == target) {  
+//             count += 1;
+//         }
+//         countSum(root.left, root.left.val + sum, target);
+//         countSum(root.right, root.right.val + sum, target);
+//     }
+// }
