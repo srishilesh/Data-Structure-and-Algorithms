@@ -1,0 +1,48 @@
+// https://leetcode.com/problems/maximum-number-of-non-overlapping-subarrays-with-sum-equals-target/
+
+// DID NOT WORK
+
+class Solution {
+    public int maxNonOverlapping(int[] nums, int target) {
+        int i = 0;
+        int sum = 0;
+        int count = 0;
+        int start = 0;
+        int end = 0;
+        int len = 0;
+        while (end < nums.length) {
+            sum += nums[end];
+            if (sum == target) {
+                count ++;
+                sum = 0;
+                start = end + 1;
+            }
+            if (sum > target) {
+                sum = 0;
+                start ++;
+                while (start <= end) {
+                    sum += nums[start];
+                    if (sum > target) {
+                        sum = 0;
+                    }
+                        
+                    if (sum == target) {
+                        count ++;
+                        sum = 0;
+                        start = end;
+                        end = end + 1;
+                        break;
+                    }
+                    start ++;
+                }
+                int tmp = start;
+                end = start + 1;
+                start = end;
+                System.out.println(start+" "+end);
+            }
+            
+            end ++;
+        }
+        return count;
+    }
+}
