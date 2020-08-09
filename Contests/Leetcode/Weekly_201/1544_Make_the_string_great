@@ -1,0 +1,33 @@
+// https://leetcode.com/problems/make-the-string-great/
+
+// DID NOT WORK
+
+class Solution:
+    def makeGood(self, s: str) -> str:
+        if (s == "" or s == " "):
+            return s
+        li = list(s)
+        small = 0
+        big = 0
+        tmp = []
+        for i in li:
+            if ord(i) >= 97 and ord(i) <= 122:
+                small += 1
+                tmp.append(i)
+            else:
+                big += 1
+                tmp.append(chr(ord(i) + 32))
+        if (len(set(tmp)) == len(s)):
+            return s
+        while (big != 0):
+            i = 0
+            while (i < len(li) - 1):
+                # print(ord(li[i+1]),ord(li[i]),ord(li[i + 1]) - ord(li[i]))
+                if (abs(ord(li[i + 1]) - ord(li[i])) == 32):
+                    li.pop(i)
+                    li.pop(i)
+                    small -= 1
+                    big -= 1
+                i += 1
+            # print(li)
+        return "".join(li)
