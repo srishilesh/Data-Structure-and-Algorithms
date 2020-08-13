@@ -1,0 +1,19 @@
+// https://leetcode.com/problems/h-index/
+
+class Solution {
+    public int hIndex(int[] citations) {
+        if (citations.length == 1 && citations[0] >= 1)
+            return 1;
+        int hindex = 0;
+        Arrays.sort(citations);
+        int low = 0;
+        int high = citations.length - 1;
+        for (int i = 0; i < citations.length; i ++) {
+            if (low < citations[i] && citations[i] >= high)
+                return citations[i];
+            low ++;
+            high --;
+        }
+        return 0;
+    }
+}
