@@ -1,0 +1,68 @@
+// https://leetcode.com/problems/magnetic-force-between-two-balls/
+
+// DID NOT WORK
+
+class Solution {
+    public int maxDistance(int[] position, int m) {
+        // (x, y) -> Integer.compare(y, x)
+        // PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->(b-a));
+        // int last = position[position.length - 1];
+        // for (int pos : position)
+        //     pq.add(last - pos);
+        // List<Integer> list = new ArrayList<Integer>();
+        // while (m > 0) {
+        //     list.add(pq.poll());
+        //     m --;
+        // }
+        // return Collections.min(list);
+//         if (m > position.length)
+//             return 0;
+//         Arrays.sort(position);
+//         PriorityQueue<Integer> pq = new PriorityQueue<>();
+//         int n = position.length - 1;
+//         while (m > 1) {
+//             pq.add(position[n] - position[0]);
+//             n --;
+//             m --;
+//         }
+//         for (int i = n; i < position.length; i ++) {
+               
+//         }
+//         return pq.poll();
+        int n = position.length;
+        int total_length = position[n - 1] - position[0];
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->(b-a));
+        int subrange_length = total_length/(m - 1);
+        int current_start = position[0];
+        for (int i = 0; i < m - 1; ++i) {
+                // System.out.println("Smaller range: [" + current_start + ", " + search(position, current_start + subrange_length) + "]");
+            int tmp = search(position, current_start + subrange_length) - current_start;
+            pq.add(tmp);
+            //System.out.println(tmp);
+          current_start += subrange_length;
+        }
+        List<Integer> list = new ArrayList<Integer>();
+        while (m > 0 && pq.size() > 0) {
+            list.add(pq.poll());
+            m --;
+        }
+        for (int i = 0; i< list.size();i++)
+            System.out.println(list.get(i));
+        return Collections.min(list);
+    }
+    public int search(int[] position, int key) {
+        int low = 0;
+        int high = position.length;
+        int mid = 0;
+        while (low < high) {
+            mid = low + (high - low)/2;
+            if (position[mid] == key)
+                return position[mid];
+            else if (position[mid] > key)
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+        return position[mid];
+    }
+}
