@@ -1,0 +1,46 @@
+// https://leetcode.com/problems/minimum-numbers-of-function-calls-to-make-target-array/
+
+class Solution {
+    public int minOperations(int[] nums) {
+        
+        int result = 0;
+        int len = nums.length;
+        while (true) {
+            int zero = 0;
+            int i;
+            for (i = 0; i <len; i ++) {
+                if (nums[i] % 2 == 1)
+                    break;
+                else if(nums[i] == 0)
+                    zero ++;
+            }
+            if (zero == len)
+                return result;
+            if (i == len) {
+                for (int j = 0; j < len; j ++)
+                    nums[j] /= 2;
+                result ++;
+            }
+            for (int j = i; j < len; j ++) {
+                if (nums[j]%2 == 1)
+                {
+                    nums[j]--;
+                    result++;
+                }
+            }
+            
+        }
+        //return result;
+        
+    }
+}
+    // public void modify(int[] arr, int op, int idx) {
+    //     if (op == 0){
+    //         arr[idx] += 1;
+    //     }
+    //     if (op == 1) {
+    //         for (int i = 0; i < arr.length; i ++) {
+    //             arr[i] *= 2;
+    //         }
+    //     }
+    // }
