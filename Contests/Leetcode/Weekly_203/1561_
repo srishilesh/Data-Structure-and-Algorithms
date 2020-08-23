@@ -1,0 +1,21 @@
+// https://leetcode.com/problems/maximum-number-of-coins-you-can-get/
+
+// DID NOT WORK
+
+class Solution {
+    public int maxCoins(int[] piles) {
+        int len = piles.length;
+        Arrays.sort(piles);
+        int count = 0;
+        int even = 0;
+        int odd = 0;
+        for (int i = 1; i < len; i += 3)
+            even += piles[i];
+        for (int i = 2; i < len; i += 3)
+            odd += piles[i];
+        if (len%3==0)
+            return even;
+        else
+            return Math.max(even, odd);
+    }
+}
