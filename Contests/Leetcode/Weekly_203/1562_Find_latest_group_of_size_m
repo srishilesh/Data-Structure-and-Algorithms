@@ -1,0 +1,19 @@
+// https://leetcode.com/problems/find-latest-group-of-size-m/
+
+// DID NOT WORK
+
+class Solution {
+    public int findLatestStep(int[] arr, int m) {
+        String[] a = new String[arr.length];
+        for (int i = 0; i < arr.length; i ++)
+            a[i] = "0";
+        List<String> tmp = new ArrayList<>();
+        int step = 0;
+        for (int i = 0; i < arr.length; i ++) {
+            a[arr[i] - 1] = "1";
+            for (int j = 1; j < a.length - 1; j ++) {}
+            
+        }
+        
+    }
+}
