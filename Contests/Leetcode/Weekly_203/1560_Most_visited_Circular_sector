@@ -1,0 +1,36 @@
+// https://leetcode.com/problems/most-visited-sector-in-a-circular-track/
+
+// DID NOT WORK
+
+class Solution {
+    public List<Integer> mostVisited(int n, int[] rounds) {
+        List<Integer> result = new ArrayList<>();
+        int[] arr = new int[n];
+        int prev = rounds[0];
+        arr[prev - 1]++;
+        // for (int i = 1; i < rounds.length; i ++) {
+        //     if (prev > rounds[i])
+        //         arr[rounds[i] - 1]++;
+        //     for (int j = prev + 1; j <= rounds[i]; j ++)
+        //         arr[j - 1]++;
+        //     prev = rounds[i];
+        // }
+        for (int i = 1; i < rounds.length; i += 1) {
+            for (int j = rounds[i - 1]; j <= rounds[i]; j ++)
+                arr[j - 1]++;
+        }
+        int max = 0;
+        for (int i = 0; i < arr.length; i ++) {
+            if (max < arr[i])
+                max = arr[i];
+        }
+        for (int i = 0; i < arr.length; i ++) {
+            System.out.print(arr[i]+" ");
+            if (arr[i] == max)
+                result.add(i + 1);
+                
+        }
+        
+        return result;
+    }
+}
