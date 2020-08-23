@@ -1,0 +1,29 @@
+// https://leetcode.com/problems/detect-cycles-in-2d-grid/
+
+class Solution {
+    public boolean containsCycle(char[][] grid) {
+        for (int i = 0; i < grid.length; i ++) {
+            for (int j = 0; j < grid[i].length; j ++) {
+                if (callDFS(grid,i,j,i,j,grid[i][j]))
+                    return true;
+            }
+        }
+        return false;
+    }
+    public boolean callDFS(char[][] grid, int i, int j, int x, int y, char ch) {
+        if (i < 0 && i >= grid.length && j < 0 && j >= grid[i].length && grid[i][j] != ch)
+            return false;
+        
+        if (callDFS(grid, i + 1, j, x, y, ch)) {
+            if (callDFS(grid, i - 1, j, x, y, ch)) {
+                if (callDFS(grid, i, j + 1, x, y, ch)) {
+                    if (callDFS(grid, i, j - 1, x, y, ch)) {
+                        if (i == x && j == y && grid[i][j] == ch)
+                            return true;                        
+                    }
+                }
+            }    
+        }
+        return false;
+    }
+}
