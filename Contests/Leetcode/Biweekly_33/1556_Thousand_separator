@@ -1,0 +1,28 @@
+// https://leetcode.com/problems/thousand-separator/
+
+class Solution {
+    public String thousandSeparator(int n) {
+        String ans = n+"";
+        int len = ans.length();
+        int no = (len/3) - 1;
+        String res = "";
+        if (len == 3)
+            return ans;
+        int c = 1;
+        for (int i = len - 1; i >= 0; i --) {
+            res += ans.charAt(i);
+            if (c == 3) {
+                res += ".";
+                c = 0;
+            }
+            c ++;
+            
+        }
+        StringBuffer sb = new StringBuffer(res);        
+        sb.reverse();
+        if (sb.charAt(0) == '.')
+            sb.deleteCharAt(0);
+        return sb.toString();
+        
+    }
+}
