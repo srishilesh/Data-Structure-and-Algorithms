@@ -1,0 +1,14 @@
+// https://leetcode.com/problems/rising-temperature/
+
+# Write your MySQL query statement below
+
+select distinct day2.id as 'Id' from Weather day1, Weather day2 where DATEDIFF(day2.recordDate,day1.recordDate)=1 and day1.temperature <day2.temperature;
+
+SELECT
+    weather.id AS 'Id'
+FROM
+    weather
+        JOIN
+    weather w ON DATEDIFF(weather.date, w.date) = 1
+        AND weather.Temperature > w.Temperature
+;
