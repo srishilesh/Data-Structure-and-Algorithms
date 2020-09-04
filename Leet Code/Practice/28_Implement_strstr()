@@ -1,0 +1,64 @@
+# https://leetcode.com/problems/implement-strstr/
+
+# MY SOLUTION
+
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        if(len(needle)==0):
+            return 0
+        if(needle not in haystack):
+            return -1
+        else:
+            for i in range(len(haystack)):
+                for j in range(len(haystack)+1):
+                    if(haystack[i:j]==needle):
+                        return i
+ 
+// JAVA SOLUTION
+
+class Solution {
+    public int strStr(String haystack, String needle) {
+        if (needle.length() == 0)
+            return 0;
+        if (needle.length() > haystack.length())
+            return -1;
+        int index = 0;
+        int pos = 0, f = 0;
+        int i = 0;
+        while (i < haystack.length()) {
+            pos = 0;
+            f = 0;
+            int tmp = i;
+            if (haystack.charAt(i) == needle.charAt(pos)) {
+                while (pos < needle.length() && tmp < haystack.length()) {
+                    if (haystack.charAt(tmp) != needle.charAt(pos)) {
+                        f = 1;
+                        break;
+                    }
+                    tmp ++;
+                    pos ++;
+                }
+                if (f != 1 && pos == needle.length())
+                    return i;
+            }
+            i ++;
+        }
+        return -1;
+    }
+}
+
+# OTHER BEST APPROACHES - KMP ALGORITHM OR RABIN KARP ALGORITHM
+
+'''
+class Solution(object):
+def strStr(self, haystack, needle):
+    """
+    :type haystack: str
+    :type needle: str
+    :rtype: int
+    """
+    for i in range(len(haystack) - len(needle)+1):
+        if haystack[i:i+len(needle)] == needle:
+            return i
+    return -1
+'''    
