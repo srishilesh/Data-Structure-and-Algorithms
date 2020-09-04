@@ -1,0 +1,50 @@
+// https://leetcode.com/problems/word-pattern/
+
+// MY TRY
+
+class Solution:
+    def wordPattern(self, pattern: str, str: str) -> bool:
+        pat = []
+        for p in pattern:
+            pat.append(p)
+        s = str.split(" ")
+        if (len(pat) != len(s)):
+            return False
+        diction = {}
+        diction1 = {}
+        n = len(pat)
+        for i in range(n):
+            if pat[i] in diction:
+                if s[i] != diction[pat[i]]:
+                    return False
+            else:
+                if s[i] in diction1:
+                    return False
+                diction[pat[i]] = s[i]
+                diction1[s[i]] = pat[i]
+        return True
+        
+// BEST
+
+class Solution {
+    public boolean wordPattern(String pattern, String str) {
+        HashMap map = new HashMap();
+        String[] words = str.split(" ");
+        if (pattern.length() != words.length) 
+            return false;
+        for (int i = 0; i < words.length; i ++) {
+            char c = pattern.charAt(i);
+            String w = words[i];
+            
+            if (!map.containsKey(c))
+                map.put(c, i);
+            
+            if (!map.containsKey(w))
+                map.put(w, i);
+            
+            if (map.get(c) != map.get(w))
+                return false;
+        }
+        return true;
+    }
+}
