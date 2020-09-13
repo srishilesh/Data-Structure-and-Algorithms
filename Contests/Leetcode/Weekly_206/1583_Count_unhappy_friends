@@ -1,0 +1,41 @@
+// https://leetcode.com/problems/count-unhappy-friends/
+
+// DID NOT WORK
+/*
+class Solution {
+    public int unhappyFriends(int n, int[][] preferences, int[][] pairs) {
+        int res = 0;
+        HashMap<Integer, Integer> map1 = new HashMap<>();
+        HashMap<Integer, Integer> map2 = new HashMap<>();
+        for (int i = 0; i < pairs.length; i ++) {
+            int first = pairs[i][0];
+            int second = pairs[i][1];
+            map1.put(first, second);
+            map2.put(second, first);
+        }
+        for (int i = 0; i < preferences.length; i ++) {
+            int u = preferences[i][0];
+            int x = i;
+            int y;
+            if (map1.containsKey(i))
+                y = map1.get(i);
+            else
+                y = map2.get(i);
+            // if (top == x || top == y)
+            //     continue;
+            // else
+            //     res ++;
+            // int v;
+            int v = preferences[u][0];
+            int z;
+            if (map2.containsKey(u))
+                z = map2.get(u);
+            else
+                z = map1.get(u);
+            if (v == x && u != y && v != z)
+                res ++;
+        }
+        return res;
+    }
+}
+*/
