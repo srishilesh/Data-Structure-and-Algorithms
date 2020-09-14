@@ -1,0 +1,61 @@
+// https://leetcode.com/problems/apply-discount-every-n-orders/
+
+class Cashier:
+    
+    def __init__(self, n: int, discount: int, products: List[int], prices: List[int]):
+        self.n = n
+        self.discount = discount
+        self.products = products
+        self.prices = prices
+        self.count = 0
+
+    def getBill(self, product: List[int], amount: List[int]) -> float:
+        self.count += 1
+        if (self.count == self.n):
+            dis = True
+            self.count = 0
+        else:
+            dis = False
+            
+        l = len(product)
+        bill = 0
+        for i in range(l):
+            if product[i] in self.products:
+                price = self.prices[self.products.index(product[i])]
+                cost = amount[i] * price
+                if (not(dis)):
+                    bill += cost
+                else:
+                    bill += cost - (self.discount * cost) / 100
+        return bill
+    
+
+# Your Cashier object will be instantiated and called as such:
+# obj = Cashier(n, discount, products, prices)
+# param_1 = obj.getBill(product,amount)
+
+
+
+ def __init__(self, n: int, discount: int, products: List[int], prices: List[int]):
+        self.price = dict(zip(products, prices)) # here credit to @danielmittereder for making code clean.
+        self.discount = discount
+        self.n = n
+        self.cnt = 0
+
+    def getBill(self, product: List[int], amount: List[int]) -> float:
+        self.cnt += 1
+        total = 0.0
+        for i, p in enumerate(product):
+            total += self.price[p] * amount[i]
+        return total * (1 - self.discount / 100 if self.cnt % self.n == 0 else 1)     def __init__(self, n: int, discount: int, products: List[int], prices: List[int]):
+        self.price = dict(zip(products, prices)) # here credit to @danielmittereder for making code clean.
+        self.discount = discount
+        self.n = n
+        self.cnt = 0
+
+    def getBill(self, product: List[int], amount: List[int]) -> float:
+        self.cnt += 1
+        total = 0.0
+        for i, p in enumerate(product):
+            total += self.price[p] * amount[i]
+        return total * (1 - self.discount / 100 if self.cnt % self.n == 0 else 1)    
