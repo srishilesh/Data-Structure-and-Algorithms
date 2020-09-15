@@ -1,0 +1,79 @@
+// https://leetcode.com/problems/trapping-rain-water/
+
+// APPROACH 4 - Stack
+// class Solution {
+//     public int trap(int[] height) {
+        
+//     }
+// }
+
+// APPROACH 3 - 2 pointers
+// class Solution {
+//     public int trap(int[] height) {
+//         int n = height.length;
+//         if (n == 0) return 0;
+//         int result = 0;
+//         int max_left = 0, max_right = 0;
+//         int lo = 0, hi = n - 1;
+//         while (lo <= hi) {
+//             if (height[lo] < height[hi]) {
+//                 if (height[lo] > max_left)
+//                     max_left = height[lo];
+//                 else
+//                     result += max_left - height[lo];
+//                 lo ++;
+//             }
+//             else {
+//                 if (height[hi] > max_right) 
+//                     max_right = height[hi];
+//                 else
+//                     result += max_right - height[hi];
+//                 hi --;
+//             }
+//         }
+//         return result;
+//     }
+// }
+
+// APPROACH 2 - DP
+// class Solution {
+//     public int trap(int[] height) {
+//         int n = height.length;
+//         if (n == 0) return 0;
+//         int[] left = new int[n];
+//         int[] right = new int[n];
+//         int water = 0;
+//         left[0] = height[0];
+//         for (int i = 1; i < n; i ++) {
+//             left[i] = Math.max(left[i - 1], height[i]);
+//         }
+//         right[n - 1] = height[n - 1];
+//         for (int i = n - 2; i >= 0; i --) {
+//             right[i] = Math.max(right[i + 1], height[i]);
+//         }
+//         for (int i = 0; i < n; i ++) {
+//             water += Math.min(left[i], right[i]) - height[i];
+//         }
+//         return water;
+//     }
+// }
+
+// APPROACH 1 - BF
+// class Solution {
+//     public int trap(int[] height) {
+//         int n = height.length;
+//         int res = 0;
+//         for (int i = 1; i < n - 1; i ++) {
+//             int left = height[i];
+//             for (int j = 0; j < i; j ++) {
+//                 left = Math.max(left, height[j]);
+//             }
+//             int right = height[i];
+//             for (int j = i + 1; j < n; j ++) {
+//                 right = Math.max(right, height[j]);
+//             }
+//             res += Math.min(left, right) - height[i];
+//         }
+//         return res;
+//     }
+// }
