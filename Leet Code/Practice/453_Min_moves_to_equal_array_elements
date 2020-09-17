@@ -1,0 +1,61 @@
+// https://leetcode.com/problems/minimum-moves-to-equal-array-elements/
+
+/*
+CLEAN SOLUTION
+public class Solution {
+    public int minMoves(int[] nums) {
+        if (nums.length == 0) return 0;
+        int min = nums[0];
+        for (int n : nums) min = Math.min(min, n);
+        int res = 0;
+        for (int n : nums) res += n - min;
+        return res;
+    }
+}
+*/
+
+class Solution {
+    public int minMoves(int[] nums) {
+        int moves = nums.length - 1;
+        int len = nums.length;
+        int min = Integer.MAX_VALUE;
+        int mini = 0;
+        int sum = 0;
+        for (int i = 0; i < len; i ++) {
+            if (min > nums[i]) {
+                min = nums[i];   
+                mini = i;
+            }
+            sum += nums[i];
+        }
+        int ans = 0;
+        for (int i = 0; i < len; i ++) {
+            if (i != mini) {
+                ans += nums[i] - min;
+                sum -= nums[i] - min;
+                
+            }
+            if (sum == (min * len))
+                return ans;
+            
+        }
+        return 0;
+//         int moves = nums.length - 1;
+//         int len = nums.length;
+//         int max = 0;
+//         int sum = 0;
+//         for (int num : nums) {
+//             if (max < num)
+//                 max = num;
+//             sum += num;
+//         }
+//         sum = sum - max;
+//         int val = max;
+        
+//         while (sum % moves != 0) {
+//             sum += len;
+//             val += 1;
+//         }
+//         return sum;
+    }
+}
