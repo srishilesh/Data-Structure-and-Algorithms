@@ -1,0 +1,27 @@
+// https://leetcode.com/problems/design-underground-system/
+
+class UndergroundSystem:
+
+    def __init__(self):
+        self.times = defaultdict(lambda: defaultdict(lambda : [0, 0]))
+        self.transit = defaultdict(list)
+
+    def checkIn(self, id: int, stationName: str, t: int) -> None:
+        self.transit[id].extend([stationName, t])
+
+    def checkOut(self, id: int, stationName: str, t: int) -> None:
+        sName, sTime = self.transit[id]
+        count, val = self.times[sName][stationName]
+        self.times[sName][stationName] = [count + 1, val + t - sTime]
+        self.transit[id] = []
+
+    def getAverageTime(self, startStation: str, endStation: str) -> float:
+        count, val = self.times[startStation][endStation]
+        return val / count
+
+
+# Your UndergroundSystem object will be instantiated and called as such:
+# obj = UndergroundSystem()
+# obj.checkIn(id,stationName,t)
+# obj.checkOut(id,stationName,t)
+# param_3 = obj.getAverageTime(startStation,endStation)
