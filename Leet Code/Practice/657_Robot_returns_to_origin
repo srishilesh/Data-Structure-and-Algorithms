@@ -1,0 +1,29 @@
+// https://leetcode.com/problems/robot-return-to-origin/
+
+class Solution {
+    public boolean judgeCircle(String moves) {
+        int final_X = 0, final_Y = 0;
+        int up = 0, down = 0, left = 0, right = 0;
+        for (char ch : moves.toCharArray()) {
+            switch(ch) {
+                case 'U':
+                    up ++;
+                    break;
+                case 'D':
+                    down ++;
+                    break;
+                case 'L':
+                    left ++;
+                    break;
+                case 'R':
+                    right ++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        final_X = right - left;
+        final_Y = down - up;
+        return ((final_X == 0)&&(final_Y == 0));
+    }
+}
