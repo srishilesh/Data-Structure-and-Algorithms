@@ -1,0 +1,18 @@
+// https://leetcode.com/problems/car-pooling/
+
+class Solution {
+    public boolean carPooling(int[][] trips, int capacity) {
+        int[] timestamp = new int[1001];
+        for (int[] trip : trips) {
+            timestamp[trip[1]] += trip[0];
+            timestamp[trip[2]] -= trip[0];
+        }
+        int used = 0;
+        for (int num : timestamp) {
+            used += num;
+            if (used > capacity) 
+                return false;
+        }
+        return true;
+    }
+}
