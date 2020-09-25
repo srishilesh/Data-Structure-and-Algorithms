@@ -1,0 +1,49 @@
+// https://leetcode.com/problems/compare-strings-by-frequency-of-the-smallest-character/
+
+class Solution {
+    public int[] numSmallerByFrequency(String[] queries, String[] words) {
+        int[] answer = new int[queries.length];
+        int x[] = new int[queries.length];
+        int y[] = new int[words.length];
+        
+        for (int i = 0; i < queries.length; i ++) {
+            int min = Integer.MAX_VALUE;
+            char minchar = '#';
+            HashMap<Character, Integer> map = new HashMap<>();
+            for (char ch : queries[i].toCharArray()) {
+                map.put(ch, map.getOrDefault(ch, 0) + 1);
+                if (min > (int)ch) {
+                    min = (int)ch;
+                    minchar = ch;
+                }
+            }
+            x[i] = map.get(minchar);    
+        }
+        
+        for (int i = 0; i < words.length; i ++) {
+            int min = Integer.MAX_VALUE;
+            char minchar = '#';
+            HashMap<Character, Integer> map = new HashMap<>();
+            for (char ch : words[i].toCharArray()) {
+                map.put(ch, map.getOrDefault(ch, 0) + 1);
+                if (min > (int)ch) {
+                    min = (int)ch;
+                    minchar = ch;
+                }
+            }
+            y[i] = map.get(minchar);    
+        }
+        
+        for (int i = 0; i < x.length; i ++) {
+            int tmp = 0;
+            for (int j = 0; j < y.length; j ++) {
+                // System.out.println(x[i]+" "+y[j]);
+                if (x[i] < y[j])
+                    tmp ++;
+            }
+            answer[i] = tmp;
+        }
+        
+        return answer;
+    }
+}
