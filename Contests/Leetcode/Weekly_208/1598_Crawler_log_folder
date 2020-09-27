@@ -1,0 +1,15 @@
+// https://leetcode.com/problems/crawler-log-folder/
+
+class Solution:
+    def minOperations(self, logs: List[str]) -> int:
+        ctr = 0
+        for log in logs:
+            if "../" == log:
+                if ctr > 0:
+                    ctr -= 1
+            elif "./" == log:
+                ctr = ctr
+            else:
+                ctr += 1
+        return ctr
+            
