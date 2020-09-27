@@ -1,0 +1,95 @@
+// https://leetcode.com/problems/maximum-profit-of-operating-a-centennial-wheel/
+
+// DID NOT WORK
+
+/*
+class Solution {
+    public int minOperationsMaxProfit(int[] customers, int boardingCost, int runningCost) {
+        int cost = 0;
+        int run = 1;
+        int wait = 0;
+        int board = 0;
+        int max = 0;
+        int sum = 0;
+        int tmp;
+        
+        for (int customer : customers) {
+            if (customer >= 4) {
+                board = 4;
+                wait = customer - 4;
+            }
+            else {
+                board = customer;
+                wait = 0;
+            }
+            cost = ((sum * boardingCost) - (run * runningCost));
+            if (max < cost)
+                max = cost;
+            run ++;
+            // sum += customer;
+        }
+        // for (int customer : customers) {
+        //     if (customer >= 4)
+        //         tmp = 4;
+        //     else
+        //         tmp = customer;
+            // cost = ((tmp * boardingCost) - (run * runningCost));
+            // if (max < cost)
+            //     max = cost;
+        //     run ++;
+        //     sum += tmp;
+        //     if (customer > 4)
+        //         wait += customer - 4;
+        // }
+        // if (wait >= 4)
+        //     sum += 4;
+        // else
+        //     sum += wait;
+        //System.out.println(sum+" "+run+" "+wait);
+//         while (wait > 0) {
+            
+//             cost = ((sum * boardingCost) - (run * runningCost));
+//             System.out.println(sum+" "+run+" "+wait+" "+cost);
+//             if (max < cost)
+//                 max = cost;
+//             if (wait >= 4) {
+//                 sum += (4);
+//             }
+                
+//             else {
+//                 sum += wait;
+//                 wait = 0;
+//             }
+                
+//             run ++;
+//             wait -= 4;
+//         }
+        
+        
+//             if (customer < 4) {
+//                 sum += customer;
+//                 cost = ((sum * boardingCost) - (run * runningCost));
+//                 // System.out.println(sum+" "+run+" "+cost);
+//                 if (max < cost)
+//                     max = cost;
+//                 run ++;
+                
+//             }
+//             else {
+//                 int tmp = customer;
+//                 while (tmp > 0) {
+//                     cost = ((sum * boardingCost) - (run * runningCost));
+//                     if (max < cost)
+//                         max = cost;
+//                     tmp -= 4;
+//                     sum += tmp;
+//                     run ++;
+//                     // System.out.println(sum+" "+run+" "+max);
+//                 }
+//             }
+            
+        // }
+        return max;
+    }
+}
+*/
