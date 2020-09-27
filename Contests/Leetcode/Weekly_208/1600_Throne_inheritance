@@ -1,0 +1,52 @@
+// https://leetcode.com/problems/throne-inheritance/
+
+# DID NOT WORK
+'''
+class ThroneInheritance:
+
+    def __init__(self, kingName: str):
+        self.names = []
+        self.parents = set()
+        self.parents.add(kingName)
+        self.names.append(kingName)
+        self.children = defaultdict(list)
+        self.d = list()
+
+    def birth(self, parentName: str, childName: str) -> None:
+        self.names.append(childName)
+        self.parents.add(parentName)
+        self.children[parentName].append(childName)
+
+    def death(self, name: str) -> None:
+        self.d.append(name)
+            
+        
+
+    def getInheritanceOrder(self) -> List[str]:
+        order = []
+        print(self.parents)
+        print(self.children)
+        print(self.d)
+        for key in self.names:
+            # print(key)
+            if key != None:
+                order.append(key)
+            for child in self.children[key]:
+                if child != None:
+                    order.append(child)
+        # for parent in self.parents:
+        #     if parent not in self.d:
+        #         order.append(parent)
+        #     if parent in self.children:
+        #         for child in (self.children[parent]):
+        #             if child not in self.d:
+        #                 order.append(child)
+        return order
+
+
+# Your ThroneInheritance object will be instantiated and called as such:
+# obj = ThroneInheritance(kingName)
+# obj.birth(parentName,childName)
+# obj.death(name)
+# param_3 = obj.getInheritanceOrder()
+'''
