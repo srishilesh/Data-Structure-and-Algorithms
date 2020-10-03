@@ -1,0 +1,90 @@
+// https://leetcode.com/problems/alert-using-same-key-card-three-or-more-times-in-a-one-hour-period/
+
+
+# DID NOT WORK
+class Solution:
+    def alertNames(self, keyName: List[str], keyTime: List[str]) -> List[str]:
+        
+        
+        ans = set()
+        diction = defaultdict(list)
+        for i in range(len(keyName)):
+            if keyName[i] not in diction:
+                diction[keyName[i]] = [self.calcTime(keyTime[i])]
+            else:
+                diction[keyName[i]].append(self.calcTime(keyTime[i]))
+        for key,val in diction.items():
+            li = val.copy()
+            li.sort()
+            diction[key] = li
+        
+        print(diction)
+        for key, val in diction.items():
+            count = 1
+            x = val[0]
+            for i in range(1, len(val)):
+                if ((x + 100) >= val[i]):
+                    count += 1
+                else:
+                    x = val[i]
+                if (count >= 3):
+                    ans.add(key)
+                    
+        # for key, val in diction.items():
+        #     tmp = val.copy()
+        #     x = val[0]
+        #     for i in range(1, len(tmp)):
+        #         c = tmp[i]
+        #         tmp[i] = abs(tmp[i] - x)
+        #         x = c
+        #     tmp[0] = 0
+        #     diction[key] = tmp
+        # print(diction)  
+        
+              
+                
+        # name = keyName[0]
+        # count = 1
+        # diff = 0
+        # diction[name] = self.calcTime(keyTime[0])
+        # for i in range(1, len(keyName)):
+        #     #print(keyName[i],self.calcTime(keyTime[i]))
+        #     if (name != keyName[i]):
+        #         count = 1
+        #         diff = 0
+        #         name = keyName[i]
+        #     if name not in diction:
+        #         diction[keyName[i]] = self.calcTime(keyTime[i])
+        #         count = 1
+        #         diff = 0
+        #         name = keyName[i]
+        #     else:
+        #         newT = self.calcTime(keyTime[i])
+        #         orT = diction[keyName[i]]
+        #         if (newT > orT):
+        #             dif = abs(newT - orT)
+        #             if (dif > 100):
+        #                 diff += dif
+        #             else:
+        #                 diff = (diff+dif)%100
+        #             if (diff <= 100):
+        #                 count += 1
+        #                 if (count >= 3):
+        #                     ans.add(name)
+        #             # else:
+        #             #     continue
+        #             diction[name] = newT
+        #         #print(diction, diff, count)
+               
+        ans = list(ans)
+        ans.sort()
+        return ans
+
+    def calcTime(self, string):
+        time = 0
+        l = 3
+        for s in string:
+            if (s != ":"):
+                time += int(s) * (10 ** l)
+                l -= 1
+        return time
