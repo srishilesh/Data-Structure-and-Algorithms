@@ -1,0 +1,37 @@
+// https://leetcode.com/problems/maximum-number-of-visible-points/
+
+// DID NOT WORK
+
+class Solution {
+    public int visiblePoints(List<List<Integer>> points, int angle, List<Integer> location) {
+        int no = 359;
+        if (angle > 0)
+            no = 360/angle;
+        int max = 0;
+        double x = (double)location.get(0);
+        double y = (double)location.get(1);
+        for (int d = 0; d <= no; d ++) {
+            double slope1 = Math.tan(d - (angle/2));
+            double slope2 = Math.tan(d + (angle/2));
+            int count = 0;
+            System.out.println(slope1+" "+slope2);
+            for (List<Integer> point : points) {
+                double x2 = (double)point.get(0);
+                double y2 = (double)point.get(1);
+                
+                if ((slope1!=slope2)&&((y2-y)>=(slope1*(x2-x))) && ((y2-y)<=(slope2*(x2-x)))) {
+                    // count ++;
+                    // System.out.println(x2+" "+y2+" "+slope1+" "+slope2);
+                }
+                else if ((slope1==1.0)&&(slope1==slope2)&&(((y2-y)==(slope1*(x2-x))))) {
+                    count ++;
+                    // System.out.println(x2+" "+y2+" "+slope1+" "+slope2);
+                }
+                    
+            }
+            if (max < count)
+                max = count;
+        }
+        return max;
+    }
+}
