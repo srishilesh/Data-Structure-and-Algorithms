@@ -1,0 +1,74 @@
+// https://leetcode.com/problems/even-odd-tree/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isEvenOddTree(TreeNode root) {
+        if (root == null) return false;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        if (root.val%2==0)
+            return false;
+        int level = 0;
+        while (!queue.isEmpty()) {
+            Stack<TreeNode> stack = new Stack<>();
+            int size = queue.size();
+            int count = 0;
+            while (size > 0) {
+                TreeNode tmp = queue.poll();
+                // System.out.println(tmp.val+" "+level);
+                if (!stack.empty() && (stack.peek()).val >= tmp.val && (level)%2==0) 
+                    return false;
+                else if (!stack.empty() && (stack.peek()).val <= tmp.val && (level)%2!=0) 
+                    return false;
+                else 
+                    stack.push(tmp);
+                
+                if (tmp.left != null) {
+                    TreeNode x = tmp.left;
+                    if (((level+1)%2==0 && x.val%2!=0)||(((level+1)%2!=0 && x.val%2==0))) {
+                        queue.add(x);
+                    count ++;
+                    }
+                    else
+                        return false;
+                    
+                }
+                if (tmp.right != null) {
+                   TreeNode x = tmp.right;
+                    if (((level+1)%2==0 && x.val%2!=0)||(((level+1)%2!=0 && x.val%2==0))) {
+                        queue.add(x);
+                    count ++;
+                    }
+                    else
+                        return false;
+                }
+                size --;
+            }
+            if (count == 0)
+                break;
+            level ++;
+            // count = queue.size();
+            System.out.println(level + " " + count);
+            
+            // if (level % 2 == 0)
+            //     return false;
+            // if (level % 2 != 0)
+            //     return false;
+        }
+        return true;
+    }
+}
