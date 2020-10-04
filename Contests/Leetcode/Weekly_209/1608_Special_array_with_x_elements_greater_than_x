@@ -1,0 +1,18 @@
+// https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/
+
+class Solution {
+    public int specialArray(int[] nums) {
+        int start = 0;
+        int end = nums.length;
+        for (int i = end; i >= start; i --) {
+            int count = 0;
+            for (int j = 0; j < end; j ++) {
+                if (i <= nums[j])
+                    count ++;
+            }
+            if (count == i)
+                return i;
+        }
+        return -1;
+    }
+}
