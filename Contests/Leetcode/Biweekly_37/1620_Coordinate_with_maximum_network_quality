@@ -1,0 +1,47 @@
+// https://leetcode.com/problems/coordinate-with-maximum-network-quality/
+
+// DID NOT WORK
+
+import math
+class Solution:
+    def bestCoordinate(self, towers: List[List[int]], radius: int) -> List[int]:
+        tind = 0
+        mini = 99999
+        maxnet = 0
+        maxnetind = 0
+        li = []
+        for i in range(len(towers)):
+            net = 0
+            for j in range(len(towers)):
+                d = self.euclidean(towers[i], towers[j])
+                q = self.quality(towers[j][2], d)
+                net += q
+                # print(j,q,towers[j][2],d)
+            # print(i,net)
+            if (maxnet <= net):
+                maxnet = net
+                maxnetind = i
+            li.append(net)
+        # print(li)
+        newli = []
+        maxi = max(li)
+        for i in range(len(li)):
+            if li[i] == maxi:
+                newli.append(i)
+        
+        coors = []
+        for ind in newli:
+            # if ind == liind:
+                # print(towers[ind])
+            coors.append(towers[ind][:2])
+        coors.sort()
+        # print(coors)
+        return coors[0]
+                
+            
+    def quality(self, q, d):
+        return math.floor(q / (1 + (d**0.5)))
+    
+    def euclidean(self, p1, p2):
+        return (((p2[1]-p1[1])**2)+((p2[0]-p1[0])**2))
+        
