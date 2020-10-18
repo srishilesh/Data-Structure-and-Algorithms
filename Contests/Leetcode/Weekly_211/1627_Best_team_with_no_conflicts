@@ -1,0 +1,41 @@
+// https://leetcode.com/problems/best-team-with-no-conflicts/
+
+// DID NOT WORK
+
+class Solution:
+    def bestTeamScore(self, scores: List[int], ages: List[int]) -> int:
+        if (len(ages) <= 1):
+            return sum(scores)
+        diction = {}
+        # scores = [x for _,x in sorted(zip(ages,scores))]
+        # print(scores)
+        ratio = [0 for i in range(len(scores))]
+        for i in range(len(scores)):
+            ratio[i] = scores[i]/ages[i]
+        
+        for i in range(len(ratio)):
+            if ages[i] not in diction:
+                diction[ages[i]] = ratio[i]
+            else:
+                if (ratio[i] > diction[ages[i]]):
+                    diction[ages[i]] = ratio[i]
+        print(diction)
+        # print(sum(scores))
+        
+        # for i in range(len(scores)):
+        #     if (scores[i]/ages[i]) >= diction[ages[i]]:
+        #         ans += scores[i]
+        ages = [x for _,x in sorted(zip(scores,ages))]
+        print(ages,scores)
+        if (ages[0] <= ages[1]):
+            ans = scores[0]
+        else:
+            ans = scores[1]
+        for i in range(1,len(ages)):
+            if (ages[i-1] <= ages[i]):
+                ans += scores[i]
+        # if (ages[-1] >= ages[-2]):
+        #     ans += scores[-1]
+        return ans
+        
+        
