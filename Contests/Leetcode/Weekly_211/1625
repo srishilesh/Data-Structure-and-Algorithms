@@ -1,0 +1,27 @@
+// https://leetcode.com/problems/lexicographically-smallest-string-after-applying-operations/
+
+// DID NOT WORK
+
+class Solution:
+    def findLexSmallestString(self, s: str, a: int, b: int) -> str:
+        t = self.add(s,a)
+        print(t)
+        t = self.rotate(t,b)
+        return t
+    
+    def add(self, s, a):
+        string = ""
+        for i in range(len(s)):
+            if (i%2!=0):
+                num = int(s[i])
+                string += str((num + a)%10)
+            else:
+                string += s[i]
+        return string
+    
+    def rotate(self, s, b):
+        rot = b % len(s)
+        first = s[0:len(s) - rot]
+        second = s[len(s) - rot:]
+        return second + first
+                    
