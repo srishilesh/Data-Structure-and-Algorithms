@@ -1,0 +1,17 @@
+// https://leetcode.com/problems/largest-substring-between-two-equal-characters/
+
+class Solution {
+    public int maxLengthBetweenEqualCharacters(String s) {
+        int maxcount = -1;
+        for (int i = 0; i < s.length(); i ++) {
+            for (int j = i + 1; j < s.length(); j ++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    if (maxcount < (j - i - 1)) {
+                        maxcount = j - i - 1;
+                    }
+                }
+            }
+        }
+        return maxcount;
+    }
+}
