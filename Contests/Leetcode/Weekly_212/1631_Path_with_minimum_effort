@@ -1,0 +1,80 @@
+// https://leetcode.com/problems/path-with-minimum-effort/
+
+// DID NOT WORK
+
+class Solution {
+    public int minimumEffortPath(int[][] heights) {
+        int maxdif = 0;
+        int i = heights.length - 1, j = heights[0].length - 1;
+        while(i >= 0 && j >= 0) {
+             {
+                int[] newpos = bestPos(heights, i, j);
+                int a = newpos[0];
+                int b = newpos[1];
+                int dif = newpos[2];
+                System.out.println(i+" "+j+" "+dif);
+                if (maxdif < dif)
+                    maxdif = dif;
+                if (i == 0 && j == 0) {
+                    return maxdif;
+                }
+            }
+        }
+        return maxdif;
+    }
+    public int[] bestPos(int[][] heights, int i, int j) {
+        int dif = Integer.MAX_VALUE;
+        int x = i, y = j;
+        int val = heights[i][j];
+        if (i>0 && dif > Math.abs(heights[i - 1][j] - val)) {
+            dif = Math.abs(heights[i - 1][j] - val);
+            x = i - 1;
+            y = j;
+        }
+        if (i<heights.length-1 && dif > Math.abs(heights[i + 1][j] - val)) {
+            dif = Math.abs(heights[i + 1][j] - val);
+            x = i + 1;
+            y = j;
+        }
+        if (j > 0 && dif > Math.abs(heights[i][j - 1] - val)) {
+            dif = Math.abs(heights[i][j - 1] - val);
+            x = i;
+            y = j - 1;
+        }
+        if (j<heights[0].length-1 && dif > Math.abs(heights[i][j+1] - val)) {
+            dif = Math.abs(heights[i][j+1] - val);
+            x = i;
+            y = j + 1;
+        }
+        // dif = Math.min(Math.abs(heights[i - 1][j] - val)), Math.abs(heights[i][j - 1] - val)));
+        // if (i > 0) {
+        //     if (dif < Math.abs(heights[i - 1][j] - val)) {
+        //         dif = Math.abs(heights[i - 1][j] - val);
+        //         x = i - 1;
+        //         y = j;
+        //     }       
+        // }
+        // if (i < heights.length - 1) {
+        //     if (dif < Math.abs(heights[i + 1][j] - val)) {
+        //         dif = Math.abs(heights[i + 1][j] - val);
+        //         x = i + 1;
+        //         y = j;
+        //     }    
+        // }
+        // if (j > 0) {
+        //     if (dif < Math.abs(heights[i][j - 1] - val)) {
+        //         dif = Math.abs(heights[i][j - 1] - val);
+        //         x = i;
+        //         y = j - 1;
+        //     }       
+        // }
+        // if (j < heights.length - 1) {
+        //     if (dif < Math.abs(heights[i][j + 1] - val)) {
+        //         dif = Math.abs(heights[i][j + 1] - val);
+        //         x = i;
+        //         y = j + 1;
+        //     }    
+        // }
+        return new int[]{x, y, dif};
+    }
+}
