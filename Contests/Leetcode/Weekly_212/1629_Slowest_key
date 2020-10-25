@@ -1,0 +1,32 @@
+// https://leetcode.com/problems/slowest-key/
+
+class Solution:
+    def slowestKey(self, releaseTimes: List[int], keysPressed: str) -> str:
+        diction = {}
+        
+        li = [releaseTimes[0]]
+        for i in range(1,len(releaseTimes)):
+            li.append(releaseTimes[i] - releaseTimes[i - 1])
+                
+        for i in range(len(li)):
+            if keysPressed[i] not in diction:
+                diction[keysPressed[i]] = li[i]
+            else:
+                diction[keysPressed[i]] += li[i]
+        
+        maxi = max(li)
+        x = []
+        for i in range(len(li)):
+            if (li[i] == maxi):
+                x.append(keysPressed[i])
+        x.sort()
+        
+        return x[-1]
+    
+
+# [9,29,49,50]
+# "cbcd"
+# [12,23,36,46,62]
+# "spuda"
+# [23,34,43,59,62,80,83,92,97]
+# "qgkzzihfc"
