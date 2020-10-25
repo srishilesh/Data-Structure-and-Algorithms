@@ -1,0 +1,27 @@
+// https://leetcode.com/problems/arithmetic-subarrays/
+
+class Solution:
+    def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
+        seq = []
+        for i in range(len(l)):
+            seq.append(nums[l[i]:r[i]+1])
+        ans = []
+        for s in seq:
+            exp = self.apsum(s)
+            if (exp):
+                ans.append(True)
+            else:
+                ans.append(False)
+        return ans
+    
+    def apsum(self, nums):
+        if (len(nums) < 2):
+            return True
+        else:
+            nums.sort()
+            dif = nums[1] - nums[0]
+            for i in range(2, len(nums)):
+                if ((nums[i] - nums[i - 1]) != dif):
+                    return False
+        return True
+        
