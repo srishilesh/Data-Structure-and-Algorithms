@@ -10,3 +10,63 @@ class Solution:
             if (num == target and end < ind):
                 end = ind
         return [start, end]
+        
+        
+class Solution:
+    def searchRange(self, nums, target):
+        start = -1
+        end = -1
+        start = self.binarySearch(nums, target, True)
+        if (start == len(nums) or nums[start] != target):
+            return [-1, -1]
+        return [start, self.binarySearch(nums, target, False) - 1]
+    
+    def binarySearch(self, nums, target, left):
+        lo = 0
+        hi = len(nums)
+        
+        while lo < hi:
+            mid = lo + (hi - lo)//2
+            if (nums[mid] > target or (left and target == nums[mid])):
+                hi = mid
+            else:
+                lo = mid + 1
+        return lo
+
+# class Solution:
+#     def searchRange(self, nums: List[int], target: int) -> List[int]:
+#         start = -1
+#         end = -1
+#         start = self.binarySearch(nums, 0, len(nums), target)
+#         nums = nums[::-1]
+#         if (start == -1):
+#             tmp = 0
+#         else:
+#             tmp = start
+#         x = self.binarySearch(nums, 0, len(nums) - tmp, target)
+#         if (x != -1):
+#             end = len(nums) - x - 1
+#         else:
+#             end = -1
+#         return [start, end]
+        
+#     def binarySearch(self, nums, low, high, target):
+#         mid = low + (high - low)//2
+#         print(low, mid, high, target)
+#         if (low < high):
+#             # print(mid)
+#             if (nums[mid] == target):
+#                 return mid
+#             elif (nums[mid] > target):
+#                 high = mid - 1
+#             else:
+#                 low = mid + 1
+#         return -1
+    
+    
+# # [5,7,7,8,8,10]
+# # 8
+# # [5,7,7,8,8,10]
+# # 6
+# # []
+# # 0            
