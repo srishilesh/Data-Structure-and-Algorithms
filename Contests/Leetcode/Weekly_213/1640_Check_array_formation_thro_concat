@@ -1,20 +1,46 @@
 // https://leetcode.com/problems/check-array-formation-through-concatenation/
 
 class Solution:
-    def canFormArray(self, arr: List[int], pieces: List[List[int]]) -> bool:
-        for i in pieces:
-            prev = -1
-            for j in i:
-                if j in arr:
-                    ind = arr.index(j)
-                else:
-                    return False
-                if (prev < ind):
-                    prev = ind
-                elif (prev >= ind):
-                    return False
-        return True
-                
+    def canFormArray(self, arr, pieces):
+        mp = {x[0]: x for x in pieces}
+        # print(mp.get(4,[]))
+        res = []
+        for num in arr:
+            res += mp.get(num,[])
+        return res == arr
+# TRY 1 - WORKED
+# class Solution:
+#     def canFormArray(self, arr: List[int], pieces: List[List[int]]) -> bool:
+#         for i in pieces:
+#             prev = -1
+#             for j in i:
+#                 if j in arr:
+#                     ind = arr.index(j)
+#                 else:
+#                     return False
+#                 if (prev < ind):
+#                     prev = ind
+#                 elif (prev >= ind):
+#                     return False
+#         return True
+    
+    
+    
+    
+    # def binarySearch(self, arr, key):
+    #     low = 0
+    #     high = len(arr)
+    #     mid = 0
+    #     while low < high:
+    #         mid = (high + low)//2
+    #         if arr[mid] < key:
+    #             low = mid + 1
+    #         elif arr[mid] > key:
+    #             high = mid - 1
+    #         else:
+    #             return mid
+    #     return mid
+    
         # dup = []
         # for i in pieces:
         #     dup.append(tuple(i))
@@ -25,7 +51,7 @@ class Solution:
             #     return False
         # dup.sort()
         # arr.sort()
-        return True
+        # return True
         
         # l = len(pieces)
         # count = 0
@@ -36,4 +62,9 @@ class Solution:
         #         if (i == tmp):
         #             count += 1
         # return count == l
+        
+# [37,69,3,74,46]
+# [[37,69,3,74,46]]
+# [1,3,5,7]
+# [[2,4,6,8]]        
                     
