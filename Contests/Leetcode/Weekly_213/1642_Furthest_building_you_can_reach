@@ -1,0 +1,34 @@
+// https://leetcode.com/problems/furthest-building-you-can-reach/
+
+class Solution:
+    def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -> int:
+        brick = []
+        ladder = []
+        count = 1
+        for i in range(1,len(heights)):
+            if (heights[i - 1] < heights[i]):
+                brick.append(abs(heights[i - 1] - heights[i]))
+                ladder.append(1)
+            else:
+                brick.append(0)
+                ladder.append(0)
+        # print(brick,ladder)
+        for step in zip(brick,ladder):
+            b = step[0]
+            l = step[1]
+            if (bricks == 0 and ladders == 0):
+                if (b == 0 and l == 0):
+                    count += 1
+                return count - 1
+            if (b == 0 and l == 0):
+                count += 1
+                continue
+            if (b <= bricks):
+                bricks -= b
+            else:
+                ladders -= 1
+            
+            count += 1
+            
+            
+        return count - 1
