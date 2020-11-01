@@ -1,51 +1,86 @@
 // https://leetcode.com/problems/count-sorted-vowel-strings/
 
-// DID NOT WORK
-
+# MY OWN APPROACH - WORKED
 class Solution:
-    def countVowelStrings(self, n: int) -> int:
+    def countVowelStrings(self, n):
         if (n == 1):
             return 5
-        x = [5,4,3,2,1]
         if (n == 2):
             return 15
         ans = 0
-        
-        s = sum(x)
-        for j in range(2,n):
-            
-            # for i in range(len(x)):
-            #     x[i] = self.add(x[i])
-            # print(x)
-            # ans += sum(x)
-            ans += s
-            x[0] = s
-            s = x[0]
-            print(x,s,ans)
-            ans += s
-            s = s - x[0]
-            x[1] = s
-            
-            print(x,s,ans)
-            ans += s
-            s = s - x[1]
-            x[2] = s
-            
-            print(x,s,ans)
-            ans += s
-            s = s - x[2]
-            x[3] = s
-            
-            print(x,s,ans)
-            ans += s
-            s = s - x[3]
-            x[4] = s
-            
-            print(x,s,ans)
-            ans += s
-            s = ans
-            
+        total = 0
+        li = [5, 4, 3, 2, 1]
+        while n >= 3:
+            ans = 0
+            for i in range(len(li)):
+                sum = 0
+                for j in range(i, len(li)):
+                    sum += li[j]
+                ans += sum
+                li[i] = sum
+            n -= 1
         return ans
+
+
+# DID NOT UNDERSTAND - WORKING
+# class Solution:
+#     def countVowelStrings(self, n):
+#         if (n == 1):
+#             return 5
+#         ans = 0
+#         for j in range(1, n + 2):
+#             sum = 0
+#             for i in range(1, j + 1):
+#                 sum += i
+#                 ans += sum
+#                 print(j,i,sum,ans)
+#         return ans
+
+# DID NOT WORK
+# class Solution:
+#     def countVowelStrings(self, n: int) -> int:
+#         if (n == 1):
+#             return 5
+#         x = [5,4,3,2,1]
+#         if (n == 2):
+#             return 15
+#         ans = 0
+        
+#         s = sum(x)
+#         for j in range(2,n):
+            
+#             # for i in range(len(x)):
+#             #     x[i] = self.add(x[i])
+#             # print(x)
+#             # ans += sum(x)
+#             ans += s
+#             x[0] = s
+#             s = x[0]
+#             print(x,s,ans)
+#             ans += s
+#             s = s - x[0]
+#             x[1] = s
+            
+#             print(x,s,ans)
+#             ans += s
+#             s = s - x[1]
+#             x[2] = s
+            
+#             print(x,s,ans)
+#             ans += s
+#             s = s - x[2]
+#             x[3] = s
+            
+#             print(x,s,ans)
+#             ans += s
+#             s = s - x[3]
+#             x[4] = s
+            
+#             print(x,s,ans)
+#             ans += s
+#             s = ans
+            
+#         return ans
     
-    def add(self, x):
-        return (x*(x+1))//2
+#     def add(self, x):
+#         return (x*(x+1))//2
