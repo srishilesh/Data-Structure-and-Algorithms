@@ -1,0 +1,39 @@
+// https://leetcode.com/problems/check-array-formation-through-concatenation/
+
+class Solution:
+    def canFormArray(self, arr: List[int], pieces: List[List[int]]) -> bool:
+        for i in pieces:
+            prev = -1
+            for j in i:
+                if j in arr:
+                    ind = arr.index(j)
+                else:
+                    return False
+                if (prev < ind):
+                    prev = ind
+                elif (prev >= ind):
+                    return False
+        return True
+                
+        # dup = []
+        # for i in pieces:
+        #     dup.append(tuple(i))
+        # print(dup)
+        # print(arr)
+        # for i in dup:
+            # if list(i) not in arr:
+            #     return False
+        # dup.sort()
+        # arr.sort()
+        return True
+        
+        # l = len(pieces)
+        # count = 0
+        # for i in pieces:
+        #     x = len(i)
+        #     for j in range(0, len(arr)-x):
+        #         tmp = arr[j:j+x]
+        #         if (i == tmp):
+        #             count += 1
+        # return count == l
+                    
