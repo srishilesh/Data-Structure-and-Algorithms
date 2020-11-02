@@ -1,0 +1,60 @@
+// https://leetcode.com/problems/insertion-sort-list/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        ListNode pseudoHead = new ListNode();
+        ListNode cur = head, prevNode, nextNode;
+        
+        while (cur != null) {
+            prevNode = pseudoHead;
+            nextNode = pseudoHead.next;
+            
+            while (nextNode != null) {
+                if (cur.val < nextNode.val) {
+                    break;
+                }
+                prevNode = nextNode;
+                nextNode = nextNode.next;
+            }
+            ListNode nextIter = cur.next;
+            cur.next = nextNode;
+            prevNode.next = cur;
+
+            cur = nextIter;
+        }
+        return pseudoHead.next;
+    }
+}
+
+
+// MY APPROACH - WORKED
+// class Solution {
+//     public ListNode insertionSortList(ListNode head) {
+//         if (head == null) return null;
+//         ListNode node = head.next;
+//         while (node != null) {
+//             ListNode start = head;
+//             while (start != node) {
+//                 if (start.val > node.val) {
+//                     int tmp = start.val;
+//                     start.val = node.val;
+//                     node.val = tmp;
+//                 }
+//                 start = start.next;
+//             }
+//             node = node.next;
+//         }
+//         return head;
+//     }
+// }
