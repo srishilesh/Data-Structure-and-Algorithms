@@ -1,0 +1,38 @@
+// https://leetcode.com/problems/sell-diminishing-valued-colored-balls/
+
+
+# TLE
+class Solution:
+    def maxProfit(self, inventory: List[int], orders: int) -> int:
+        MOD = 10**9 + 7
+        heap = []
+        ans = 0
+        heapify(heap)
+        f = 0
+        for i in inventory:
+            if (i == orders):
+                x = i
+                s = int((x*(x+1))/2)%MOD
+                ans = (ans + s)%MOD    
+                orders = 0
+                f = 1
+                break
+            for j in range(i, 0, - 1):
+                heapq.heappush(heap,j*-1)
+                # if (len(heap) == orders):
+                #     break
+        if (f == 1):
+            return ans
+        ans = 0
+        while (orders%MOD > 0):
+            tmp = heapq.heappop(heap)
+            # if ((tmp*-1) == orders):
+            #     x = tmp*-1
+            #     s = int((x*(x+1))/2)%MOD
+            #     ans = (ans + s)%MOD    
+            #     orders = 0
+            #     break
+            ans = (ans + (tmp*-1))%MOD
+            orders = (orders-1)%MOD
+        return ans%MOD
+        
