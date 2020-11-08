@@ -1,0 +1,75 @@
+// https://leetcode.com/problems/add-two-numbers-ii/
+
+// MY SOLUTION
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        node = ListNode()
+        
+        t1 = l1
+        v1 = 0
+        while t1 != None:
+            v1 = v1 * 10 + t1.val
+            t1 = t1.next
+        
+        t2 = l2
+        v2 = 0
+        while t2 != None:
+            v2 = v2 * 10 + t2.val
+            t2 = t2.next
+        
+        ans = v1 + v2
+        head = node
+        for i in (list(str(ans))):
+            tmp = ListNode(int(i))
+            node.next = tmp
+            node = node.next
+        
+        return head.next
+
+// BEST SOLUTION
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        Stack<Integer> s1 = new Stack<Integer>();
+        Stack<Integer> s2 = new Stack<Integer>();
+        
+        while (l1 != null) {
+            s1.push(l1.val);
+            l1 = l1.next;
+        }
+        
+        while (l2 != null) {
+            s2.push(l2.val);
+            l2 = l2.next;
+        }
+        
+        int sum = 0;
+        ListNode list = new ListNode(0);
+        while (!s1.empty() || !s2.empty()) {
+            if (!s1.empty()) sum += s1.pop();
+            if (!s2.empty()) sum += s2.pop();
+            list.val = sum%10;
+            ListNode head = new ListNode(sum/10);
+            head.next = list;
+            list = head;
+            sum = sum / 10;
+        }
+        return list.val == 0 ? list.next : list;
+    }
+}
