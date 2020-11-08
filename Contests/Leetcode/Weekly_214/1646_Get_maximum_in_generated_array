@@ -1,0 +1,23 @@
+// https://leetcode.com/problems/get-maximum-in-generated-array/
+
+class Solution:
+    def getMaximumGenerated(self, n: int) -> int:
+        if (n == 0):
+            return 0
+        if (n == 1):
+            return 1
+        li = []
+        li.append(0)
+        li.append(1)
+        x = 1
+        y = 2
+        for i in range(2, n + 1):
+            if i % 2 == 0:
+                li.append(li[int(floor(i/2))])
+            else:
+                li.append(li[x] + li[y])
+                x += 1
+                y += 1
+        # print(li)
+        return max(li)
+                
