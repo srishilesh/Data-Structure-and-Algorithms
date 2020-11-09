@@ -1,0 +1,36 @@
+// https://leetcode.com/problems/binary-tree-tilt/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int total = 0;
+    
+    protected int valueSum(TreeNode node) {
+        if (node == null)
+            return 0;
+        int left = this.valueSum(node.left);
+        int right = this.valueSum(node.right);
+        int tilt = Math.abs(left - right);
+        this.total += tilt;
+        
+        return node.val + left + right;
+    }
+    public int findTilt(TreeNode root) {
+        this.total = 0;
+        this.valueSum(root);
+        return this.total;
+    }
+}
