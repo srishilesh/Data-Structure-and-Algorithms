@@ -18,6 +18,21 @@ class Solution:
             temp1.val = stack.pop(len(stack)-1)
             temp1 = temp1.next
         return head
-        
-        
+
+######################
+
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        if (head == None):
+            return None
+        first = head
+        tmp = head
+        while (tmp.next != None):
+            dum = ListNode(tmp.next.val)
+            dum.next = head
+            head = dum
+            tmp = tmp.next
+        first.next = None
+        return head
+                    
 # https://leetcode.com/problems/reverse-linked-list/solution/        
