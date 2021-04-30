@@ -47,3 +47,31 @@ class Solution {
 //         return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
 //     }
 // }
+
+// PYTHON VERSION
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        queue = []
+        if (root == None):
+            return 0
+        queue.append(root)
+        level = 1
+        while (len(queue) > 0):
+            size = len(queue)
+            while size > 0:
+                node = queue.pop(0)
+                if node != None and node.left != None:
+                    queue.append(node.left)
+                if node != None and node.right != None:
+                    queue.append(node.right)
+                size -= 1
+            level += 1
+        return level - 1
+        
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        if (root == None):
+            return 0
+        if (root.left == None and root.right == None):
+            return 1
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
