@@ -39,3 +39,27 @@ class Solution {
         return traversal;
     }
 }
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        if (root == None):
+            return []
+        ans = [[root.val]]
+        queue = [root]
+        while (len(queue) > 0):
+            size = len(queue)
+            while (size > 0):
+                root = queue.pop(0)
+                if (root.left != None):
+                    queue.append(root.left)
+                if (root.right != None):
+                    queue.append(root.right)
+                size -= 1
+            ans.append([x.val for x in queue])
+        return ans[:-1]
